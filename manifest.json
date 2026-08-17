@@ -1,0 +1,14 @@
+{
+  "name": "AMD Proyectos - Dashboard de Gastos",
+  "short_name": "AMD Gastos",
+  "description": "Dashboard interno de gastos, subcontratos, cobranza y flujo de caja de AMD Proyectos.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F5F9FC",
+  "theme_color": "#1B3A5C",
+  "orientation": "any",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
