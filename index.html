@@ -442,6 +442,13 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 .login-divider{display:flex;align-items:center;text-align:center;color:var(--gray-400);font-size:11px;margin:16px 0;}
 .login-divider::before,.login-divider::after{content:'';flex:1;border-bottom:1px solid var(--gray-300);}
 .login-divider span{padding:0 10px;}
+.login-pw-wrap{position:relative;}
+.login-pw-wrap input{padding-right:52px;}
+.login-pw-toggle{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  background:var(--blue-100);color:var(--navy-700);border:none;border-radius:6px;
+  padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;
+}
 .logout-btn{
   display:block;width:100%;margin-top:10px;background:rgba(255,255,255,0.08);color:var(--steel-400);
   border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-sm);padding:8px;font-size:11.5px;
@@ -548,7 +555,10 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
     </div>
     <div class="login-field">
       <label>Contraseña</label>
-      <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter') doLogin()">
+      <div class="login-pw-wrap">
+        <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" onkeydown="if(event.key==='Enter') doLogin()">
+        <button type="button" class="login-pw-toggle" id="login-pw-toggle" onclick="togglePasswordView()">Ver</button>
+      </div>
     </div>
     <button class="btn-orange" id="login-btn" style="width:100%;" onclick="doLogin()">Entrar</button>
     <div class="login-status" id="login-status">Conectando con Firebase...</div>
@@ -2300,6 +2310,17 @@ async function deleteValidatedGasto(lid){
 // --- Puente con el script de Firebase (module script, ver final del HTML) ---
 
 // Autenticación: controla la pantalla de login y revela el dashboard solo tras iniciar sesión.
+function togglePasswordView(){
+  const input = document.getElementById('login-password');
+  const btn = document.getElementById('login-pw-toggle');
+  if(input.type === 'password'){
+    input.type = 'text';
+    btn.textContent = 'Ocultar';
+  } else {
+    input.type = 'password';
+    btn.textContent = 'Ver';
+  }
+}
 function doGoogleLogin(){
   const errEl = document.getElementById('login-error');
   const btn = document.getElementById('google-login-btn');
