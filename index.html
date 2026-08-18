@@ -449,6 +449,30 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
   background:var(--blue-100);color:var(--navy-700);border:none;border-radius:6px;
   padding:6px 10px;font-size:11px;font-weight:700;cursor:pointer;
 }
+
+/* ---------- Clientes: Resumen de Pagos (tabla tipo recibos) ---------- */
+.cli-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+.cli-pagos-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.cli-pagos-table th{
+  text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
+  color:var(--gray-600);padding:8px 10px;border-bottom:2px solid var(--gray-300);
+}
+.cli-pagos-table th.money{text-align:right;}
+.cli-pagos-table td{padding:7px 10px;border-bottom:1px solid var(--gray-100);color:var(--gray-700);}
+.cli-pagos-table td.money{text-align:right;font-weight:600;color:var(--navy-900);}
+.cli-pagos-table tr.cli-month-header td{
+  background:var(--navy-800);color:var(--white);font-weight:800;font-size:11px;
+  letter-spacing:.5px;padding:7px 10px;
+}
+.cli-pagos-table tr.cli-locked-row td{color:var(--gray-700);}
+.cli-pagos-table tr.cli-locked-row td:last-child{color:var(--gray-400);text-align:center;font-size:11px;}
+.cli-pagos-table tr.cli-new-row td{background:#E8F7EE;}
+.cli-pagos-table tr.cli-month-total td{background:var(--blue-50);font-weight:700;color:var(--navy-900);border-bottom:2px solid var(--gray-300);}
+.cli-pagos-table tr.cli-grand-total td{background:var(--navy-900);color:var(--white);font-weight:800;font-size:13px;padding:10px;}
+.cli-pagos-table tr.cli-capture-row td{background:#FFF7EC;padding:6px 8px;}
+.cli-pagos-table tr.cli-capture-row input, .cli-pagos-table tr.cli-capture-row select{
+  width:100%;border:1px solid var(--gray-300);border-radius:6px;padding:6px 8px;font-size:12px;box-sizing:border-box;
+}
 .logout-btn{
   display:block;width:100%;margin-top:10px;background:rgba(255,255,255,0.08);color:var(--steel-400);
   border:1px solid rgba(255,255,255,0.15);border-radius:var(--radius-sm);padding:8px;font-size:11.5px;
@@ -587,7 +611,7 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       </button>
       <button class="nav-btn" data-view="cobranza">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        Cobranza
+        Clientes
       </button>
       <button class="nav-btn" data-view="flujocaja">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
@@ -694,20 +718,37 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 
     <!-- ===================== VISTA: COBRANZA ===================== -->
     <section id="view-cobranza" class="view">
-      <div class="topbar no-print">
-        <h1>Cobranza</h1>
-        <p>Presupuestos, cobrado vs. pendiente, y forma de pago de clientes</p>
+      <div class="topbar">
+        <h1>Clientes</h1>
+        <p>Estado de cuenta, recibos y cobranza por cliente</p>
       </div>
 
-      <div class="sheet-nav no-print" id="cob-sheet-nav">
-        <button class="sheet-tab cob-tab active" data-cobsheet="resumen">Resumen</button>
-        <button class="sheet-tab cob-tab" data-cobsheet="cliente">Cliente</button>
-        <span class="sheet-hint">desliza o da clic para navegar →</span>
+      <div class="project-picker no-print" id="cli-picker"></div>
+
+      <div class="kpi-grid" id="cli-kpi-grid"></div>
+
+      <div class="panel">
+        <div class="panel-header-row">
+          <div>
+            <div class="panel-title">Resumen de Pagos</div>
+            <div class="panel-sub" id="cli-resumen-sub"></div>
+          </div>
+          <button class="btn btn-print no-print" onclick="printClientesPagos()">Imprimir (PDF)</button>
+        </div>
+        <div id="cli-toolbar" class="cli-toolbar no-print"></div>
+        <div id="cli-tabla-pagos"></div>
       </div>
 
-      <div class="sheets-wrap" id="cob-sheets-wrap">
-        <div class="sheet" id="cob-sheet-resumen"></div>
-        <div class="sheet" id="cob-sheet-cliente"></div>
+      <div class="panel">
+        <div class="panel-title">Partidas</div>
+        <div class="panel-sub">Presupuesto por actividad — lo retomamos más adelante</div>
+        <div id="cli-tabla-partidas"></div>
+      </div>
+
+      <div class="panel no-print">
+        <div class="panel-title">Programa de Obra</div>
+        <div class="panel-sub">Captura fecha de inicio y fin por partida — el cronograma se dibuja solo</div>
+        <div id="cli-gantt"></div>
       </div>
 
       <footer class="appfoot no-print">AMD Proyectos · Dashboard interno de gastos</footer>
@@ -763,6 +804,12 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
         <div class="panel-title">Gastos Ya Validados</div>
         <div class="panel-sub">Editar o eliminar aquí también los quita/actualiza en Firebase — útil para corregir o borrar pruebas</div>
         <div id="val-validados-tabla"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Recibos de Clientes Ya Validados</div>
+        <div class="panel-sub">Editar o eliminar aquí también los quita/actualiza en Firebase</div>
+        <div id="val-ingresos-tabla"></div>
       </div>
 
       <footer class="appfoot">AMD Proyectos · Dashboard interno de gastos</footer>
@@ -1612,7 +1659,7 @@ document.querySelectorAll('.nav-btn').forEach(btn=>{
    SHEETS (Reporte por Proyecto: navegación horizontal)
    ========================================================= */
 function setSheetTab(name){
-  document.querySelectorAll('.sheet-tab:not(.cob-tab)').forEach(b=>{
+  document.querySelectorAll('.sheet-tab:not(.cob-tab):not(.sub-tab)').forEach(b=>{
     b.classList.toggle('active', b.dataset.sheet===name);
   });
 }
@@ -1624,7 +1671,7 @@ function scrollToSheet(name){
   }
   setSheetTab(name);
 }
-document.querySelectorAll('.sheet-tab:not(.cob-tab)').forEach(btn=>{
+document.querySelectorAll('.sheet-tab:not(.cob-tab):not(.sub-tab)').forEach(btn=>{
   btn.addEventListener('click', ()=> scrollToSheet(btn.dataset.sheet));
 });
 function debounce(fn, wait){
@@ -1646,33 +1693,9 @@ function debounce(fn, wait){
 })();
 
 /* =========================================================
-   SHEETS (Cobranza: navegación horizontal, independiente)
+   (Antes: navegación horizontal de hojas de Cobranza — ya no aplica,
+   la sección "Clientes" ahora es una sola página con selector.)
    ========================================================= */
-function setCobSheetTab(name){
-  document.querySelectorAll('.cob-tab').forEach(b=>{
-    b.classList.toggle('active', b.dataset.cobsheet===name);
-  });
-}
-function scrollToCobSheet(name){
-  const wrap = document.getElementById('cob-sheets-wrap');
-  const target = document.getElementById('cob-sheet-'+name);
-  if(wrap && target){
-    wrap.scrollTo({left: target.offsetLeft, behavior:'smooth'});
-  }
-  setCobSheetTab(name);
-}
-document.querySelectorAll('.cob-tab').forEach(btn=>{
-  btn.addEventListener('click', ()=> scrollToCobSheet(btn.dataset.cobsheet));
-});
-(function(){
-  const wrap = document.getElementById('cob-sheets-wrap');
-  if(!wrap) return;
-  wrap.addEventListener('scroll', debounce(()=>{
-    const clienteEl = document.getElementById('cob-sheet-cliente');
-    const mid = wrap.scrollLeft + wrap.clientWidth/2;
-    setCobSheetTab(clienteEl && clienteEl.offsetLeft <= mid ? 'cliente' : 'resumen');
-  }, 120));
-})();
 
 /* =========================================================
    SHEETS (Subcontratos: navegación horizontal, independiente)
@@ -2058,9 +2081,12 @@ function renderNavBadges(){
   }
 }
 
+let editingPendingId = null; // id de un pendiente en modo edición (antes de validar)
+
 function renderValidacion(){
   renderNavBadges();
   renderGastosValidados();
+  renderIngresosValidados();
   const kpiEl = document.getElementById('val-kpi');
   const tablaEl = document.getElementById('val-tabla');
   if(!kpiEl || !tablaEl) return;
@@ -2070,51 +2096,117 @@ function renderValidacion(){
     <div class="kpi-card dark">
       <div class="kpi-label">Pendientes por Validar</div>
       <div class="kpi-value num">${fmtNum(pendingValidation.length)}</div>
-      <div class="kpi-sub">${fmtMoney(total)} en espera de partida</div>
+      <div class="kpi-sub">${fmtMoney(total)} en espera de confirmar</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-label">Ya Agregados a la Base General</div>
+      <div class="kpi-label">Gastos en la Base General</div>
       <div class="kpi-value num">${fmtNum(rawExtra.length)}</div>
       <div class="kpi-sub">${fmtMoney(rawExtra.reduce((s,x)=>s+x.monto,0))} validados esta sesión</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Recibos de Clientes Validados</div>
+      <div class="kpi-value num">${fmtNum(cobExtra.length)}</div>
+      <div class="kpi-sub">${fmtMoney(cobExtra.reduce((s,x)=>s+x.monto,0))} validados esta sesión</div>
     </div>
   `;
 
   if(pendingValidation.length===0){
     tablaEl.innerHTML = (valLastSaveMsg ? `<div class="subx-info" style="color:var(--green-600);font-weight:700;margin-bottom:12px;">${escXml(valLastSaveMsg)}</div>` : '')
-      + `<div class="empty-note">No hay gastos pendientes de validar. Los nuevos registros que captures en Subcontratos (al presionar "Actualizar Base de Datos") aparecerán aquí automáticamente.</div>`;
+      + `<div class="empty-note">No hay nada pendiente de validar. Los nuevos registros que captures en Subcontratos o en Clientes aparecerán aquí automáticamente.</div>`;
     return;
   }
 
   const partidas = Array.from(new Set(getRawData().map(r=>r.part))).sort();
   let rows = '';
   pendingValidation.forEach(x=>{
-    rows += `<tr id="val-row-${x.id}">
-      <td style="font-size:11px;color:var(--gray-600);white-space:nowrap;">${escXml(x.origen)}</td>
-      <td>${fmtDate(x.f)}</td>
-      <td><span class="tag" style="background:${colorForProject(x.p)}22;color:${colorForProject(x.p)}">${escXml(x.p)}</span></td>
-      <td>${escXml(x.prov)}</td>
-      <td>${escXml(x.c)}</td>
-      <td>${escXml(labelForPago(x.m))}</td>
-      <td class="money num">${fmtMoney(x.monto,2)}</td>
-      <td>
-        <select id="val-partida-${x.id}" onchange="toggleValidateBtn(${x.id})">
-          <option value="">Selecciona partida...</option>
-          ${partidas.map(p=>`<option value="${escXml(p)}">${escXml(p)}</option>`).join('')}
-          <option value="__nueva__">+ Nueva partida...</option>
-        </select>
-      </td>
-      <td style="white-space:nowrap;">
-        <button class="btn-add" id="val-btn-${x.id}" disabled onclick="validateEntry(${x.id})">Validar</button>
-        <button class="btn-sm" onclick="discardEntry(${x.id})">Descartar</button>
-      </td>
-    </tr>`;
+    const isIngreso = x.tipo === 'ingreso';
+    const isEditing = editingPendingId === x.id;
+
+    if(isEditing){
+      rows += `<tr id="val-row-${x.id}">
+        <td style="font-size:11px;color:var(--gray-600);white-space:nowrap;">${escXml(x.origen)}</td>
+        <td><input type="date" id="pend-fecha-${x.id}" value="${escXml(x.f)}" style="width:130px;"></td>
+        <td>${isIngreso ? `<span class="tag" style="background:${colorForProject(x.p)}22;color:${colorForProject(x.p)}">${escXml(x.p)}</span>` : `<span class="tag" style="background:${colorForProject(x.p)}22;color:${colorForProject(x.p)}">${escXml(x.p)}</span>`}</td>
+        <td>${escXml(x.prov)}</td>
+        <td><input type="text" id="pend-concepto-${x.id}" value="${escXml(x.c)}" style="width:140px;"></td>
+        <td>${isIngreso ? `<select id="pend-forma-${x.id}">
+              <option value="EFECTIVO" ${x.m==='EFECTIVO'?'selected':''}>Efectivo</option>
+              <option value="TRANSFERENCIA" ${x.m==='TRANSFERENCIA'?'selected':''}>Transferencia</option>
+              <option value="FACTURA" ${x.m==='FACTURA'?'selected':''}>Factura</option>
+            </select>` : escXml(labelForPago(x.m))}</td>
+        <td><input type="number" id="pend-monto-${x.id}" value="${x.monto}" step="0.01" style="width:100px;text-align:right;"></td>
+        <td>${isIngreso ? '<span style="color:var(--gray-400);font-size:11px;">No aplica</span>' : `
+          <select id="val-partida-${x.id}" onchange="toggleValidateBtn(${x.id})">
+            <option value="">Selecciona partida...</option>
+            ${partidas.map(p=>`<option value="${escXml(p)}" ${p===x.partida?'selected':''}>${escXml(p)}</option>`).join('')}
+            <option value="__nueva__">+ Nueva partida...</option>
+          </select>`}
+        </td>
+        <td style="white-space:nowrap;">
+          <button class="btn-add" onclick="savePendingEdit(${x.id})">Guardar</button>
+          <button class="btn-sm" onclick="cancelPendingEdit()">Cancelar</button>
+        </td>
+      </tr>`;
+    } else {
+      rows += `<tr id="val-row-${x.id}">
+        <td style="font-size:11px;color:var(--gray-600);white-space:nowrap;">${escXml(x.origen)}</td>
+        <td>${fmtDate(x.f)}</td>
+        <td><span class="tag" style="background:${colorForProject(x.p)}22;color:${colorForProject(x.p)}">${escXml(x.p)}</span></td>
+        <td>${escXml(x.prov)}</td>
+        <td>${escXml(x.c)}</td>
+        <td>${isIngreso ? escXml(cobFormaLabel(x.m)) : escXml(labelForPago(x.m))}</td>
+        <td class="money num">${fmtMoney(x.monto,2)}</td>
+        <td>
+          ${isIngreso ? '<span style="color:var(--gray-400);font-size:11px;">No aplica</span>' : `
+          <select id="val-partida-${x.id}" onchange="toggleValidateBtn(${x.id})">
+            <option value="">Selecciona partida...</option>
+            ${partidas.map(p=>`<option value="${escXml(p)}">${escXml(p)}</option>`).join('')}
+            <option value="__nueva__">+ Nueva partida...</option>
+          </select>`}
+        </td>
+        <td style="white-space:nowrap;">
+          <button class="btn-sm" onclick="startPendingEdit(${x.id})">Editar</button>
+          <button class="btn-add" id="val-btn-${x.id}" ${isIngreso?'':'disabled'} onclick="validateEntry(${x.id})">Validar</button>
+          <button class="btn-sm" onclick="discardEntry(${x.id})">Descartar</button>
+        </td>
+      </tr>`;
+    }
   });
 
   tablaEl.innerHTML = (valLastSaveMsg ? `<div class="subx-info" style="color:var(--green-600);font-weight:700;margin-bottom:12px;">${escXml(valLastSaveMsg)}</div>` : '') +
     `<div class="table-wrap"><table>
-    <thead><tr><th>Origen</th><th>Fecha</th><th>Proyecto</th><th>Proveedor</th><th>Concepto</th><th>Forma</th><th class="money">Monto</th><th style="min-width:170px;">Partida</th><th></th></tr></thead>
+    <thead><tr><th>Origen</th><th>Fecha</th><th>Proyecto</th><th>Proveedor/Cliente</th><th>Concepto</th><th>Forma</th><th class="money">Monto</th><th style="min-width:170px;">Partida</th><th></th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>`;
+}
+
+function startPendingEdit(id){
+  editingPendingId = id;
+  renderValidacion();
+}
+function cancelPendingEdit(){
+  editingPendingId = null;
+  renderValidacion();
+}
+function savePendingEdit(id){
+  const entry = pendingValidation.find(x=>x.id===id);
+  if(!entry) return;
+  const fechaEl = document.getElementById('pend-fecha-'+id);
+  const conceptoEl = document.getElementById('pend-concepto-'+id);
+  const montoEl = document.getElementById('pend-monto-'+id);
+  const formaEl = document.getElementById('pend-forma-'+id);
+  const nuevoMonto = parseFloat(montoEl.value);
+  const nuevoConcepto = conceptoEl.value.trim();
+  if(!fechaEl.value || !nuevoConcepto || !nuevoMonto || nuevoMonto<=0){
+    alert('Completa fecha, concepto y un monto válido.');
+    return;
+  }
+  entry.f = fechaEl.value;
+  entry.c = nuevoConcepto;
+  entry.monto = nuevoMonto;
+  if(formaEl) entry.m = formaEl.value;
+  editingPendingId = null;
+  renderValidacion();
 }
 
 function toggleValidateBtn(id){
@@ -2126,6 +2218,12 @@ function toggleValidateBtn(id){
 async function validateEntry(id){
   const entry = pendingValidation.find(x=>x.id===id);
   if(!entry) return;
+
+  if(entry.tipo === 'ingreso'){
+    await validateIngresoEntry(entry);
+    return;
+  }
+
   const sel = document.getElementById('val-partida-'+id);
   let partida = sel ? sel.value : '';
   if(partida === '__nueva__'){
@@ -2419,10 +2517,147 @@ window.onFirestoreLoaded = function(gastos){
   }
 };
 
+window.onIngresosLoaded = function(ingresos){
+  const yaExiste = (fbId) => cobExtra.some(x=> x._fbId===fbId);
+  let added = 0;
+  ingresos.forEach(g=>{
+    if(yaExiste(g.id)) return;
+    cobExtra.push({_localId: cobExtraIdCounter++, p:g.p, f:g.f, c:g.c, monto:g.monto, forma:g.forma, _fbId:g.id});
+    added++;
+  });
+  if(added>0){
+    try{ renderClientes(); } catch(e){ console.error('Error al refrescar Clientes tras cargar Firestore:', e); }
+    renderValidacion();
+  }
+};
+
 function discardEntry(id){
   pendingValidation = pendingValidation.filter(x=>x.id!==id);
   renderValidacion();
   renderNavBadges();
+}
+
+// --- Validar un INGRESO (recibo de cliente) — paralelo a validateEntry para gastos ---
+async function validateIngresoEntry(entry){
+  const nuevoIngreso = { _localId: cobExtraIdCounter++, p: entry.p, f: entry.f, c: entry.c, monto: entry.monto, forma: entry.m };
+
+  let firebaseOk = false, fbId = null;
+  try {
+    if(window.FB && window.FB.ready && window.FB.addIngreso){
+      fbId = await window.FB.addIngreso({p:nuevoIngreso.p, f:nuevoIngreso.f, c:nuevoIngreso.c, monto:nuevoIngreso.monto, forma:nuevoIngreso.forma});
+      firebaseOk = true;
+    }
+  } catch(e){
+    console.error('Error guardando ingreso en Firestore:', e);
+  }
+  nuevoIngreso._fbId = fbId;
+
+  cobExtra.push(nuevoIngreso);
+  pendingValidation = pendingValidation.filter(x=>x.id!==entry.id);
+
+  valLastSaveMsg = firebaseOk
+    ? `✓ Recibo validado y guardado en Firebase (${fmtMoney(nuevoIngreso.monto)}).`
+    : `⚠️ Recibo agregado a esta sesión, pero no se pudo guardar en Firebase (revisa tu conexión).`;
+
+  renderClientes();
+  renderValidacion();
+}
+
+// --- Ingresos ya validados: editar / eliminar (también en Firebase) ---
+let editingIngresoId = null;
+
+function renderIngresosValidados(){
+  const el = document.getElementById('val-ingresos-tabla');
+  if(!el) return;
+  if(cobExtra.length===0){
+    el.innerHTML = `<div class="empty-note">Aún no has validado ningún recibo de cliente en esta base.</div>`;
+    return;
+  }
+  let rows = '';
+  cobExtra.forEach(g=>{
+    const lid = g._localId;
+    if(editingIngresoId === lid){
+      rows += `<tr>
+        <td>${fmtDate(g.f)}</td>
+        <td><span class="tag" style="background:${colorForProject(g.p)}22;color:${colorForProject(g.p)}">${escXml(g.p)}</span></td>
+        <td><input type="text" id="ing-edit-concepto-${lid}" value="${escXml(g.c)}" style="width:140px;"></td>
+        <td>
+          <select id="ing-edit-forma-${lid}">
+            <option value="EFECTIVO" ${g.forma==='EFECTIVO'?'selected':''}>Efectivo</option>
+            <option value="TRANSFERENCIA" ${g.forma==='TRANSFERENCIA'?'selected':''}>Transferencia</option>
+            <option value="FACTURA" ${g.forma==='FACTURA'?'selected':''}>Factura</option>
+          </select>
+        </td>
+        <td><input type="number" step="0.01" id="ing-edit-monto-${lid}" value="${g.monto}" style="width:90px;text-align:right;"></td>
+        <td style="white-space:nowrap;">
+          <button class="btn-add" onclick="saveEditIngreso(${lid})">Actualizar</button>
+          <button class="btn-sm" onclick="cancelEditIngreso()">Cancelar</button>
+        </td>
+      </tr>`;
+    } else {
+      rows += `<tr>
+        <td>${fmtDate(g.f)}</td>
+        <td><span class="tag" style="background:${colorForProject(g.p)}22;color:${colorForProject(g.p)}">${escXml(g.p)}</span></td>
+        <td>${escXml(g.c)}</td>
+        <td>${escXml(cobFormaLabel(g.forma))}</td>
+        <td class="money num">${fmtMoney(g.monto,2)}</td>
+        <td style="white-space:nowrap;">
+          <button class="btn-sm" onclick="startEditIngreso(${lid})">Editar</button>
+          <button class="btn-sm" style="color:var(--red-600);" onclick="deleteIngreso(${lid})">Eliminar</button>
+        </td>
+      </tr>`;
+    }
+  });
+  el.innerHTML = `<div class="table-wrap"><table>
+    <thead><tr><th>Fecha</th><th>Cliente</th><th>Concepto</th><th>Forma</th><th class="money">Monto</th><th></th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+function startEditIngreso(lid){ editingIngresoId = lid; renderIngresosValidados(); }
+function cancelEditIngreso(){ editingIngresoId = null; renderIngresosValidados(); }
+async function saveEditIngreso(lid){
+  const idx = cobExtra.findIndex(x=>x._localId===lid);
+  if(idx===-1) return;
+  const g = cobExtra[idx];
+  const monto = parseFloat(document.getElementById('ing-edit-monto-'+lid).value);
+  const concepto = document.getElementById('ing-edit-concepto-'+lid).value.trim();
+  const forma = document.getElementById('ing-edit-forma-'+lid).value;
+  if(!monto || monto<=0 || !concepto){
+    alert('Completa concepto y un monto válido.');
+    return;
+  }
+  const actualizado = { p: g.p, f: g.f, c: concepto, monto, forma };
+  try{
+    if(g._fbId && window.FB && window.FB.updateIngreso){
+      await window.FB.updateIngreso(g._fbId, actualizado);
+    }
+  } catch(e){
+    console.error('Error actualizando ingreso en Firestore:', e);
+    alert('No se pudo guardar el cambio en Firebase (revisa tu conexión).');
+    return;
+  }
+  cobExtra[idx] = { ...actualizado, _localId: lid, _fbId: g._fbId };
+  editingIngresoId = null;
+  renderClientes();
+  renderValidacion();
+}
+async function deleteIngreso(lid){
+  const idx = cobExtra.findIndex(x=>x._localId===lid);
+  if(idx===-1) return;
+  const g = cobExtra[idx];
+  if(!confirm(`¿Eliminar este recibo?\n\n${g.c} · ${fmtMoney(g.monto)}\n\nEsto lo borra también de Firebase, de forma permanente.`)) return;
+  try{
+    if(g._fbId && window.FB && window.FB.deleteIngreso){
+      await window.FB.deleteIngreso(g._fbId);
+    }
+  } catch(e){
+    console.error('Error eliminando ingreso en Firestore:', e);
+    alert('No se pudo eliminar de Firebase (revisa tu conexión). Intenta de nuevo.');
+    return;
+  }
+  cobExtra.splice(idx,1);
+  renderClientes();
+  renderValidacion();
 }
 
 // Recalcula meses/proyectos y vuelve a dibujar las secciones que dependen de la base general
@@ -2442,9 +2677,10 @@ function recomputeGlobalsAndRerenderAll(){
 const COB_PROJECTS = COB_DATA.proyectos.map(p=>p.p);
 function cobProject(name){ return COB_DATA.proyectos.find(p=>p.p===name); }
 
-let cobResumenFilter = '';       // '' = todos los proyectos
-let cobClienteProyecto = COB_PROJECTS[0];
-let cobPreviewPagos = [];        // vista previa "agregar pago", solo sesión
+let cliSelected = 'GENERAL';     // 'GENERAL' o el nombre de un proyecto/cliente
+let cliCapturing = false;        // si se está mostrando la fila de captura de nuevo recibo
+let cobExtra = [];               // recibos validados esta sesión: {p,f,c,monto,forma,_localId,_fbId}
+let cobExtraIdCounter = 1;
 const ganttDates = {};           // ganttDates[proyecto] = [{inicio,fin}, ...] paralelo a partidas
 COB_PROJECTS.forEach(p=>{
   const proj = cobProject(p);
@@ -2459,96 +2695,191 @@ function cobFormaLabel(f){
   return {EFECTIVO:'Efectivo', TRANSFERENCIA:'Transferencia', FACTURA:'Factura', OTRO:'Otro / sin clasificar'}[f] || f;
 }
 
-/* ---------- SHEET: RESUMEN ---------- */
-function renderCobResumen(){
-  const el = document.getElementById('cob-sheet-resumen');
-  el.innerHTML = `
-    <div class="project-picker" id="cob-resumen-filter"></div>
-    <div class="kpi-grid" id="cob-kpi-grid"></div>
-    <div class="panel">
-      <div class="panel-title">Presupuestos por Partida</div>
-      <div class="panel-sub">Costo presupuestado por actividad, según el estado de cuenta de cada proyecto</div>
-      <div id="cob-tabla-partidas"></div>
-    </div>
-    <div class="panel">
-      <div class="panel-title">Cobrado vs. Pendiente por Cobrar</div>
-      <div class="panel-sub">Proyección de cobranza por proyecto</div>
-      <div id="cob-cobrado-pendiente"></div>
-    </div>
-    <div class="charts-row">
-      <div class="panel">
-        <div class="panel-title">Efectivo vs. Transferencia</div>
-        <div class="panel-sub">Distribución de lo cobrado por forma de pago</div>
-        <div class="chart-box" id="cob-chart-forma"></div>
-      </div>
-      <div class="panel">
-        <div class="panel-title">Detalle por Proyecto</div>
-        <div class="panel-sub">Monto cobrado por forma de pago</div>
-        <div id="cob-tabla-forma"></div>
-      </div>
-    </div>
-  `;
-  renderCobResumenFilter();
-  renderCobKpis();
-  renderCobPartidasPanel();
-  renderCobCobradoPendiente();
-  renderCobFormaPago();
+/* ---------- Combinar histórico (COB_DATA) + recibos validados esta sesión (cobExtra) ---------- */
+function cobAllPagosFor(proyecto){
+  const base = cobProject(proyecto);
+  const basePagos = base ? base.pagos.map(p=>({f:p.fecha, c:p.c, monto:p.monto, forma:p.forma, _locked:true})) : [];
+  const extra = cobExtra.filter(x=>x.p===proyecto).map(x=>({f:x.f, c:x.c, monto:x.monto, forma:x.forma, _locked:false, _localId:x._localId}));
+  return basePagos.concat(extra);
+}
+function cobExtraTotalFor(proyecto){
+  return cobExtra.filter(x=>x.p===proyecto).reduce((s,x)=>s+x.monto,0);
+}
+function cobPagadoTotal(proyecto){
+  const base = cobProject(proyecto);
+  return (base ? base.pagado : 0) + cobExtraTotalFor(proyecto);
+}
+function cobSaldoTotal(proyecto){
+  const base = cobProject(proyecto);
+  const granTotal = base ? base.granTotal : 0;
+  return granTotal - cobPagadoTotal(proyecto);
 }
 
-function renderCobResumenFilter(){
-  const el = document.getElementById('cob-resumen-filter');
-  const chips = [{val:'', label:'Todos los proyectos', color:'#7C8FA0'}]
+/* ---------- Selector Cliente / General ---------- */
+function renderCliPicker(){
+  const el = document.getElementById('cli-picker');
+  if(!el) return;
+  const chips = [{val:'GENERAL', label:'General', color:'#7C8FA0'}]
     .concat(COB_PROJECTS.map(p=>({val:p, label:p, color:colorForProject(p)})));
   el.innerHTML = chips.map(ch=>`
-    <button class="project-chip ${cobResumenFilter===ch.val?'active':''}" data-val="${escXml(ch.val)}" onclick="setCobResumenFilter(this)">
+    <button class="project-chip ${cliSelected===ch.val?'active':''}" data-val="${escXml(ch.val)}" onclick="setCliSelected(this)">
       <span class="dot" style="background:${ch.color}"></span>${escXml(ch.label)}
     </button>
   `).join('');
 }
-function setCobResumenFilter(btn){
-  cobResumenFilter = btn.dataset.val;
-  renderCobResumenFilter();
-  renderCobKpis();
-  renderCobPartidasPanel();
-  renderCobCobradoPendiente();
-  renderCobFormaPago();
-}
-function cobScopedProjects(){
-  return cobResumenFilter ? [cobProject(cobResumenFilter)] : COB_DATA.proyectos;
+function setCliSelected(btn){
+  cliSelected = btn.dataset.val;
+  cliCapturing = false;
+  renderCliPicker();
+  renderClientes();
 }
 
-function renderCobKpis(){
-  const scope = cobScopedProjects();
-  const granTotal = scope.reduce((s,p)=>s+p.granTotal,0);
-  const pagado = scope.reduce((s,p)=>s+p.pagado,0);
-  const saldo = scope.reduce((s,p)=>s+p.saldo,0);
-  const avance = granTotal>0 ? pagado/granTotal*100 : 0;
-  document.getElementById('cob-kpi-grid').innerHTML = `
-    <div class="kpi-card dark">
-      <div class="kpi-label">Cobrado a la Fecha</div>
-      <div class="kpi-value num">${fmtMoney(pagado)}</div>
-      <div class="kpi-sub">${avance.toFixed(0)}% del valor total</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Pendiente por Cobrar</div>
-      <div class="kpi-value num">${fmtMoney(saldo)}</div>
-      <div class="kpi-sub">${(100-avance).toFixed(0)}% restante</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Valor Total (con IVA/adicionales)</div>
-      <div class="kpi-value num">${fmtMoney(granTotal)}</div>
-      <div class="kpi-sub">${scope.length} proyecto${scope.length!==1?'s':''}</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Clientes</div>
-      <div class="kpi-value num" style="font-size:16px;">${scope.map(p=>escXml(p.cliente)).join(', ')}</div>
-      <div class="kpi-sub">&nbsp;</div>
-    </div>
-  `;
+/* ---------- KPIs ---------- */
+function renderCliKpis(){
+  const el = document.getElementById('cli-kpi-grid');
+  if(!el) return;
+  if(cliSelected==='GENERAL'){
+    let granTotal=0, pagado=0;
+    COB_PROJECTS.forEach(p=>{ granTotal += cobProject(p).granTotal; pagado += cobPagadoTotal(p); });
+    const saldo = granTotal-pagado;
+    el.innerHTML = `
+      <div class="kpi-card dark"><div class="kpi-label">Cobrado (Todos los Clientes)</div><div class="kpi-value num">${fmtMoney(pagado)}</div><div class="kpi-sub">${granTotal>0?(pagado/granTotal*100).toFixed(0):0}% del total</div></div>
+      <div class="kpi-card"><div class="kpi-label">Pendiente por Cobrar</div><div class="kpi-value num">${fmtMoney(saldo)}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Valor Total</div><div class="kpi-value num">${fmtMoney(granTotal)}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Clientes</div><div class="kpi-value num" style="font-size:16px;">${COB_PROJECTS.length}</div></div>
+    `;
+  } else {
+    const p = cobProject(cliSelected);
+    const pagado = cobPagadoTotal(cliSelected);
+    const saldo = cobSaldoTotal(cliSelected);
+    el.innerHTML = `
+      <div class="kpi-card dark"><div class="kpi-label">Cobrado</div><div class="kpi-value num">${fmtMoney(pagado)}</div><div class="kpi-sub">de ${fmtMoney(p.granTotal)}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Saldo</div><div class="kpi-value num">${fmtMoney(saldo)}</div></div>
+      <div class="kpi-card"><div class="kpi-label">Avance</div><div class="kpi-value num">${p.granTotal>0?(pagado/p.granTotal*100).toFixed(0):0}%</div></div>
+      <div class="kpi-card"><div class="kpi-label">Cliente</div><div class="kpi-value num" style="font-size:15px;">${escXml(p.cliente)}</div></div>
+    `;
+  }
 }
 
-function renderCobPartidasPanel(){
-  const scope = cobScopedProjects();
+/* ---------- Resumen de Pagos (tabla estilo recibos, agrupada por mes) ---------- */
+function renderCliTablaPagos(){
+  const toolbarEl = document.getElementById('cli-toolbar');
+  const tablaEl = document.getElementById('cli-tabla-pagos');
+  const subEl = document.getElementById('cli-resumen-sub');
+  if(!toolbarEl || !tablaEl) return;
+
+  const isGeneral = cliSelected==='GENERAL';
+  const projects = isGeneral ? COB_PROJECTS : [cliSelected];
+  if(subEl) subEl.textContent = isGeneral ? 'Todos los clientes' : `${cobProject(cliSelected).cliente} · ${cliSelected}`;
+
+  toolbarEl.innerHTML = isGeneral
+    ? `<span class="subx-info">Selecciona un cliente específico para agregar un recibo nuevo.</span>`
+    : (cliCapturing
+        ? `<span class="subx-info" style="color:var(--orange-500);font-weight:700;">✏️ Capturando nuevo recibo</span> <button class="btn-sm" onclick="cancelCliCapture()">Cancelar</button>`
+        : `<button class="btn-orange" onclick="startCliCapture()">+ Agregar Recibo</button>`);
+
+  let allRows = [];
+  projects.forEach(proj=>{
+    cobAllPagosFor(proj).forEach(r=>{ allRows.push({...r, proyecto:proj}); });
+  });
+  allRows.sort((a,b)=> (a.f||'').localeCompare(b.f||''));
+
+  const groups = {};
+  const sinFecha = [];
+  allRows.forEach(r=>{
+    if(!r.f){ sinFecha.push(r); return; }
+    const mk = monthKey(r.f);
+    if(!groups[mk]) groups[mk] = [];
+    groups[mk].push(r);
+  });
+  const monthKeys = Object.keys(groups).sort();
+  const extraCols = isGeneral ? 1 : 0;
+
+  let body = '';
+  monthKeys.forEach(mk=>{
+    const rows = groups[mk];
+    const subtotal = rows.reduce((s,r)=>s+r.monto,0);
+    body += `<tr class="cli-month-header"><td colspan="${5+extraCols}">${escXml(monthLabel(mk).toUpperCase())}</td></tr>`;
+    rows.forEach(r=>{
+      body += `<tr class="${r._locked?'cli-locked-row':'cli-new-row'}">
+        <td>${fmtDate(r.f)}</td>
+        ${isGeneral?`<td><span class="tag" style="background:${colorForProject(r.proyecto)}22;color:${colorForProject(r.proyecto)}">${escXml(r.proyecto)}</span></td>`:''}
+        <td>${escXml(r.c)}</td>
+        <td><span class="tag" style="background:${cobFormaColor(r.forma)}22;color:${cobFormaColor(r.forma)}">${escXml(cobFormaLabel(r.forma))}</span></td>
+        <td class="money num">${fmtMoney(r.monto,2)}</td>
+        <td style="text-align:center;color:var(--gray-400);font-size:11px;">${r._locked?'🔒':'nuevo'}</td>
+      </tr>`;
+    });
+    body += `<tr class="cli-month-total"><td colspan="${2+extraCols}">Subtotal</td><td colspan="3" class="money num">${fmtMoney(subtotal)}</td></tr>`;
+  });
+
+  if(cliCapturing && !isGeneral){
+    body += `<tr class="cli-capture-row">
+      <td><input type="date" id="cli-cap-fecha"></td>
+      <td><input type="text" id="cli-cap-concepto" placeholder="Concepto"></td>
+      <td>
+        <select id="cli-cap-forma">
+          <option value="EFECTIVO">Efectivo</option>
+          <option value="TRANSFERENCIA">Transferencia</option>
+          <option value="FACTURA">Factura</option>
+        </select>
+      </td>
+      <td><input type="number" id="cli-cap-monto" placeholder="Monto" step="0.01"></td>
+      <td><button class="btn-add" onclick="saveCliCapture()">Guardar</button></td>
+    </tr>`;
+  }
+
+  const grandTotal = allRows.reduce((s,r)=>s+r.monto,0);
+  body += `<tr class="cli-grand-total"><td colspan="${2+extraCols}">TOTAL COBRADO</td><td colspan="3" class="money num">${fmtMoney(grandTotal)}</td></tr>`;
+
+  tablaEl.innerHTML = `<div class="table-wrap"><table class="cli-pagos-table">
+    <thead><tr><th>Fecha</th>${isGeneral?'<th>Proyecto</th>':''}<th>Concepto</th><th>Forma</th><th class="money">Monto</th><th></th></tr></thead>
+    <tbody>${body}</tbody>
+  </table></div>`;
+}
+
+function startCliCapture(){
+  cliCapturing = true;
+  renderCliTablaPagos();
+  const el = document.getElementById('cli-cap-fecha');
+  if(el) el.value = new Date().toISOString().slice(0,10);
+}
+function cancelCliCapture(){
+  cliCapturing = false;
+  renderCliTablaPagos();
+}
+function saveCliCapture(){
+  const fecha = document.getElementById('cli-cap-fecha').value;
+  const concepto = document.getElementById('cli-cap-concepto').value.trim();
+  const forma = document.getElementById('cli-cap-forma').value;
+  const monto = parseFloat(document.getElementById('cli-cap-monto').value);
+  if(!fecha || !concepto || !monto || monto<=0){
+    alert('Completa fecha, concepto y un monto válido.');
+    return;
+  }
+  pendingValidation.push({
+    id: validationIdCounter++,
+    tipo: 'ingreso',
+    f: fecha, p: cliSelected, prov: cobProject(cliSelected).cliente,
+    c: concepto, monto: monto, m: forma,
+    origen: `Clientes · ${cliSelected}`
+  });
+  cliCapturing = false;
+  renderCliTablaPagos();
+  renderValidacion();
+  renderNavBadges();
+  alert('Recibo enviado a Validación — ahí puedes revisarlo, editarlo y confirmarlo antes de que quede guardado.');
+}
+
+function printClientesPagos(){
+  triggerPrint();
+}
+
+/* ---------- Partidas (se mueve más abajo, sin cambios de fondo) ---------- */
+function renderCliPartidas(){
+  const el = document.getElementById('cli-tabla-partidas');
+  if(!el) return;
+  const scope = cliSelected==='GENERAL' ? COB_DATA.proyectos : [cobProject(cliSelected)];
   let html = '';
   scope.forEach(p=>{
     const hasDetalle = p.partidas.length && p.partidas[0].pagado !== null && p.partidas[0].pagado !== undefined;
@@ -2571,226 +2902,19 @@ function renderCobPartidasPanel(){
       </table></div>
     </div>`;
   });
-  document.getElementById('cob-tabla-partidas').innerHTML = html;
+  el.innerHTML = html;
 }
 
-function renderCobCobradoPendiente(){
-  const scope = cobScopedProjects();
-  const maxVal = Math.max.apply(null, scope.map(p=>p.granTotal).concat([1]));
-  let html = '<div style="display:flex;flex-direction:column;gap:14px;">';
-  scope.forEach(p=>{
-    const pctCobrado = p.granTotal>0 ? p.pagado/p.granTotal*100 : 0;
-    const widthTotal = p.granTotal/maxVal*100;
-    html += `<div>
-      <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
-        <strong style="color:var(--navy-900);">${escXml(p.p)}</strong>
-        <span style="color:var(--gray-600);">${fmtMoney(p.pagado)} cobrado · ${fmtMoney(p.saldo)} pendiente</span>
-      </div>
-      <div style="position:relative;height:24px;background:var(--gray-100);border-radius:6px;width:${widthTotal.toFixed(1)}%;min-width:40%;overflow:hidden;">
-        <div style="position:absolute;left:0;top:0;height:100%;width:${pctCobrado.toFixed(1)}%;background:${colorForProject(p.p)};"></div>
-        <div style="position:absolute;left:0;top:0;height:100%;width:100%;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:10.5px;font-weight:700;color:var(--navy-900);">${pctCobrado.toFixed(0)}%</div>
-      </div>
-    </div>`;
-  });
-  html += '</div>';
-  document.getElementById('cob-cobrado-pendiente').innerHTML = html;
-}
-
-function renderCobFormaPago(){
-  const scope = cobScopedProjects();
-  const totals = {EFECTIVO:0, TRANSFERENCIA:0, FACTURA:0, OTRO:0};
-  scope.forEach(p=>{
-    Object.entries(p.formasPago).forEach(([k,v])=>{ totals[k] = (totals[k]||0) + v; });
-  });
-  const items = Object.entries(totals).filter(([k,v])=>v>0).map(([k,v])=>({label:cobFormaLabel(k), value:v, color:cobFormaColor(k)}));
-  const total = items.reduce((s,i)=>s+i.value,0);
-  document.getElementById('cob-chart-forma').innerHTML = total>0
-    ? svgDonut(items, 'Total') + legendHtml(items, total)
-    : `<div class="empty-note">Sin datos.</div>`;
-
-  let html = `<table><thead><tr><th>Proyecto</th><th class="money">Efectivo</th><th class="money">Transferencia</th><th class="money">Factura</th></tr></thead><tbody>`;
-  scope.forEach(p=>{
-    html += `<tr><td>${escXml(p.p)}</td>
-      <td class="money num">${fmtMoney(p.formasPago.EFECTIVO||0)}</td>
-      <td class="money num">${fmtMoney(p.formasPago.TRANSFERENCIA||0)}</td>
-      <td class="money num">${fmtMoney(p.formasPago.FACTURA||0)}</td></tr>`;
-  });
-  html += `</tbody></table>`;
-  document.getElementById('cob-tabla-forma').innerHTML = html;
-}
-
-/* ---------- SHEET: CLIENTE ---------- */
-function renderCobCliente(){
-  const el = document.getElementById('cob-sheet-cliente');
-  el.innerHTML = `
-    <div class="project-picker" id="cob-cliente-picker"></div>
-    <div id="cob-estado-cuenta"></div>
-    <div class="panel no-print">
-      <div class="panel-title">Agregar Pago (vista previa)</div>
-      <div class="panel-sub">⚠️ Vista de demostración — no se guarda permanentemente</div>
-      <div class="pago-form-inline" id="cob-pago-form"></div>
-      <div id="cob-pago-preview"></div>
-    </div>
-    <div class="panel">
-      <div class="panel-title">Programa de Obra</div>
-      <div class="panel-sub">Captura fecha de inicio y fin por partida — el cronograma se dibuja solo</div>
-      <div id="cob-gantt"></div>
-    </div>
-  `;
-  renderCobClientePicker();
-  renderCobEstadoCuenta();
-  renderCobPagoForm();
-  renderCobPagoPreview();
-  renderCobGantt();
-}
-
-function renderCobClientePicker(){
-  const el = document.getElementById('cob-cliente-picker');
-  el.innerHTML = COB_PROJECTS.map(p=>`
-    <button class="project-chip ${cobClienteProyecto===p?'active':''}" data-val="${escXml(p)}" onclick="setCobCliente(this)">
-      <span class="dot" style="background:${colorForProject(p)}"></span>${escXml(p)}
-    </button>
-  `).join('');
-}
-function setCobCliente(btn){
-  cobClienteProyecto = btn.dataset.val;
-  renderCobClientePicker();
-  renderCobEstadoCuenta();
-  renderCobPagoForm();
-  renderCobGantt();
-}
-
-function renderCobEstadoCuenta(){
-  const p = cobProject(cobClienteProyecto);
-  const hasDetalle = p.partidas.length && p.partidas[0].pagado !== null && p.partidas[0].pagado !== undefined;
-  const pagosOrdenados = p.pagos.slice().sort((a,b)=> (b.fecha||'').localeCompare(a.fecha||''));
-
-  document.getElementById('cob-estado-cuenta').innerHTML = `
-    <div class="report-head">
-      <div>
-        <p>Estado de Cuenta · Cliente</p>
-        <h2>${escXml(p.cliente)}</h2>
-        <p style="margin-top:4px;">${escXml(p.p)}</p>
-      </div>
-      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-        <div class="report-total">
-          <div class="n num">${fmtMoney(p.pagado)}</div>
-          <div class="l">Cobrado de ${fmtMoney(p.granTotal)} · Saldo ${fmtMoney(p.saldo)}</div>
-        </div>
-        <button class="btn btn-ghost no-print" data-sheet="cliente" onclick="printCobCliente(this)">Imprimir (PDF)</button>
-      </div>
-    </div>
-
-    <div class="report-grid2">
-      <div class="report-col">
-        <div class="panel">
-          <div class="panel-title">Partidas</div>
-          <div class="panel-sub">Presupuesto${hasDetalle?' · cobrado · saldo':''} por actividad</div>
-          <div class="table-wrap"><table>
-            <thead><tr><th>Partida</th><th class="money">Presupuesto</th>${hasDetalle?'<th class="money">Cobrado</th><th class="money">Saldo</th>':''}</tr></thead>
-            <tbody>${p.partidas.map(x=>`<tr><td>${escXml(x.n)}</td><td class="money num">${fmtMoney(x.ppto)}</td>${hasDetalle?`<td class="money num">${fmtMoney(x.pagado)}</td><td class="money num">${fmtMoney(x.saldo)}</td>`:''}</tr>`).join('')}</tbody>
-          </table></div>
-        </div>
-      </div>
-      <div class="report-col">
-        <div class="panel">
-          <div class="panel-title">Resumen Financiero</div>
-          <div class="table-wrap"><table>
-            <tbody>
-              <tr><td>Valor Presupuesto</td><td class="money num">${fmtMoney(p.valorPresupuesto)}</td></tr>
-              ${p.iva ? `<tr><td>IVA</td><td class="money num">${fmtMoney(p.iva)}</td></tr>` : ''}
-              <tr><td>Total</td><td class="money num">${fmtMoney(p.total)}</td></tr>
-              ${p.adicionales ? `<tr><td>Adicionales</td><td class="money num">${fmtMoney(p.adicionales)}</td></tr>` : ''}
-              <tr class="total-row"><td>Gran Total</td><td class="money num">${fmtMoney(p.granTotal)}</td></tr>
-              <tr><td>Pagado a la Fecha</td><td class="money num">${fmtMoney(p.pagado)}</td></tr>
-              <tr class="total-row"><td>Saldo</td><td class="money num">${fmtMoney(p.saldo)}</td></tr>
-            </tbody>
-          </table></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="panel-title">Recibos / Pagos</div>
-      <div class="panel-sub">${pagosOrdenados.length} recibos registrados</div>
-      <div class="table-wrap"><table>
-        <thead><tr><th>Fecha</th><th>Concepto</th>${p.pagos.some(x=>x.partida)?'<th>Partida</th>':''}<th>Forma</th><th class="money">Monto</th></tr></thead>
-        <tbody>${pagosOrdenados.map(x=>`<tr>
-          <td>${x.fecha?fmtDate(x.fecha):escXml(x.fechaTxt||'—')}</td>
-          <td>${escXml(x.c)}</td>
-          ${p.pagos.some(y=>y.partida)?`<td>${escXml(x.partida||'—')}</td>`:''}
-          <td><span class="tag" style="background:${cobFormaColor(x.forma)}22;color:${cobFormaColor(x.forma)}">${escXml(cobFormaLabel(x.forma))}</span></td>
-          <td class="money num">${fmtMoney(x.monto,2)}</td>
-        </tr>`).join('')}</tbody>
-      </table></div>
-    </div>
-  `;
-}
-
-function printCobCliente(btn){
-  document.body.classList.add('printing-cobcliente');
-  triggerPrint();
-}
-
-function renderCobPagoForm(){
-  document.getElementById('cob-pago-form').innerHTML = `
-    <div class="field"><label>Fecha</label><input type="date" id="cob-f-fecha"></div>
-    <div class="field"><label>Concepto</label><input type="text" id="cob-f-concepto" placeholder="Ej. Recibo 18"></div>
-    <div class="field"><label>Monto</label><input type="number" id="cob-f-monto" placeholder="0.00" step="0.01"></div>
-    <div class="field"><label>Forma de Pago</label>
-      <select id="cob-f-forma">
-        <option value="EFECTIVO">Efectivo</option>
-        <option value="TRANSFERENCIA">Transferencia</option>
-        <option value="FACTURA">Factura</option>
-      </select>
-    </div>
-    <div class="field field-btn"><button type="button" class="btn-add" onclick="addCobPreviewPago()">Agregar</button></div>
-  `;
-  document.getElementById('cob-f-fecha').value = new Date().toISOString().slice(0,10);
-}
-function addCobPreviewPago(){
-  const fecha = document.getElementById('cob-f-fecha').value;
-  const concepto = document.getElementById('cob-f-concepto').value.trim();
-  const monto = parseFloat(document.getElementById('cob-f-monto').value);
-  const forma = document.getElementById('cob-f-forma').value;
-  if(!concepto || !monto || monto<=0){
-    alert('Completa el concepto y un monto válido antes de agregar.');
+/* ---------- Programa de Obra ---------- */
+function renderCliGantt(){
+  const el = document.getElementById('cli-gantt');
+  if(!el) return;
+  if(cliSelected==='GENERAL'){
+    el.innerHTML = `<div class="empty-note">Selecciona un cliente específico para ver/editar su programa de obra.</div>`;
     return;
   }
-  cobPreviewPagos.unshift({fecha, proyecto: cobClienteProyecto, concepto, monto, forma});
-  document.getElementById('cob-f-concepto').value = '';
-  document.getElementById('cob-f-monto').value = '';
-  renderCobPagoPreview();
-}
-function removeCobPreviewPago(idx){
-  cobPreviewPagos.splice(idx,1);
-  renderCobPagoPreview();
-}
-function renderCobPagoPreview(){
-  const el = document.getElementById('cob-pago-preview');
-  const items = cobPreviewPagos.filter(x=>x.proyecto===cobClienteProyecto);
-  if(items.length===0){
-    el.innerHTML = `<div class="empty-note">Sin pagos de vista previa agregados para este cliente en esta sesión.</div>`;
-    return;
-  }
-  el.innerHTML = `<div class="table-wrap"><table>
-    <thead><tr><th>Fecha</th><th>Concepto</th><th>Forma</th><th class="money">Monto</th><th></th></tr></thead>
-    <tbody>${items.map((x)=>{
-      const globalIdx = cobPreviewPagos.indexOf(x);
-      return `<tr>
-        <td>${escXml(x.fecha)}</td><td>${escXml(x.concepto)}</td>
-        <td><span class="tag" style="background:${cobFormaColor(x.forma)}22;color:${cobFormaColor(x.forma)}">${escXml(cobFormaLabel(x.forma))}</span></td>
-        <td class="money num">${fmtMoney(x.monto,2)}</td>
-        <td><button class="btn-sm" onclick="removeCobPreviewPago(${globalIdx})">Quitar</button></td>
-      </tr>`;
-    }).join('')}</tbody>
-  </table></div>`;
-}
-
-/* ---------- Programa de Obra (Gantt editable) ---------- */
-function renderCobGantt(){
-  const p = cobProject(cobClienteProyecto);
-  const dates = ganttDates[cobClienteProyecto];
+  const p = cobProject(cliSelected);
+  const dates = ganttDates[cliSelected];
   const rows = p.partidas.map((x,i)=>`
     <tr>
       <td>${escXml(x.n)}</td>
@@ -2798,24 +2922,25 @@ function renderCobGantt(){
       <td><input type="date" data-idx="${i}" data-field="fin" value="${dates[i].fin}" onchange="updateGanttDate(this)"></td>
     </tr>
   `).join('');
-  document.getElementById('cob-gantt').innerHTML = `
+  el.innerHTML = `
     <div class="table-wrap"><table class="gantt-table">
       <thead><tr><th>Partida</th><th>Fecha Inicio</th><th>Fecha Fin</th></tr></thead>
       <tbody>${rows}</tbody>
     </table></div>
-    <div class="gantt-viz" id="cob-gantt-viz"></div>
+    <div class="gantt-viz" id="cli-gantt-viz"></div>
   `;
   renderGanttViz();
 }
 function updateGanttDate(input){
   const i = parseInt(input.dataset.idx,10);
-  ganttDates[cobClienteProyecto][i][input.dataset.field] = input.value;
+  ganttDates[cliSelected][i][input.dataset.field] = input.value;
   renderGanttViz();
 }
 function renderGanttViz(){
-  const p = cobProject(cobClienteProyecto);
-  const dates = ganttDates[cobClienteProyecto];
-  const viz = document.getElementById('cob-gantt-viz');
+  const p = cobProject(cliSelected);
+  const dates = ganttDates[cliSelected];
+  const viz = document.getElementById('cli-gantt-viz');
+  if(!viz) return;
   const valid = dates.map((d,i)=>({...d, i})).filter(d=>d.inicio && d.fin && d.fin>=d.inicio);
 
   if(valid.length===0){
@@ -2839,7 +2964,7 @@ function renderGanttViz(){
     rows += `<div class="gantt-row">
       <div class="gantt-label">${escXml(x.n)}</div>
       <div class="gantt-track">
-        <div class="gantt-bar" style="left:${left.toFixed(1)}%;width:${width.toFixed(1)}%;background:${colorForProject(cobClienteProyecto)};" title="${escXml(x.n)}: ${escXml(d.inicio)} a ${escXml(d.fin)}">
+        <div class="gantt-bar" style="left:${left.toFixed(1)}%;width:${width.toFixed(1)}%;background:${colorForProject(cliSelected)};" title="${escXml(x.n)}: ${escXml(d.inicio)} a ${escXml(d.fin)}">
           <span class="lbl">${fmtDate(d.inicio)} — ${fmtDate(d.fin)}</span>
         </div>
       </div>
@@ -2848,10 +2973,14 @@ function renderGanttViz(){
   viz.innerHTML = `<div class="gantt-axis"><span>${fmtDate(minD)}</span><span>${fmtDate(maxD)}</span></div>${rows}`;
 }
 
-function renderCobranza(){
-  renderCobResumen();
-  renderCobCliente();
+function renderClientes(){
+  renderCliPicker();
+  renderCliKpis();
+  renderCliTablaPagos();
+  renderCliPartidas();
+  renderCliGantt();
 }
+
 
 /* =========================================================
    FLUJO DE CAJA — calculadora manual (efectivo / bancos)
@@ -3056,7 +3185,7 @@ renderResumen();
 renderProjectPicker();
 renderProjectReport(currentProject);
 renderSubcontratos();
-renderCobranza();
+renderClientes();
 renderFlujoCaja();
 renderValidacion();
 
@@ -3092,6 +3221,8 @@ if('serviceWorker' in navigator){
   const COLLECTION_NAME = 'gastos_validados';
   const ALLOWED_EMAIL = 'armando@amdproyectos.mx';
 
+  const INGRESOS_COLLECTION = 'ingresos_validados';
+
   window.FB = {
     ready: false,
     async addGasto(gasto){
@@ -3107,6 +3238,20 @@ if('serviceWorker' in navigator){
     },
     async deleteGasto(id){
       await deleteDoc(doc(db, COLLECTION_NAME, id));
+    },
+    async addIngreso(ingreso){
+      const ref = await addDoc(collection(db, INGRESOS_COLLECTION), { ...ingreso, validadoEn: serverTimestamp() });
+      return ref.id;
+    },
+    async loadIngresos(){
+      const snap = await getDocs(collection(db, INGRESOS_COLLECTION));
+      return snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    },
+    async updateIngreso(id, ingreso){
+      await updateDoc(doc(db, INGRESOS_COLLECTION, id), ingreso);
+    },
+    async deleteIngreso(id){
+      await deleteDoc(doc(db, INGRESOS_COLLECTION, id));
     }
   };
 
@@ -3128,9 +3273,10 @@ if('serviceWorker' in navigator){
     if(!user) return;
     try {
       window.FB.ready = true;
-      const gastos = await window.FB.loadGastos();
-      if(typeof window.onFirestoreReady === 'function') window.onFirestoreReady(true, gastos.length);
+      const [gastos, ingresos] = await Promise.all([window.FB.loadGastos(), window.FB.loadIngresos()]);
+      if(typeof window.onFirestoreReady === 'function') window.onFirestoreReady(true, gastos.length + ingresos.length);
       if(gastos.length && typeof window.onFirestoreLoaded === 'function') window.onFirestoreLoaded(gastos);
+      if(ingresos.length && typeof window.onIngresosLoaded === 'function') window.onIngresosLoaded(ingresos);
     } catch(e){
       console.error('Error conectando a Firestore:', e);
       if(typeof window.onFirestoreReady === 'function') window.onFirestoreReady(false, 0, e.message);
