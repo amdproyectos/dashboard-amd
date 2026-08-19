@@ -273,6 +273,14 @@ tr.total-row td{font-weight:800;color:var(--navy-900);border-top:2px solid var(-
   body.printing-statement .app > *:not(#statement-modal){display:none !important;}
   body:not(.printing-statement) #statement-modal{display:none !important;}
   @page{size:landscape;margin:10mm;}
+  body.printing-cli .kpi-grid,
+  body.printing-cli #cli-picker,
+  body.printing-cli .cli-col-side,
+  body.printing-cli .panel:has(#cli-tabla-partidas){display:none !important;}
+  body.printing-cli .cli-grid2{display:block !important;}
+  body.printing-cli .cli-pagos-table{font-size:9px !important;}
+  body.printing-cli .cli-pagos-table th, body.printing-cli .cli-pagos-table td{padding:3px 6px !important;}
+  body.printing-cli .panel{padding:8px 10px !important;}
 }
 .acc-list{display:flex;flex-direction:column;}
 .acc-row{border-bottom:1px solid var(--gray-100);}
@@ -452,23 +460,35 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 
 /* ---------- Clientes: Resumen de Pagos (tabla tipo recibos) ---------- */
 .cli-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
-.cli-pagos-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.cli-grid2{display:grid;grid-template-columns:3fr 1fr;gap:16px;align-items:start;}
+.cli-col-main,.cli-col-side{min-width:0;}
+.cli-flujo-rows{display:flex;flex-direction:column;gap:0;margin-bottom:14px;}
+.cli-flujo-row{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--gray-100);}
+.cli-flujo-row:last-child{border-bottom:none;}
+.cli-flujo-row .l{font-size:11px;font-weight:700;color:var(--gray-600);text-transform:uppercase;letter-spacing:.3px;}
+.cli-flujo-row .v{font-size:14px;font-weight:800;color:var(--navy-900);font-variant-numeric:tabular-nums;}
+.cli-flujo-row.neg .v{color:var(--red-600);}
+.cli-flujo-months{font-size:11.5px;}
+.cli-flujo-months .fm-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed var(--gray-100);color:var(--gray-700);}
+.cli-flujo-months .fm-row .fm-v{font-weight:700;color:var(--navy-900);font-variant-numeric:tabular-nums;}
+.cli-pagos-table{width:100%;border-collapse:collapse;font-size:11.5px;}
 .cli-pagos-table th{
-  text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;
-  color:var(--gray-600);padding:8px 10px;border-bottom:2px solid var(--gray-300);
+  text-align:left;font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;
+  color:var(--gray-600);padding:6px 8px;border-bottom:2px solid var(--gray-300);white-space:nowrap;
 }
 .cli-pagos-table th.money{text-align:right;}
-.cli-pagos-table td{padding:7px 10px;border-bottom:1px solid var(--gray-100);color:var(--gray-700);}
-.cli-pagos-table td.money{text-align:right;font-weight:600;color:var(--navy-900);}
+.cli-pagos-table td{padding:5px 8px;border-bottom:1px solid var(--gray-100);color:var(--gray-700);white-space:nowrap;}
+.cli-pagos-table td.money{text-align:right;font-weight:600;color:var(--navy-900);font-variant-numeric:tabular-nums;}
+.cli-pagos-table td.dim{color:var(--gray-300);}
 .cli-pagos-table tr.cli-month-header td{
-  background:var(--navy-800);color:var(--white);font-weight:800;font-size:11px;
-  letter-spacing:.5px;padding:7px 10px;
+  background:var(--gray-100);color:var(--gray-600);font-weight:700;font-size:10.5px;
+  text-transform:uppercase;letter-spacing:.3px;padding:5px 8px;
 }
+.cli-pagos-table tr.cli-month-header td.money{color:var(--navy-800);font-size:11px;}
 .cli-pagos-table tr.cli-locked-row td{color:var(--gray-700);}
 .cli-pagos-table tr.cli-locked-row td:last-child{color:var(--gray-400);text-align:center;font-size:11px;}
 .cli-pagos-table tr.cli-new-row td{background:#E8F7EE;}
-.cli-pagos-table tr.cli-month-total td{background:var(--blue-50);font-weight:700;color:var(--navy-900);border-bottom:2px solid var(--gray-300);}
-.cli-pagos-table tr.cli-grand-total td{background:var(--navy-900);color:var(--white);font-weight:800;font-size:13px;padding:10px;}
+.cli-pagos-table tr.cli-grand-total td{background:var(--navy-900);color:var(--white);font-weight:800;font-size:12px;padding:8px;}
 .cli-pagos-table tr.cli-capture-row td{background:#FFF7EC;padding:6px 8px;}
 .cli-pagos-table tr.cli-capture-row input, .cli-pagos-table tr.cli-capture-row select{
   width:100%;border:1px solid var(--gray-300);border-radius:6px;padding:6px 8px;font-size:12px;box-sizing:border-box;
@@ -727,16 +747,23 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 
       <div class="kpi-grid" id="cli-kpi-grid"></div>
 
-      <div class="panel">
-        <div class="panel-header-row">
-          <div>
-            <div class="panel-title">Resumen de Pagos</div>
-            <div class="panel-sub" id="cli-resumen-sub"></div>
+      <div class="cli-grid2">
+        <div class="panel cli-col-main">
+          <div class="panel-header-row">
+            <div>
+              <div class="panel-title">Resumen de Pagos / Estado de Cuenta</div>
+              <div class="panel-sub" id="cli-resumen-sub"></div>
+            </div>
+            <button class="btn btn-print no-print" onclick="printClientesPagos()">Imprimir (PDF)</button>
           </div>
-          <button class="btn btn-print no-print" onclick="printClientesPagos()">Imprimir (PDF)</button>
+          <div id="cli-toolbar" class="cli-toolbar no-print"></div>
+          <div id="cli-tabla-pagos"></div>
         </div>
-        <div id="cli-toolbar" class="cli-toolbar no-print"></div>
-        <div id="cli-tabla-pagos"></div>
+        <div class="panel cli-col-side">
+          <div class="panel-title">Flujo Mensual</div>
+          <div class="panel-sub">Cobrado, saldo y presupuesto del proyecto</div>
+          <div id="cli-flujo-resumen"></div>
+        </div>
       </div>
 
       <div class="panel">
@@ -1757,7 +1784,7 @@ window.addEventListener('afterprint', ()=>{
 // no dejamos el contenido oculto permanentemente.
 function scheduleprintCleanup(){
   setTimeout(()=>{
-    document.body.classList.remove('printing-report','printing-movs','printing-statement','printing-cobcliente');
+    document.body.classList.remove('printing-report','printing-movs','printing-statement','printing-cobcliente','printing-cli');
   }, 4000);
 }
 
@@ -2522,7 +2549,7 @@ window.onIngresosLoaded = function(ingresos){
   let added = 0;
   ingresos.forEach(g=>{
     if(yaExiste(g.id)) return;
-    cobExtra.push({_localId: cobExtraIdCounter++, p:g.p, f:g.f, c:g.c, monto:g.monto, forma:g.forma, _fbId:g.id});
+    cobExtra.push({_localId: cobExtraIdCounter++, p:g.p, f:g.f, c:g.c, monto:g.monto, forma:g.forma, factura:g.factura||'', neto:g.neto!=null?g.neto:null, iva:g.iva!=null?g.iva:null, _fbId:g.id});
     added++;
   });
   if(added>0){
@@ -2539,12 +2566,12 @@ function discardEntry(id){
 
 // --- Validar un INGRESO (recibo de cliente) — paralelo a validateEntry para gastos ---
 async function validateIngresoEntry(entry){
-  const nuevoIngreso = { _localId: cobExtraIdCounter++, p: entry.p, f: entry.f, c: entry.c, monto: entry.monto, forma: entry.m };
+  const nuevoIngreso = { _localId: cobExtraIdCounter++, p: entry.p, f: entry.f, c: entry.c, monto: entry.monto, forma: entry.m, factura: entry.factura||'', neto: entry.neto!=null?entry.neto:null, iva: entry.iva!=null?entry.iva:null };
 
   let firebaseOk = false, fbId = null;
   try {
     if(window.FB && window.FB.ready && window.FB.addIngreso){
-      fbId = await window.FB.addIngreso({p:nuevoIngreso.p, f:nuevoIngreso.f, c:nuevoIngreso.c, monto:nuevoIngreso.monto, forma:nuevoIngreso.forma});
+      fbId = await window.FB.addIngreso({p:nuevoIngreso.p, f:nuevoIngreso.f, c:nuevoIngreso.c, monto:nuevoIngreso.monto, forma:nuevoIngreso.forma, factura:nuevoIngreso.factura, neto:nuevoIngreso.neto, iva:nuevoIngreso.iva});
       firebaseOk = true;
     }
   } catch(e){
@@ -2626,7 +2653,7 @@ async function saveEditIngreso(lid){
     alert('Completa concepto y un monto válido.');
     return;
   }
-  const actualizado = { p: g.p, f: g.f, c: concepto, monto, forma };
+  const actualizado = { p: g.p, f: g.f, c: concepto, monto, forma, factura: g.factura||'', neto: g.neto!=null?g.neto:null, iva: g.iva!=null?g.iva:null };
   try{
     if(g._fbId && window.FB && window.FB.updateIngreso){
       await window.FB.updateIngreso(g._fbId, actualizado);
@@ -2698,8 +2725,8 @@ function cobFormaLabel(f){
 /* ---------- Combinar histórico (COB_DATA) + recibos validados esta sesión (cobExtra) ---------- */
 function cobAllPagosFor(proyecto){
   const base = cobProject(proyecto);
-  const basePagos = base ? base.pagos.map(p=>({f:p.fecha, c:p.c, monto:p.monto, forma:p.forma, _locked:true})) : [];
-  const extra = cobExtra.filter(x=>x.p===proyecto).map(x=>({f:x.f, c:x.c, monto:x.monto, forma:x.forma, _locked:false, _localId:x._localId}));
+  const basePagos = base ? base.pagos.map(p=>({f:p.fecha, c:p.c, monto:p.monto, forma:p.forma, factura:'', neto:null, iva:null, _locked:true})) : [];
+  const extra = cobExtra.filter(x=>x.p===proyecto).map(x=>({f:x.f, c:x.c, monto:x.monto, forma:x.forma, factura:x.factura||'', neto:x.neto!=null?x.neto:null, iva:x.iva!=null?x.iva:null, _locked:false, _localId:x._localId}));
   return basePagos.concat(extra);
 }
 function cobExtraTotalFor(proyecto){
@@ -2782,40 +2809,17 @@ function renderCliTablaPagos(){
   projects.forEach(proj=>{
     cobAllPagosFor(proj).forEach(r=>{ allRows.push({...r, proyecto:proj}); });
   });
-  allRows.sort((a,b)=> (a.f||'').localeCompare(b.f||''));
 
-  const groups = {};
-  const sinFecha = [];
-  allRows.forEach(r=>{
-    if(!r.f){ sinFecha.push(r); return; }
-    const mk = monthKey(r.f);
-    if(!groups[mk]) groups[mk] = [];
-    groups[mk].push(r);
-  });
-  const monthKeys = Object.keys(groups).sort();
   const extraCols = isGeneral ? 1 : 0;
+  const colCount = 6 + extraCols; // fecha, [proyecto], factura, concepto, forma, neto, iva, monto -> ver thead
 
-  let body = '';
-  monthKeys.forEach(mk=>{
-    const rows = groups[mk];
-    const subtotal = rows.reduce((s,r)=>s+r.monto,0);
-    body += `<tr class="cli-month-header"><td colspan="${5+extraCols}">${escXml(monthLabel(mk).toUpperCase())}</td></tr>`;
-    rows.forEach(r=>{
-      body += `<tr class="${r._locked?'cli-locked-row':'cli-new-row'}">
-        <td>${fmtDate(r.f)}</td>
-        ${isGeneral?`<td><span class="tag" style="background:${colorForProject(r.proyecto)}22;color:${colorForProject(r.proyecto)}">${escXml(r.proyecto)}</span></td>`:''}
-        <td>${escXml(r.c)}</td>
-        <td><span class="tag" style="background:${cobFormaColor(r.forma)}22;color:${cobFormaColor(r.forma)}">${escXml(cobFormaLabel(r.forma))}</span></td>
-        <td class="money num">${fmtMoney(r.monto,2)}</td>
-        <td style="text-align:center;color:var(--gray-400);font-size:11px;">${r._locked?'🔒':'nuevo'}</td>
-      </tr>`;
-    });
-    body += `<tr class="cli-month-total"><td colspan="${2+extraCols}">Subtotal</td><td colspan="3" class="money num">${fmtMoney(subtotal)}</td></tr>`;
-  });
-
+  // Fila de captura, pegada arriba
+  let captureRow = '';
   if(cliCapturing && !isGeneral){
-    body += `<tr class="cli-capture-row">
+    captureRow = `<tr class="cli-capture-row">
       <td><input type="date" id="cli-cap-fecha"></td>
+      ${isGeneral?'<td></td>':''}
+      <td><input type="text" id="cli-cap-factura" placeholder="No. Factura"></td>
       <td><input type="text" id="cli-cap-concepto" placeholder="Concepto"></td>
       <td>
         <select id="cli-cap-forma">
@@ -2824,18 +2828,108 @@ function renderCliTablaPagos(){
           <option value="FACTURA">Factura</option>
         </select>
       </td>
+      <td><input type="number" id="cli-cap-neto" placeholder="Neto" step="0.01"></td>
+      <td><input type="number" id="cli-cap-iva" placeholder="IVA" step="0.01"></td>
       <td><input type="number" id="cli-cap-monto" placeholder="Monto" step="0.01"></td>
       <td><button class="btn-add" onclick="saveCliCapture()">Guardar</button></td>
     </tr>`;
   }
 
+  // Total general, arriba (como un renglón más)
   const grandTotal = allRows.reduce((s,r)=>s+r.monto,0);
-  body += `<tr class="cli-grand-total"><td colspan="${2+extraCols}">TOTAL COBRADO</td><td colspan="3" class="money num">${fmtMoney(grandTotal)}</td></tr>`;
+  const grandNeto = allRows.reduce((s,r)=>s+(r.neto||0),0);
+  const grandIva = allRows.reduce((s,r)=>s+(r.iva||0),0);
+  const totalRow = `<tr class="cli-grand-total">
+    <td colspan="${2+extraCols}">TOTAL COBRADO</td>
+    <td></td>
+    <td class="money">${grandNeto>0?fmtMoney(grandNeto):''}</td>
+    <td class="money">${grandIva>0?fmtMoney(grandIva):''}</td>
+    <td class="money">${fmtMoney(grandTotal)}</td>
+    <td></td>
+  </tr>`;
+
+  // Agrupar por mes, más reciente arriba; dentro de cada mes, más reciente arriba
+  const groups = {};
+  allRows.forEach(r=>{
+    if(!r.f) return;
+    const mk = monthKey(r.f);
+    if(!groups[mk]) groups[mk] = [];
+    groups[mk].push(r);
+  });
+  const monthKeys = Object.keys(groups).sort().reverse();
+
+  let body = '';
+  monthKeys.forEach(mk=>{
+    const rows = groups[mk].slice().sort((a,b)=> (b.f||'').localeCompare(a.f||''));
+    const subtotal = rows.reduce((s,r)=>s+r.monto,0);
+    body += `<tr class="cli-month-header">
+      <td colspan="${3+extraCols}">${escXml(monthLabel(mk).toUpperCase())}</td>
+      <td></td><td></td>
+      <td class="money">${fmtMoney(subtotal)}</td>
+      <td></td>
+    </tr>`;
+    rows.forEach(r=>{
+      body += `<tr class="${r._locked?'cli-locked-row':'cli-new-row'}">
+        <td>${fmtDate(r.f)}</td>
+        ${isGeneral?`<td><span class="tag" style="background:${colorForProject(r.proyecto)}22;color:${colorForProject(r.proyecto)}">${escXml(r.proyecto)}</span></td>`:''}
+        <td>${r.factura?escXml(r.factura):'<span class="dim">—</span>'}</td>
+        <td>${escXml(r.c)}</td>
+        <td><span class="tag" style="background:${cobFormaColor(r.forma)}22;color:${cobFormaColor(r.forma)}">${escXml(cobFormaLabel(r.forma))}</span></td>
+        <td class="money">${r.neto!=null?fmtMoney(r.neto):'<span class="dim">—</span>'}</td>
+        <td class="money">${r.iva!=null?fmtMoney(r.iva):'<span class="dim">—</span>'}</td>
+        <td class="money">${fmtMoney(r.monto)}</td>
+        <td style="text-align:center;color:var(--gray-400);font-size:11px;">${r._locked?'🔒':'nuevo'}</td>
+      </tr>`;
+    });
+  });
 
   tablaEl.innerHTML = `<div class="table-wrap"><table class="cli-pagos-table">
-    <thead><tr><th>Fecha</th>${isGeneral?'<th>Proyecto</th>':''}<th>Concepto</th><th>Forma</th><th class="money">Monto</th><th></th></tr></thead>
-    <tbody>${body}</tbody>
+    <thead><tr>
+      <th>Fecha</th>${isGeneral?'<th>Proyecto</th>':''}<th>No. Factura</th><th>Concepto</th><th>Forma</th>
+      <th class="money">Neto</th><th class="money">IVA</th><th class="money">Monto</th><th></th>
+    </tr></thead>
+    <tbody>${captureRow}${totalRow}${body}</tbody>
   </table></div>`;
+}
+
+function renderCliFlujoMensual(){
+  const el = document.getElementById('cli-flujo-resumen');
+  if(!el) return;
+
+  const isGeneral = cliSelected==='GENERAL';
+  const projects = isGeneral ? COB_PROJECTS : [cliSelected];
+
+  let allRows = [];
+  projects.forEach(proj=>{ cobAllPagosFor(proj).forEach(r=>allRows.push(r)); });
+  const totalCobrado = allRows.reduce((s,r)=>s+r.monto,0);
+
+  // Presupuesto: suma del "gran total" de cada proyecto en cuestión (COB_DATA lo trae por proyecto)
+  const presupuesto = projects.reduce((s,proj)=>{
+    const cob = cobProject(proj);
+    return s + (cob && cob.granTotal ? cob.granTotal : 0);
+  }, 0);
+  const saldo = presupuesto - totalCobrado;
+
+  const monthTotals = {};
+  allRows.forEach(r=>{
+    if(!r.f) return;
+    const mk = monthKey(r.f);
+    monthTotals[mk] = (monthTotals[mk]||0) + r.monto;
+  });
+  const monthKeys = Object.keys(monthTotals).sort().reverse();
+
+  el.innerHTML = `
+    <div class="cli-flujo-rows">
+      <div class="cli-flujo-row"><span class="l">Total Cobrado</span><span class="v">${fmtMoney(totalCobrado)}</span></div>
+      <div class="cli-flujo-row ${saldo<0?'neg':''}"><span class="l">Saldo</span><span class="v">${fmtMoney(saldo)}</span></div>
+      <div class="cli-flujo-row"><span class="l">Presupuesto</span><span class="v">${presupuesto>0?fmtMoney(presupuesto):'—'}</span></div>
+    </div>
+    <div class="cli-flujo-months">
+      ${monthKeys.length===0 ? '<div class="empty-note">Sin movimientos.</div>' : monthKeys.map(mk=>`
+        <div class="fm-row"><span>${escXml(monthLabel(mk))}</span><span class="fm-v">${fmtMoney(monthTotals[mk])}</span></div>
+      `).join('')}
+    </div>
+  `;
 }
 
 function startCliCapture(){
@@ -2853,6 +2947,9 @@ function saveCliCapture(){
   const concepto = document.getElementById('cli-cap-concepto').value.trim();
   const forma = document.getElementById('cli-cap-forma').value;
   const monto = parseFloat(document.getElementById('cli-cap-monto').value);
+  const factura = document.getElementById('cli-cap-factura').value.trim();
+  const neto = document.getElementById('cli-cap-neto').value ? parseFloat(document.getElementById('cli-cap-neto').value) : null;
+  const iva = document.getElementById('cli-cap-iva').value ? parseFloat(document.getElementById('cli-cap-iva').value) : null;
   if(!fecha || !concepto || !monto || monto<=0){
     alert('Completa fecha, concepto y un monto válido.');
     return;
@@ -2861,7 +2958,7 @@ function saveCliCapture(){
     id: validationIdCounter++,
     tipo: 'ingreso',
     f: fecha, p: cliSelected, prov: cobProject(cliSelected).cliente,
-    c: concepto, monto: monto, m: forma,
+    c: concepto, monto: monto, m: forma, factura: factura, neto: neto, iva: iva,
     origen: `Clientes · ${cliSelected}`
   });
   cliCapturing = false;
@@ -2872,6 +2969,7 @@ function saveCliCapture(){
 }
 
 function printClientesPagos(){
+  document.body.classList.add('printing-cli');
   triggerPrint();
 }
 
@@ -2977,6 +3075,7 @@ function renderClientes(){
   renderCliPicker();
   renderCliKpis();
   renderCliTablaPagos();
+  renderCliFlujoMensual();
   renderCliPartidas();
   renderCliGantt();
 }
