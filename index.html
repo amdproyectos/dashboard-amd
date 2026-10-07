@@ -1464,6 +1464,7 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
     </div>
     <button class="btn-orange" id="login-btn" style="width:100%;" onclick="doLogin()">Entrar</button>
     <div class="login-status" id="login-status">Conectando con Firebase...</div>
+    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 07-Oct-2026 03:14 · incluye Terrapark</div>
   </div>
 </div>
 
@@ -3571,7 +3572,11 @@ function doLogin(){
   btn.disabled = true; btn.textContent = 'Entrando...';
   window.FBAuth.signIn(email, password).catch(err=>{
     console.error('Error de inicio de sesión:', err);
-    errEl.textContent = 'Correo o contraseña incorrectos.';
+    const c = err && err.code;
+    errEl.textContent = (c==='auth/invalid-credential' || c==='auth/wrong-password' || c==='auth/user-not-found' || c==='auth/invalid-email') ? 'Correo o contraseña incorrectos.'
+      : c==='auth/network-request-failed' ? 'Sin conexión con Firebase (revisa tu internet o desactiva bloqueadores de contenido) [network-request-failed].'
+      : c==='auth/unauthorized-domain' ? 'Este sitio no está autorizado en Firebase (Authentication → Configuración → Dominios autorizados) [unauthorized-domain].'
+      : 'No se pudo iniciar sesión' + (c ? ' [' + c + ']' : '') + '.';
     errEl.style.display = 'block';
     btn.disabled = false; btn.textContent = 'Entrar';
   });
@@ -6944,6 +6949,18 @@ if('serviceWorker' in navigator){
 }
 </script>
 
+<script>
+// Si Firebase no carga (red, bloqueador de contenido, navegador viejo), avisar en la pantalla de login.
+setTimeout(function(){
+  if(window.FBAuth) return;
+  var ls = document.getElementById('login-status');
+  if(ls){ ls.textContent = '⚠️ No se pudo cargar Firebase. Revisa tu internet, desactiva bloqueadores de contenido y recarga la página.'; ls.style.color = '#C0392B'; }
+}, 10000);
+window.addEventListener('error', function(e){
+  var ls = document.getElementById('login-status');
+  if(ls && !window.FBAuth && e && e.message) ls.title = 'Error: ' + e.message;
+});
+</script>
 <!-- ===================== FIREBASE (Firestore + Authentication) ===================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
@@ -7036,6 +7053,7 @@ if('serviceWorker' in navigator){
     signInGoogle(){ return signInWithPopup(auth, googleProvider); },
     signOutUser(){ return signOut(auth); }
   };
+  { const ls = document.getElementById('login-status'); if(ls){ ls.textContent = 'Firebase listo ✓'; ls.style.color = '#2F9E5B'; } }
 
   // El dashboard solo carga datos de Firestore DESPUÉS de iniciar sesión,
   // y solo si el correo de Google coincide con el autorizado.
