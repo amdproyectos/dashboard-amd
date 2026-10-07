@@ -1463,8 +1463,9 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       </div>
     </div>
     <button class="btn-orange" id="login-btn" style="width:100%;" onclick="doLogin()">Entrar</button>
+    <div style="text-align:center;margin-top:10px;"><a href="#" onclick="doResetPassword();return false;" style="font-size:12px;color:#3B6EA5;">¿Sin contraseña u olvidaste la tuya? Enviar enlace a mi correo</a></div>
     <div class="login-status" id="login-status">Conectando con Firebase...</div>
-    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 07-Oct-2026 03:14 · incluye Terrapark</div>
+    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 07-Oct-2026 03:25 · incluye Terrapark</div>
   </div>
 </div>
 
@@ -3549,7 +3550,9 @@ function doGoogleLogin(){
     if(err && (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request')) return;
     errEl.textContent = err && err.code==='auth/unauthorized-domain'
       ? 'Este sitio aún no está autorizado para iniciar sesión con Google (falta agregarlo en Firebase). Usa correo y contraseña por ahora.'
-      : 'No se pudo iniciar sesión con Google. Intenta de nuevo, o usa correo y contraseña.';
+      : err && err.code==='auth/popup-blocked' ? 'Safari bloqueó la ventana de Google. Ajustes → Apps → Safari → apaga "Bloquear ventanas emergentes" e intenta de nuevo [popup-blocked].'
+      : err && err.code==='auth/network-request-failed' ? 'Sin conexión con Firebase (revisa internet o bloqueadores de contenido) [network-request-failed].'
+      : 'No se pudo iniciar sesión con Google' + (err && err.code ? ' [' + err.code + ']' : (err && err.message ? ' [' + String(err.message).slice(0,80) + ']' : '')) + '. Intenta de nuevo, o usa correo y contraseña.';
     errEl.style.display = 'block';
   });
 }
@@ -3579,6 +3582,20 @@ function doLogin(){
       : 'No se pudo iniciar sesión' + (c ? ' [' + c + ']' : '') + '.';
     errEl.style.display = 'block';
     btn.disabled = false; btn.textContent = 'Entrar';
+  });
+}
+function doResetPassword(){
+  const email = document.getElementById('login-email').value.trim();
+  const errEl = document.getElementById('login-error');
+  if(!email){ errEl.textContent = 'Escribe tu correo arriba y vuelve a tocar el enlace.'; errEl.style.display = 'block'; return; }
+  if(!(window.FBAuth && window.FBAuth.resetPassword)){ errEl.textContent = 'Aún conectando con Firebase, espera un momento e intenta de nuevo.'; errEl.style.display = 'block'; return; }
+  window.FBAuth.resetPassword(email).then(()=>{
+    errEl.textContent = 'Listo: si el correo existe, te enviamos un enlace para crear tu contraseña. Revisa también spam.';
+    errEl.style.display = 'block'; errEl.style.background = '#E8F7EE'; errEl.style.color = '#2F9E5B';
+  }).catch(err=>{
+    errEl.style.background = ''; errEl.style.color = '';
+    errEl.textContent = 'No se pudo enviar el correo' + (err && err.code ? ' [' + err.code + ']' : '') + '.';
+    errEl.style.display = 'block';
   });
 }
 function doLogout(){
@@ -6965,7 +6982,7 @@ window.addEventListener('error', function(e){
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
   import { getFirestore, collection, addDoc, getDocs, getDoc, setDoc, doc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-  import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyA1nsMr0Qqa4-Udu21E_HCLP7VPv7i7bDU",
@@ -7051,7 +7068,8 @@ window.addEventListener('error', function(e){
   window.FBAuth = {
     signIn(email, password){ return signInWithEmailAndPassword(auth, email, password); },
     signInGoogle(){ return signInWithPopup(auth, googleProvider); },
-    signOutUser(){ return signOut(auth); }
+    signOutUser(){ return signOut(auth); },
+    resetPassword(email){ return sendPasswordResetEmail(auth, email); }
   };
   { const ls = document.getElementById('login-status'); if(ls){ ls.textContent = 'Firebase listo ✓'; ls.style.color = '#2F9E5B'; } }
 
