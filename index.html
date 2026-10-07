@@ -579,6 +579,233 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
   .report-total{text-align:left;}
 }
 :focus-visible{outline:2px solid var(--orange-500);outline-offset:2px;}
+
+/* =========================================================
+   CLIENTE ALDO SÁNCHEZ · RESIDENCIA KANJUT
+   ========================================================= */
+.nav-btn.nav-sub{padding-left:38px;font-size:12.5px;opacity:.92;}
+.nav-btn.nav-sub::before{content:'↳';position:absolute;left:20px;opacity:.6;}
+
+.kj-grid{display:grid;grid-template-columns:1.45fr 1fr;gap:16px;align-items:start;}
+.kj-col{display:flex;flex-direction:column;gap:16px;min-width:0;}
+.kj-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:6px;}
+.kj-action-card{border:1.5px solid var(--gray-300);border-radius:var(--radius-sm);padding:12px 14px;background:var(--blue-50);}
+.kj-action-card h4{margin:0 0 4px;font-size:12.5px;color:var(--navy-900);}
+.kj-action-card p{margin:0 0 10px;font-size:11.5px;color:var(--gray-600);}
+.kj-drop{display:block;border:2px dashed var(--steel-400);border-radius:var(--radius-sm);padding:14px 10px;text-align:center;
+  font-size:12px;color:var(--gray-600);cursor:pointer;background:var(--white);transition:background .15s,border-color .15s;}
+.kj-drop.over{background:var(--orange-100);border-color:var(--orange-500);color:var(--navy-900);}
+.kj-drop strong{color:var(--navy-800);}
+
+.kj-form{border:1.5px solid var(--orange-500);border-radius:var(--radius-sm);padding:14px;margin:4px 0 14px;background:#FFFBF7;}
+.kj-form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;}
+.kj-form-grid.three{grid-template-columns:repeat(3,minmax(0,1fr));}
+.kj-form label{display:block;font-size:10px;font-weight:700;color:var(--gray-600);text-transform:uppercase;letter-spacing:.3px;margin-bottom:3px;}
+.kj-form input,.kj-form select,.kj-form textarea{width:100%;border:1px solid var(--gray-300);border-radius:6px;padding:7px 8px;font-size:12.5px;box-sizing:border-box;background:var(--white);font-family:inherit;}
+.kj-form textarea{resize:vertical;min-height:38px;}
+.kj-form .kj-line{display:grid;grid-template-columns:96px 140px repeat(4,minmax(0,1fr));gap:10px;align-items:end;padding:10px 0;border-top:1px dashed var(--gray-300);}
+.kj-form .kj-line-tag{font-size:11.5px;font-weight:800;color:var(--navy-800);padding-bottom:8px;}
+.kj-form-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.kj-form-sum{font-size:12px;color:var(--gray-700);}
+.kj-form-sum b{color:var(--navy-900);}
+.kj-err{background:#FDECEC;color:var(--red-600);font-size:12px;font-weight:600;padding:8px 10px;border-radius:6px;margin-top:10px;}
+.kj-warn{background:#FFF7EC;color:#8A4B12;font-size:12px;padding:9px 12px;border-radius:8px;margin-bottom:12px;border:1px solid var(--orange-100);}
+.kj-ok{color:var(--green-600);font-weight:700;font-size:12px;margin:6px 0 10px;}
+
+.kj-list{width:100%;border-collapse:collapse;font-size:12px;}
+.kj-list th{font-size:9.5px;padding:6px 8px;white-space:nowrap;}
+.kj-list td{padding:6px 6px;white-space:nowrap;}
+.kj-list td.forma{white-space:normal;font-size:11.5px;color:var(--gray-600);min-width:70px;}
+.kj-list th{padding:6px 6px !important;}
+.kj-list td.money{text-align:right;}
+.kj-list .kj-sub{display:block;font-size:10.5px;color:var(--gray-600);font-weight:600;margin-top:1px;}
+.kj-list .kj-origin{font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;background:var(--gray-100);color:var(--gray-600);}
+.kj-list .kj-origin.gen{background:#E8F7EE;color:var(--green-600);}
+.kj-list .kj-btns{display:flex;gap:5px;justify-content:flex-end;flex-wrap:wrap;}
+.kj-list .btn-sm{padding:4px 9px;font-size:11px;}
+.kj-list .btn-sm.pdf{background:var(--orange-100);color:#8A4B12;}
+.kj-list .btn-sm.del{color:var(--red-600);}
+
+.kj-kpis{display:flex;flex-direction:column;margin-bottom:10px;}
+.kj-kpi{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--gray-100);}
+.kj-kpi .l{font-size:10.5px;font-weight:700;color:var(--gray-600);text-transform:uppercase;letter-spacing:.3px;}
+.kj-kpi .v{font-size:15px;font-weight:800;color:var(--navy-900);font-variant-numeric:tabular-nums;}
+.kj-kpi.accent .v{color:#B4561A;}
+.kj-mini-chart{margin-top:8px;}
+.kj-mini-chart .t{font-size:11px;font-weight:800;color:var(--navy-900);margin:6px 0 2px;}
+.kj-mini-chart .s{font-size:10.5px;color:var(--gray-600);margin-bottom:4px;}
+
+/* ---------- Hojas tamaño carta horizontal (recibo / programa) ---------- */
+.kj-page-wrap{position:relative;overflow:hidden;margin:0 auto 16px;}
+.kj-page{
+  width:970px;height:720px;background:#fff;color:#14202B;position:absolute;top:0;left:0;transform-origin:top left;
+  font-family:Arial,Helvetica,sans-serif;font-size:10px;padding:20px 26px;box-sizing:border-box;overflow:hidden;
+  box-shadow:0 1px 6px rgba(15,36,56,0.18);
+}
+.kj-page *{box-sizing:border-box;}
+.kj-ph{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1.5px solid #14202B;padding-bottom:8px;margin-bottom:12px;}
+.kj-ph .t1{font-size:13px;font-weight:800;color:#1B3A5C;letter-spacing:.2px;}
+.kj-ph .t2{font-size:9px;margin-top:3px;}
+.kj-ph .t2 b{font-weight:800;}
+.kj-logo{text-align:right;line-height:1;color:#1B3A5C;}
+.kj-logo .m{font-size:40px;font-weight:900;letter-spacing:-1.5px;}
+.kj-logo .p{font-size:6.5px;letter-spacing:3px;font-weight:700;margin-top:-1px;padding-right:2px;}
+
+.kj-top{display:flex;justify-content:space-between;gap:20px;margin-bottom:8px;}
+.kj-top-left{flex:1;min-width:0;}
+.kj-titlerow{display:flex;align-items:center;gap:40px;margin-bottom:8px;}
+.kj-titlerow .t{font-size:11.5px;font-weight:800;}
+.kj-fecha{border:1px solid #14202B;background:#DCE6F2;padding:3px 10px;font-size:10px;min-width:260px;text-align:center;}
+.kj-recibi{font-size:10px;line-height:1.55;max-width:540px;}
+.kj-firma{margin:26px 0 0 270px;width:280px;border-top:1px solid #14202B;padding-top:3px;font-size:8px;font-weight:800;text-align:center;}
+.kj-sect{font-size:11px;font-weight:800;color:#1B3A5C;margin:6px 0 10px;}
+.kj-ppto{font-size:10px;border-collapse:collapse;width:auto;flex-shrink:0;}
+.kj-ppto td{padding:2px 4px;border:none;color:#1B3A5C;font-weight:800;white-space:nowrap;}
+.kj-ppto td.r{text-align:right;}
+.kj-ppto tr.sep td{border-top:1px solid #14202B;}
+.kj-ppto tr.gap td{height:10px;}
+
+.kj-tbl{width:100%;border-collapse:collapse;font-size:9px;table-layout:fixed;}
+.kj-tbl th{background:#E7ECF2;color:#14202B;font-size:8.5px;font-weight:800;text-transform:none;letter-spacing:0;padding:3px 4px;border:1px solid #14202B;text-align:center;}
+.kj-tbl td{padding:2px 4px;border:none;color:#14202B;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.kj-tbl td.c{text-align:center;}
+.kj-tbl td.r{text-align:right;font-variant-numeric:tabular-nums;}
+.kj-tbl td.b{font-weight:800;}
+.kj-tbl .gap{border:none !important;background:none !important;}
+.kj-tbl tr.ln td.L{border-left:1px solid #14202B;}
+.kj-tbl tr.ln td.R{border-right:1px solid #14202B;}
+.kj-tbl tr.ln td.L2{border-left:1px solid #14202B;}
+.kj-tbl tr.ln td.R2{border-right:1px solid #14202B;}
+.kj-tbl tr.mesbreak td:not(.gap):not(.nob){border-top:1px solid #14202B;}
+.kj-tbl tr.last td:not(.gap):not(.nob){border-bottom:1px solid #14202B;}
+.kj-tbl tr.tot td.tt{background:#DCE6F2;font-weight:800;}
+.kj-tbl tr.tot td.ttb{font-weight:800;}
+.kj-tbl tr.spacer td{height:9px;}
+.kj-tbl.dense{font-size:8px;}
+.kj-tbl.dense td{padding:1px 4px;}
+.kj-tbl.xdense{font-size:7px;}
+.kj-tbl.xdense td{padding:0 3px;}
+
+.kj-bottom{display:flex;justify-content:space-between;align-items:flex-start;margin-top:12px;gap:16px;}
+.kj-sum{border-collapse:collapse;font-size:9.5px;margin-left:112px;width:auto;}
+.kj-sum th{background:#E7ECF2;border:1px solid #14202B;font-size:8.5px;padding:3px 8px;color:#14202B;text-transform:none;letter-spacing:0;text-align:center;}
+.kj-sum td{border:1px solid #14202B;padding:3px 6px;font-weight:800;white-space:nowrap;color:#14202B;}
+.kj-sum td.r{text-align:right;color:#1B3A5C;}
+.kj-sum td.lbl{text-align:right;}
+.kj-sum td.nob{border:none;}
+.kj-sum tr.saldo td.lbl,.kj-sum tr.saldo td.r{background:#E6F2E1;}
+.kj-sum td.pct{border:none;color:#2F9E5B;text-align:center;}
+.kj-estbox{border-collapse:collapse;font-size:10px;width:auto;}
+.kj-estbox td{border:1px solid #14202B;padding:3px 8px;font-weight:800;white-space:nowrap;color:#14202B;}
+.kj-estbox td.r{text-align:right;}
+.kj-estbox tr.gap td{border:none;height:8px;}
+
+/* Hoja 2 — gráficos */
+.kj-g-title{font-size:12px;font-weight:800;color:#1B3A5C;margin:0 0 8px;}
+.kj-g-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.15fr);gap:14px;margin-bottom:12px;}
+.kj-g-card{border:1px solid #D7E3ED;border-radius:6px;padding:10px 12px;min-width:0;}
+.kj-g-card > svg{width:100%;height:auto;display:block;}
+.kj-g-card .h{font-size:10.5px;font-weight:800;color:#14202B;margin-bottom:2px;}
+.kj-g-card .sub{font-size:8.5px;color:#5A6B7B;margin-bottom:6px;}
+.kj-g-donut{display:flex;align-items:center;gap:10px;}
+.kj-legend{display:flex;flex-direction:column;gap:5px;font-size:9px;}
+.kj-legend .it{display:flex;gap:6px;align-items:flex-start;}
+.kj-legend .sw{width:9px;height:9px;border-radius:2px;flex-shrink:0;margin-top:1px;}
+.kj-legend .lv{font-weight:800;font-variant-numeric:tabular-nums;}
+.kj-legend .lp{color:#5A6B7B;}
+.kj-legend-row{display:flex;gap:14px;font-size:9px;margin-bottom:4px;flex-wrap:wrap;}
+.kj-legend-row .it{display:flex;gap:5px;align-items:center;}
+.kj-legend-row .sw{width:10px;height:10px;border-radius:2px;}
+.kj-legend-row .ln{width:14px;height:0;border-top:2px solid;}
+.kj-legend-row .ln.dash{border-top-style:dashed;}
+.kj-big{display:flex;flex-direction:column;gap:7px;}
+.kj-big .row{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid #EEF2F6;padding-bottom:5px;}
+.kj-big .row .l{font-size:8.5px;font-weight:800;color:#5A6B7B;text-transform:uppercase;letter-spacing:.3px;}
+.kj-big .row .v{font-size:14px;font-weight:800;color:#14202B;font-variant-numeric:tabular-nums;}
+.kj-big .row.small .v{font-size:11px;}
+.kj-big .note{font-size:8.5px;color:#5A6B7B;line-height:1.4;}
+.kj-g-bottom{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;}
+.kj-g-foot{font-size:8px;color:#5A6B7B;margin-top:8px;}
+
+/* Programa (hoja única) */
+.kj-prog{width:100%;border-collapse:collapse;table-layout:fixed;font-size:8.5px;}
+.kj-prog th,.kj-prog td{padding:0;border:none;}
+.kj-prog thead th{font-size:8px;font-weight:800;color:#14202B;background:#E7ECF2;border:1px solid #B9C7D4;text-align:center;padding:2px 0;text-transform:none;letter-spacing:0;}
+.kj-prog thead tr.cal th{background:#fff;color:#5A6B7B;font-weight:600;font-size:7px;border-top:none;}
+.kj-prog td.a{padding:1px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom:1px solid #EEF2F6;color:#14202B;}
+.kj-prog td.a.code{color:#5A6B7B;}
+.kj-prog td.a.r{text-align:right;font-variant-numeric:tabular-nums;}
+.kj-prog tr.grp td.a{background:#DCE6F2;font-weight:800;}
+.kj-prog td.g{height:15px;border-left:1px solid #EEF2F6;border-bottom:1px solid #EEF2F6;position:relative;}
+.kj-prog td.g.pstart{border-left:1px solid #B9C7D4;}
+.kj-prog tr.grp td.g{background:#DCE6F2;}
+.kj-prog td.g .bar{position:absolute;left:0;right:0;top:3px;bottom:3px;background:#A9D18E;}
+.kj-prog td.g .bar.s{left:1px;border-radius:2px 0 0 2px;}
+.kj-prog td.g .bar.e{right:1px;border-radius:0 2px 2px 0;}
+.kj-prog td.g.now{background:rgba(232,118,44,0.09);}
+.kj-prog tr.grp td.g.now{background:#E9DCCF;}
+.kj-prog tr.flow td{font-size:7.6px;text-align:center;border:1px solid #D7E3ED;padding:2px 0;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;}
+.kj-prog tr.flow td.lab{text-align:right;padding-right:6px;font-weight:800;font-size:8px;border:none;}
+.kj-prog tr.flow.neto td:not(.lab){background:#E6F2E1;font-weight:700;}
+.kj-prog tr.flow.paid td:not(.lab){color:#2D5E93;font-weight:700;}
+.kj-prog tr.flow td.now{box-shadow:inset 0 0 0 9999px rgba(232,118,44,0.09);}
+.kj-prog tr.hito td{font-size:7px;text-align:center;color:#8A4B12;font-weight:700;height:13px;}
+.kj-prog tr.hito td.lab{text-align:right;padding-right:6px;color:#14202B;font-size:8px;}
+.kj-prog-bottom > div > svg{width:100%;height:auto;display:block;}
+.kj-prog-bottom{display:grid;grid-template-columns:270px minmax(0,1fr);gap:18px;margin-top:10px;align-items:start;}
+.kj-tot{border-collapse:collapse;font-size:9.5px;width:100%;}
+.kj-tot td{border:1px solid #B9C7D4;padding:3px 7px;font-weight:700;color:#14202B;}
+.kj-tot td.r{text-align:right;font-variant-numeric:tabular-nums;}
+.kj-tot tr.hl td{background:#DCE6F2;font-weight:800;}
+.kj-tot tr.neto td{background:#E6F2E1;font-weight:800;}
+
+/* Visor (modal) */
+.kj-modal .modal-box{max-width:1060px;}
+.kj-modal .modal-actions{flex-wrap:wrap;align-items:center;}
+.kj-modal .kj-modal-title{margin-right:auto;font-size:13px;font-weight:800;color:var(--navy-900);}
+.kj-modal-body{padding:14px 18px 18px;}
+.kj-pdf-frame{width:100%;height:72vh;border:1px solid var(--gray-300);border-radius:8px;background:#f4f4f4;}
+
+@media (max-width: 980px){
+  .kj-grid{grid-template-columns:1fr;}
+  .kj-form-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .kj-form .kj-line{grid-template-columns:1fr 1fr;}
+  .kj-actions{grid-template-columns:1fr;}
+}
+
+@media print{
+  body.printing-kjrec .app, body.printing-kjrec .login-overlay, body.printing-kjrec #statement-modal{display:none !important;}
+  body.printing-kjrec #kj-modal{position:static !important;display:block !important;background:none !important;padding:0 !important;overflow:visible !important;}
+  body.printing-kjrec #kj-modal .modal-box{box-shadow:none !important;max-width:none !important;border-radius:0 !important;}
+  body:not(.printing-kjrec) #kj-modal{display:none !important;}
+  body.printing-kjprog .content > section:not(#view-kanjut){display:none !important;}
+  body.printing-kjprog #view-kanjut > *:not(#kj-tab-programa){display:none !important;}
+  body.printing-kjprog #kj-tab-programa > *:not(.kj-page-wrap){display:none !important;}
+  body.printing-kjprog #kj-tab-programa{display:block !important;border:none !important;padding:0 !important;}
+  .kj-modal-body{padding:0 !important;}
+  .kj-page-wrap{width:auto !important;height:auto !important;overflow:visible !important;margin:0 !important;page-break-after:always;break-after:page;}
+  .kj-page-wrap:last-child{page-break-after:auto;break-after:auto;}
+  .kj-page{position:relative !important;transform:none !important;box-shadow:none !important;}
+  .kj-page, .kj-page *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+}
+.kj-sum tr:last-child td:not(.nob):not(.pct),.kj-estbox tr:last-child td{border-bottom:1px solid #14202B;}
+.kj-tot tr:last-child td{border-bottom:1px solid #B9C7D4;}
+
+/* Franja de indicadores (hoja 1) */
+.kj-strip{display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:12px;margin-top:12px;}
+.kj-st{border:1px solid #D7E3ED;border-radius:6px;padding:8px 12px;}
+.kj-st .h{font-size:10px;font-weight:800;color:#14202B;}
+.kj-st .big{font-size:22px;font-weight:800;color:#1B3A5C;margin:4px 0 5px;font-variant-numeric:tabular-nums;}
+.kj-st .sub{font-size:8.5px;color:#5A6B7B;margin-top:5px;}
+.kj-st-bar{height:7px;background:#E3EAF1;border-radius:4px;overflow:hidden;}
+.kj-st-bar span{display:block;height:100%;background:#3B6EA5;border-radius:4px;}
+.kj-st-donut{display:flex;align-items:center;gap:12px;}
+.kj-prog tr.flow.dif td:not(.lab){color:#9A4A12;font-weight:700;}
+
+/* Corte del programa: línea roja al término del mes en curso */
+.kj-prog td.g.now{background:none;box-shadow:inset -2px 0 0 #D64545;}
+.kj-prog tr.grp td.g.now{background:#DCE6F2;box-shadow:inset -2px 0 0 #D64545;}
+.kj-prog tr.flow td.now{box-shadow:inset -2px 0 0 #D64545;}
 </style>
 </head>
 <body>
@@ -632,6 +859,9 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       <button class="nav-btn" data-view="cobranza">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
         Clientes
+      </button>
+      <button class="nav-btn nav-sub" data-view="kanjut">
+        Aldo Sánchez · Kanjut
       </button>
       <button class="nav-btn" data-view="flujocaja">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
@@ -842,6 +1072,66 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       <footer class="appfoot">AMD Proyectos · Dashboard interno de gastos</footer>
     </section>
 
+    <!-- ===================== VISTA: CLIENTE ALDO SÁNCHEZ (KANJUT) ===================== -->
+    <section id="view-kanjut" class="view">
+      <div class="topbar no-print">
+        <h1>Aldo Sánchez · Residencia Kanjut</h1>
+        <p>Estado de cuenta, recibos y programa de obra — fuente: Recibo 10 y Presupuesto y Programa de Flujos</p>
+      </div>
+
+      <div class="sheet-nav no-print">
+        <button class="sheet-tab kj-tab active" data-kjtab="recibos" onclick="kjSetTab('recibos')">Recibos</button>
+        <button class="sheet-tab kj-tab" data-kjtab="programa" onclick="kjSetTab('programa')">Presupuesto y Programa</button>
+      </div>
+
+      <div id="kj-fb-warn"></div>
+
+      <!-- Pestaña 1: Recibos -->
+      <div id="kj-tab-recibos" class="kj-grid">
+        <div class="kj-col">
+          <div class="panel">
+            <div class="panel-title">Recibos</div>
+            <div class="panel-sub">Genera un recibo nuevo o carga el PDF de uno existente</div>
+            <div class="kj-actions no-print">
+              <div class="kj-action-card">
+                <h4>1 · Generar recibo nuevo</h4>
+                <p>Captura los pagos y genera el recibo de 2 hojas (estado de cuenta + gráficos).</p>
+                <button class="btn-orange" id="kj-new-btn" onclick="kjToggleForm()">+ Nuevo recibo</button>
+              </div>
+              <div class="kj-action-card">
+                <h4>2 · Cargar recibo (PDF)</h4>
+                <label class="kj-drop" id="kj-drop" for="kj-file">
+                  Arrastra aquí el PDF del recibo<br><strong>o toca para seleccionarlo</strong>
+                </label>
+                <input type="file" id="kj-file" accept="application/pdf,image/*" style="display:none;" onchange="kjFileChosen(this.files)">
+              </div>
+            </div>
+            <div id="kj-upload-form"></div>
+            <div id="kj-form-wrap"></div>
+            <div id="kj-list-msg"></div>
+            <div class="table-wrap" id="kj-list"></div>
+          </div>
+        </div>
+        <div class="kj-col">
+          <div class="panel" id="kj-side"></div>
+        </div>
+      </div>
+
+      <!-- Pestaña 2: Presupuesto y Programa -->
+      <div id="kj-tab-programa" class="panel" style="display:none;">
+        <div class="panel-header-row no-print">
+          <div>
+            <div class="panel-title">Presupuesto y Programa de Obra</div>
+            <div class="panel-sub">Una hoja: actividades, programa, flujo programado (neto) y pagado acumulado</div>
+          </div>
+          <button class="btn btn-print" onclick="kjPrintPrograma()">Imprimir (PDF)</button>
+        </div>
+        <div class="kj-page-wrap" id="kj-prog-wrap"><div class="kj-page" id="kj-prog-page"></div></div>
+      </div>
+
+      <footer class="appfoot no-print">AMD Proyectos · Dashboard interno de gastos</footer>
+    </section>
+
   </main>
 </div>
 
@@ -852,6 +1142,19 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       <button class="btn-close" onclick="closeStatement()">✕ Cerrar</button>
     </div>
     <div id="statement-content"></div>
+  </div>
+</div>
+
+
+<div class="modal-overlay kj-modal" id="kj-modal">
+  <div class="modal-box">
+    <div class="modal-actions no-print">
+      <span class="kj-modal-title" id="kj-modal-title"></span>
+      <span id="kj-modal-extra"></span>
+      <button class="btn btn-print" id="kj-modal-print" onclick="kjPrintRecibo()">Imprimir / PDF</button>
+      <button class="btn-close" onclick="kjCloseModal()">✕ Cerrar</button>
+    </div>
+    <div class="kj-modal-body" id="kj-modal-body"></div>
   </div>
 </div>
 
@@ -3291,6 +3594,691 @@ renderValidacion();
 </script>
 
 <script>
+const KJ = {"cliente": "ALDO SÁNCHEZ", "clienteFormal": "ING. ALDO SÁNCHEZ SÁNCHEZ", "proyecto": "RESIDENCIA KANJUT", "proyectoLargo": "RESIDENCIA KANJUT, PORTAL DE VALLE ALTO", "ubicacion": "MONTERREY, NL", "director": "ING. ARMANDO TREVIÑO GARZA", "presupuesto": {"monto": 7624995.84, "iva": 465412.73, "neto": 8090408.57}, "fondoGarantia": 0.0, "semana1": "2026-05-18", "recibos": [{"num": 1, "f": "2026-05-08", "sem": null, "anticipo": true, "lineas": [{"tipo": "EFECTIVO", "f": "2026-05-08", "monto": 300000.0, "iva": 0, "fact": "", "sem": null, "mes": 0}, {"tipo": "TRANSFER", "f": "2026-05-08", "monto": 172413.7931034483, "iva": 27586.21, "fact": "FACT 330", "sem": null, "mes": 0}]}, {"num": 2, "f": "2026-05-28", "sem": 2, "lineas": [{"tipo": "EFECTIVO", "f": "2026-05-28", "monto": 190000.0, "iva": 0, "fact": "", "sem": 2, "mes": 1}]}, {"num": 3, "f": "2026-06-12", "sem": 4, "lineas": [{"tipo": "EFECTIVO", "f": "2026-06-12", "monto": 130000.0, "iva": 0, "fact": "", "sem": 4, "mes": 1}]}, {"num": 4, "f": "2026-06-26", "sem": 6, "lineas": [{"tipo": "EFECTIVO", "f": "2026-06-26", "monto": 110000.0, "iva": 0, "fact": "", "sem": 6, "mes": 2}]}, {"num": 5, "f": "2026-07-10", "sem": 8, "lineas": [{"tipo": "TRANSFER", "f": "2026-07-10", "monto": 168965.51724137933, "iva": 27034.482758620667, "fact": "FACT. 339", "sem": 8, "mes": 2}]}, {"num": 6, "f": "2026-07-24", "sem": 10, "lineas": [{"tipo": "TRANSFER", "f": "2026-07-24", "monto": 129310.365, "iva": 20689.655, "fact": "FACT. 341", "sem": 10, "mes": 3}]}, {"num": 7, "f": "2026-08-07", "sem": 12, "lineas": [{"tipo": "EFECTIVO", "f": "2026-08-07", "monto": 100000.0, "iva": 0, "fact": "", "sem": 10, "mes": 3}, {"tipo": "TRANSFER", "f": "2026-08-07", "monto": 50000.0, "iva": 8000.0, "fact": "FACT. 352", "sem": 12, "mes": 3}]}, {"num": 8, "f": "2026-08-21", "sem": 14, "lineas": [{"tipo": "EFECTIVO", "f": "2026-08-21", "monto": 100000.0, "iva": 0, "fact": "", "sem": 14, "mes": 4}, {"tipo": "TRANSFER", "f": "2026-08-21", "monto": 50000.0, "iva": 8000.0, "fact": "FACT. 345", "sem": 14, "mes": 4}]}, {"num": 9, "f": "2026-09-03", "sem": 16, "lineas": [{"tipo": "TRANSFER", "f": "2026-09-03", "monto": 103448.27586206897, "iva": 16551.72413793103, "fact": "FACT. 350", "sem": 16, "mes": 4}]}, {"num": 10, "f": "2026-09-18", "sem": 18, "lineas": [{"tipo": "EFECTIVO", "f": "2026-09-18", "monto": 100000.0, "iva": 0, "fact": "", "sem": 18, "mes": 5}, {"tipo": "TRANSFER", "f": "2026-09-17", "monto": 100000.0, "iva": 16000.0, "fact": "FACT. 351", "sem": 18, "mes": 5}]}], "programa": {"periodos": [{"label": "Anticipo", "short": "Ant.", "mes": 0, "flujo": 500000, "neto": 530518.88, "acumNeto": 530518.88, "hito": null}, {"label": "Mes 1", "short": "M1", "mes": 1, "flujo": 400000, "neto": 424415.11, "acumNeto": 954933.99, "hito": null}, {"label": "Mes 2", "short": "M2", "mes": 2, "flujo": 400000, "neto": 424415.11, "acumNeto": 1379349.1, "hito": null}, {"label": "Mes 3", "short": "M3", "mes": 3, "flujo": 400000, "neto": 424415.11, "acumNeto": 1803764.21, "hito": null}, {"label": "Mes 4", "short": "M4", "mes": 4, "flujo": 300000, "neto": 318311.33, "acumNeto": 2122075.54, "hito": null}, {"label": "Mes 5", "short": "M5", "mes": 5, "flujo": 425000, "neto": 450941.05, "acumNeto": 2573016.59, "hito": "Firmes y PB", "hitoCorto": "Firmes"}, {"label": "Mes 6", "short": "M6", "mes": 6, "flujo": 550000, "neto": 583570.77, "acumNeto": 3156587.36, "hito": "Pedido losa", "hitoCorto": "Losa"}, {"label": "Mes 7", "short": "M7", "mes": 7, "flujo": 425000, "neto": 450941.05, "acumNeto": 3607528.41, "hito": null}, {"label": "Mes 8", "short": "M8", "mes": 8, "flujo": 550000, "neto": 583570.77, "acumNeto": 4191099.19, "hito": "Pedido losa", "hitoCorto": "Losa"}, {"label": "Mes 9", "short": "M9", "mes": 9, "flujo": 425000, "neto": 450941.05, "acumNeto": 4642040.24, "hito": null}, {"label": "Mes 10", "short": "M10", "mes": 10, "flujo": 400000, "neto": 424415.11, "acumNeto": 5066455.34, "hito": null}, {"label": "Mes 11", "short": "M11", "mes": 11, "flujo": 700000, "neto": 742726.44, "acumNeto": 5809181.78, "hito": "Pedido azulejo", "hitoCorto": "Azulejo"}, {"label": "Mes 12", "short": "M12", "mes": 12, "flujo": 400000, "neto": 424415.11, "acumNeto": 6233596.89, "hito": null}, {"label": "Mes 13", "short": "M13", "mes": 13, "flujo": 400000, "neto": 424415.11, "acumNeto": 6658012.0, "hito": null}, {"label": "Mes 14", "short": "M14", "mes": 14, "flujo": 400000, "neto": 424415.11, "acumNeto": 7082427.1, "hito": null}, {"label": "Mes 15", "short": "M15", "mes": 15, "flujo": 400000, "neto": 424415.11, "acumNeto": 7506842.21, "hito": null}, {"label": "Mes 16", "short": "M16", "mes": 16, "flujo": 400000, "neto": 424415.11, "acumNeto": 7931257.32, "hito": null}, {"label": "Mes 17", "short": "M17", "mes": 17, "flujo": 149995.84, "neto": 159151.25, "acumNeto": 8090408.57, "hito": "Entrega / finiquito", "hitoCorto": "Entrega"}], "granTotal": 7624995.84, "iva": 465412.73, "neto": 8090408.57, "construccion": 7128697.75, "otros": 496298.09, "m2": 473.98, "costoM2": 15273.82, "pctFactura": 0.38410900116635344}, "actividades": [{"code": "1", "n": "Obra Negra", "grp": true, "pct": 0.4845, "costo": 3745911.75, "bar": null}, {"code": "1.1", "n": "Cimentación", "grp": false, "pct": 0.12, "costo": 868738.51, "bar": [2, 7]}, {"code": "1.2", "n": "Firme y Muros PB", "grp": false, "pct": 0.05, "costo": 361974.38, "bar": [8, 11]}, {"code": "1.3", "n": "Losa Entrepiso", "grp": false, "pct": 0.11, "costo": 796343.63, "bar": [10, 11]}, {"code": "1.4", "n": "Muros Planta Alta", "grp": false, "pct": 0.05, "costo": 361974.38, "bar": [12, 15]}, {"code": "1.5", "n": "Losa Azotea", "grp": false, "pct": 0.1, "costo": 723948.76, "bar": [14, 15]}, {"code": "1.6", "n": "Pretiles y Chaflanes", "grp": false, "pct": 0.05, "costo": 361974.38, "bar": [16, 18]}, {"code": "2", "n": "Obra Gris", "grp": true, "pct": 0.104, "costo": 804076, "bar": null}, {"code": "2.1", "n": "Zarpeo y Afine de Muros", "grp": false, "pct": 0.055, "costo": 398171.82, "bar": [17, 20]}, {"code": "2.2", "n": "Empastados", "grp": false, "pct": 0.03, "costo": 217184.63, "bar": [20, 21]}, {"code": "2.3", "n": "Banquetas Perimetrales", "grp": false, "pct": 0.04, "costo": 289579.5, "bar": [22, 23]}, {"code": "3", "n": "Acabados", "grp": true, "pct": 0.34, "costo": 2578710, "bar": null}, {"code": "3.1", "n": "Yesos", "grp": false, "pct": 0.065, "costo": 492547.5, "bar": [18, 23]}, {"code": "3.2", "n": "Azulejos", "grp": false, "pct": 0.15, "costo": 1139725, "bar": [20, 27]}, {"code": "3.5", "n": "Accesorios eléctricos y muebles sanitarios", "grp": false, "pct": 0.07, "costo": 531205, "bar": [26, 29]}, {"code": "3.6", "n": "Otros (detalles de proyecto)", "grp": false, "pct": 0.055, "costo": 415232.5, "bar": [30, 33]}, {"code": "", "n": "Otros Trabajos", "grp": true, "pct": null, "costo": 496298.09, "bar": null}, {"code": "", "n": "Cisterna", "grp": false, "pct": null, "costo": 143376.09, "bar": [16, 17]}, {"code": "", "n": "Muro de contención", "grp": false, "pct": null, "costo": 352922, "bar": [0, 1]}], "conceptoDefault": "TRABAJOS DE “CONSTRUCCIÓN RESIDENCIA KANJUT”, PROYECTO UBICADO EN MONTERREY, NL"};
+/* =========================================================
+   CLIENTE ALDO SÁNCHEZ · RESIDENCIA KANJUT
+   Fuente única: Recibo 10 (18-sep-2026) + "Presupuesto y Programa de Flujos - Kanjut".
+   Independiente del resto de Clientes (COB_DATA).
+   ========================================================= */
+const KJ_MES_LARGO = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+const KJ_MES_CORTO = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+const KJ_C = { pag:'#3B6EA5', pagLight:'#8DB0D6', saldo:'#D96B1F', prog:'#5A6B7B', progBar:'#B9C7D4', rest:'#E3EAF1', ink:'#14202B', muted:'#5A6B7B', grid:'#E6ECF2' };
+
+let kjRecibosExtra = [];   // recibos generados y guardados (Firestore kanjut_recibos)
+let kjPdfs = [];           // PDFs cargados (Firestore kanjut_pdfs)
+let kjDraft = null;        // recibo en vista previa, aún sin guardar
+let kjFormOpen = false;
+let kjUpload = null;       // {name, type, size, b64}
+let kjMsg = '';
+let kjFbStatus = 'pending'; // pending | ok | error
+let kjModalMode = null;    // 'draft' | 'view' | 'pdf'
+let kjPdfUrl = null;
+
+/* ---------- utilidades ---------- */
+function kjR(x){ return Math.round((Math.abs(x)*100) + 1e-6)/100 * (x<0?-1:1); }
+function kjN(x){ // 1,234,567.89
+  const v = kjR(x);
+  const s = Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2});
+  return (v<0?'-':'') + s;
+}
+function kjM(x){ return '$ ' + kjN(x); }
+function kjPct(x, d){ return (x*100).toFixed(d===undefined?2:d) + '%'; }
+function kjK(x){ // compacto para gráficas / programa
+  const a = Math.abs(x);
+  if(a >= 1e6) return '$' + (x/1e6).toFixed(2) + 'M';
+  if(a >= 1e3) return '$' + Math.round(x/1e3) + 'k';
+  return '$' + Math.round(x);
+}
+function kjDate(iso){ const [y,m,d] = iso.split('-').map(Number); return new Date(y, m-1, d, 12); }
+function kjIso(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function kjDays(iso){ return Math.floor((kjDate(iso) - kjDate(KJ.semana1)) / 86400000); }
+function kjSemOf(iso){ return Math.max(1, Math.floor(kjDays(iso)/7) + 1); }
+function kjMesOf(iso){ return Math.max(1, Math.floor(kjDays(iso)/28) + 1); }
+function kjFechaCorta(iso){ const d = kjDate(iso); return String(d.getDate()).padStart(2,'0') + '-' + KJ_MES_CORTO[d.getMonth()]; }
+function kjFechaLarga(iso){ const d = kjDate(iso); return d.getDate() + ' DE ' + KJ_MES_LARGO[d.getMonth()]; }
+function kjPad(n){ return String(n).padStart(2,'0'); }
+function kjMesIdx(m){ if(!m || m<=0) return 0; return Math.min(m, KJ.programa.periodos.length-1); }
+function kjTotalLinea(l){ return l.monto + (l.iva||0); }
+function kjTituloRecibo(r){ return (r.anticipo ? 'ANTICIPO' : 'ESTIMACIÓN SEMANA ' + escXml(r.sem||'')) + ' - RECIBO ' + kjPad(r.num); }
+
+function kjNumLetras(n){
+  const U = ['','uno','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce','trece','catorce','quince','dieciséis','diecisiete','dieciocho','diecinueve','veinte','veintiuno','veintidós','veintitrés','veinticuatro','veinticinco','veintiséis','veintisiete','veintiocho','veintinueve'];
+  const D = ['','','','treinta','cuarenta','cincuenta','sesenta','setenta','ochenta','noventa'];
+  const C = ['','ciento','doscientos','trescientos','cuatrocientos','quinientos','seiscientos','setecientos','ochocientos','novecientos'];
+  const cien = (k)=>{
+    if(k===0) return '';
+    if(k===100) return 'cien';
+    const c = Math.floor(k/100), r = k%100;
+    let s = C[c];
+    if(r) s += (s?' ':'') + (r<30 ? U[r] : D[Math.floor(r/10)] + (r%10 ? ' y '+U[r%10] : ''));
+    return s;
+  };
+  const apoc = (k)=> cien(k).replace(/veintiuno$/,'veintiún').replace(/uno$/,'un');
+  const entero = (k)=>{
+    if(k===0) return 'cero';
+    const mi = Math.floor(k/1e6), th = Math.floor((k%1e6)/1000), re = k%1000, parts = [];
+    if(mi) parts.push(mi===1 ? 'un millón' : apoc(mi)+' millones');
+    if(th) parts.push(th===1 ? 'mil' : apoc(th)+' mil');
+    if(re) parts.push(cien(re));
+    return parts.join(' ');
+  };
+  const v = kjR(n), ent = Math.floor(v + 1e-9), cents = Math.round((v-ent)*100);
+  const de = (ent>0 && ent%1e6===0) ? ' de' : '';
+  return `${entero(ent)}${de} pesos ${kjPad(cents)}/100 M.N.`;
+}
+
+/* ---------- recibos: históricos + generados ---------- */
+function kjAllRecibos(){
+  const seeds = KJ.recibos.map(r=>({...r, _seed:true}));
+  return seeds.concat(kjRecibosExtra).sort((a,b)=>a.num-b.num);
+}
+function kjNextNum(){
+  const nums = kjAllRecibos().map(r=>r.num);
+  return Math.max.apply(null, nums.concat([0])) + 1;
+}
+function kjRecibiMonto(r){ return (r.recibi!=null && r.recibi!=='') ? r.recibi : r.lineas.reduce((s,l)=>s+l.monto,0); }
+
+// Estado de cuenta acumulado hasta el recibo indicado (incluyéndolo).
+function kjEstado(hastaNum, draft){
+  const P = KJ.presupuesto;
+  let recs = kjAllRecibos().filter(r=>r.num<=hastaNum);
+  if(draft){ recs = recs.filter(r=>r.num!==draft.num).concat([draft]).sort((a,b)=>a.num-b.num); }
+  const ant = [], pagos = [];
+  recs.forEach(r=> r.lineas.forEach(l=> (r.anticipo ? ant : pagos).push({...l, num:r.num})));
+  const sum = (arr,f)=> arr.reduce((s,x)=>s+f(x),0);
+  const a = { monto:sum(ant,l=>l.monto), iva:sum(ant,l=>l.iva||0), total:sum(ant,kjTotalLinea) };
+  const pctAnt = a.monto / P.monto;
+  pagos.forEach(l=>{ l.total = kjTotalLinea(l); l.amort = l.monto*pctAnt; l.est = l.monto + l.amort; });
+  const p = { monto:sum(pagos,l=>l.monto), iva:sum(pagos,l=>l.iva||0), total:sum(pagos,l=>l.total), amort:sum(pagos,l=>l.amort), est:sum(pagos,l=>l.est) };
+  const acum = { monto:p.monto+a.monto, iva:p.iva+a.iva, neto:p.total+a.total };
+  const saldo = { monto:P.monto-acum.monto, iva:P.iva-acum.iva, neto:P.neto-acum.neto };
+  // programa vs pagado por periodo (montos netos = con IVA)
+  const per = KJ.programa.periodos;
+  const pagPer = per.map(()=>0);
+  pagPer[0] += a.total;
+  pagos.forEach(l=>{ pagPer[kjMesIdx(l.mes)] += l.total; });
+  const curMes = pagos.reduce((m,l)=>Math.max(m, l.mes||0), 0);
+  const curIdx = kjMesIdx(curMes);
+  let run = 0;
+  const acumPag = pagPer.map(v=> (run += v));
+  const ultimo = recs[recs.length-1];
+  return { P, ant, pagos, a, pctAnt, p, acum, saldo, pctPagado:acum.neto/P.neto, pctEst:p.est/P.monto, pctAmort:(a.monto? p.amort/a.monto : 0),
+           pagPer, acumPag, curMes, curIdx, progAlCorte: per[curIdx].acumNeto, recibo:ultimo };
+}
+
+/* ---------- gráficas SVG ---------- */
+function kjArc(cx, cy, r0, r1, a0, a1){
+  const p = (r,a)=> [cx + r*Math.cos(a), cy + r*Math.sin(a)];
+  const large = (a1-a0) > Math.PI ? 1 : 0;
+  const [x0,y0] = p(r1,a0), [x1,y1] = p(r1,a1), [x2,y2] = p(r0,a1), [x3,y3] = p(r0,a0);
+  return `M${x0.toFixed(2)},${y0.toFixed(2)} A${r1},${r1} 0 ${large} 1 ${x1.toFixed(2)},${y1.toFixed(2)} L${x2.toFixed(2)},${y2.toFixed(2)} A${r0},${r0} 0 ${large} 0 ${x3.toFixed(2)},${y3.toFixed(2)} Z`;
+}
+function kjDonut(segs, size, centerBig, centerSmall){
+  const total = segs.reduce((s,x)=>s+Math.max(0,x.v),0) || 1;
+  const cx = size/2, cy = size/2, r1 = size/2 - 2, r0 = r1 * 0.62;
+  let a = -Math.PI/2;
+  const gap = 0.012;
+  let paths = '';
+  segs.forEach(s=>{
+    const frac = Math.max(0,s.v)/total; if(frac<=0) return;
+    const a1 = a + frac*2*Math.PI;
+    const g = frac < 0.999 ? gap : 0;
+    paths += `<path d="${kjArc(cx,cy,r0,r1,a+g/2,a1-g/2)}" fill="${s.c}"><title>${escXml(s.l)}: ${kjM(s.v)} (${kjPct(frac,1)})</title></path>`;
+    a = a1;
+  });
+  return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" role="img">${paths}
+    <text x="${cx}" y="${cy-1}" text-anchor="middle" font-size="${(size*0.13).toFixed(1)}" font-weight="800" fill="${KJ_C.ink}">${centerBig}</text>
+    <text x="${cx}" y="${cy+size*0.1}" text-anchor="middle" font-size="${(size*0.068).toFixed(1)}" fill="${KJ_C.muted}">${centerSmall}</text></svg>`;
+}
+function kjNiceMax(v){
+  const p = Math.pow(10, Math.floor(Math.log10(v))); const n = v/p;
+  const m = n<=1?1 : n<=2?2 : n<=2.5?2.5 : n<=5?5 : 10;
+  return m*p;
+}
+// Acumulado programado vs acumulado pagado (una sola escala)
+function kjChartAcumulado(E, W, H, opts){
+  opts = opts || {};
+  const per = KJ.programa.periodos, n = per.length;
+  const L = opts.compact?38:46, R = opts.compact?8:14, T = 10, B = 20, pw = W-L-R, ph = H-T-B;
+  const maxV = kjNiceMax(per[n-1].acumNeto);
+  const x = i=> L + (n===1?0:i*pw/(n-1));
+  const y = v=> T + ph - (v/maxV)*ph;
+  let g = '';
+  for(let i=0;i<=4;i++){ const v = maxV*i/4, yy = y(v);
+    g += `<line x1="${L}" x2="${W-R}" y1="${yy}" y2="${yy}" stroke="${KJ_C.grid}"/><text x="${L-5}" y="${yy+3}" text-anchor="end" font-size="8" fill="${KJ_C.muted}">${kjK(v)}</text>`; }
+  const progPts = per.map((p,i)=>[x(i), y(p.acumNeto)]);
+  const pagPts = E.acumPag.slice(0, E.curIdx+1).map((v,i)=>[x(i), y(v)]);
+  const pl = pts=> pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+','+q[1].toFixed(1)).join(' ');
+  // área tenue entre ambas curvas hasta el corte
+  const gapPoly = progPts.slice(0, E.curIdx+1).concat(pagPts.slice().reverse());
+  let s = `<path d="${pl(gapPoly)} Z" fill="rgba(217,107,31,0.10)"/>`;
+  s += `<path d="${pl(progPts)}" fill="none" stroke="${KJ_C.prog}" stroke-width="2" stroke-dasharray="5 3"/>`;
+  s += `<path d="${pl(pagPts)}" fill="none" stroke="${KJ_C.pag}" stroke-width="2.5"/>`;
+  progPts.forEach((q,i)=>{ s += `<circle cx="${q[0]}" cy="${q[1]}" r="6" fill="transparent"><title>${per[i].label} · programado acumulado ${kjM(per[i].acumNeto)}</title></circle>`; });
+  pagPts.forEach((q,i)=>{ s += `<circle cx="${q[0]}" cy="${q[1]}" r="3" fill="${KJ_C.pag}" stroke="#fff" stroke-width="1.5"><title>${per[i].label} · pagado acumulado ${kjM(E.acumPag[i])}</title></circle>`; });
+  const cx = x(E.curIdx), cyP = y(per[E.curIdx].acumNeto), cyA = y(E.acumPag[E.curIdx]);
+  s += `<line x1="${cx}" x2="${cx}" y1="${T}" y2="${y(0)}" stroke="#D64545" stroke-width="1.5"/>`;
+  s += `<text x="${cx+4}" y="${T+8}" font-size="${opts.compact?7.5:8.5}" font-weight="800" fill="#D64545">Al término del ${escXml(per[E.curIdx].label)}</text>`;
+  s += `<circle cx="${cx}" cy="${cyP}" r="3" fill="${KJ_C.prog}" stroke="#fff" stroke-width="1.5"/>`;
+  const fs = opts.compact ? 8 : 8.5;
+  s += `<text x="${cx-6}" y="${cyP-8}" text-anchor="end" font-size="${fs}" font-weight="700" fill="${KJ_C.ink}">Programado ${kjK(per[E.curIdx].acumNeto)}</text>`;
+  s += `<text x="${cx+6}" y="${cyA+12}" font-size="${fs}" font-weight="700" fill="${KJ_C.pag}">Pagado ${kjK(E.acumPag[E.curIdx])}</text>`;
+  const dif = per[E.curIdx].acumNeto - E.acumPag[E.curIdx];
+  if(dif > 0 && (cyA - cyP) > 6){
+    const bx = cx + 4;
+    s += `<path d="M${bx},${cyP+2} L${bx+5},${cyP+2} L${bx+5},${cyA-2} L${bx},${cyA-2}" fill="none" stroke="${KJ_C.saldo}" stroke-width="1.5"/>`;
+    s += `<text x="${bx+9}" y="${(cyP+cyA)/2+3}" font-size="${opts.compact?8:9}" font-weight="800" fill="#9A4A12">Diferencia ${opts.compact?kjK(dif):kjM(dif)}</text>`;
+  }
+  if(!opts.compact) s += `<text x="${x(n-1)}" y="${y(per[n-1].acumNeto)-6}" text-anchor="end" font-size="8" fill="${KJ_C.muted}">${kjK(per[n-1].acumNeto)}</text>`;
+  let xl = '';
+  per.forEach((p,i)=>{ if(opts.compact && i%2===1 && i!==E.curIdx) return;
+    xl += `<text x="${x(i)}" y="${H-6}" text-anchor="middle" font-size="7.5" fill="${i===E.curIdx?KJ_C.ink:KJ_C.muted}" font-weight="${i===E.curIdx?800:400}">${p.short}</text>`; });
+  return `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img">${g}<line x1="${L}" x2="${W-R}" y1="${y(0)}" y2="${y(0)}" stroke="#B9C7D4"/>${s}${xl}</svg>`;
+}
+
+/* ---------- Hoja 1: estado de cuenta (formato del recibo) ---------- */
+function kjPageHeader(titulo){
+  return `<div class="kj-ph">
+    <div><div class="t1">${titulo}</div>
+      <div class="t2"><b>CLIENTE:</b> ${escXml(KJ.cliente)}</div>
+      <div class="t2" style="margin-top:6px;"><b>PROYECTO:</b> ${escXml(KJ.proyecto)}</div></div>
+    <div class="kj-logo"><div class="m">amd.</div><div class="p">PROYECTOS</div></div>
+  </div>`;
+}
+function kjHoja1(E){
+  const r = E.recibo, P = E.P;
+  const recibi = kjRecibiMonto(r);
+  const concepto = r.concepto || KJ.conceptoDefault;
+  const nLines = E.ant.length + E.pagos.length;
+  const dens = nLines > 26 ? 'xdense' : (nLines > 14 ? 'dense' : '');
+  const cols = `<colgroup><col style="width:34px"><col style="width:48px"><col style="width:150px"><col style="width:20px"><col style="width:72px"><col style="width:20px"><col style="width:60px"><col style="width:20px"><col style="width:74px"><col style="width:62px"><col style="width:96px"><col style="width:44px"><col style="width:20px"><col style="width:70px"><col style="width:20px"><col style="width:76px"></colgroup>`;
+  const row = (l, cls, isAnt)=>{
+    const tot = kjTotalLinea(l);
+    const ivaCell = (l.iva||0) > 0 ? `<td class="r">$</td><td class="r">${kjN(l.iva)}</td>` : `<td></td><td class="c">-</td>`;
+    const totCell = `<td class="r">$</td><td class="r">${kjN(tot)}</td>`;
+    const sem = isAnt ? '-' : (l.sem ? 'SEM ' + l.sem : '');
+    const amort = isAnt ? `<td class="gap"></td><td class="L2"></td><td></td><td></td><td class="R2"></td>`
+      : `<td class="gap"></td><td class="r L2">$</td><td class="r">${kjN(l.amort)}</td><td class="r">$</td><td class="r R2">${kjN(l.est)}</td>`;
+    return `<tr class="ln ${cls}"><td class="c L">${isAnt?0:(l.mes||'')}</td><td class="c">${kjFechaCorta(l.f)}</td>
+      <td>RECIBO ${kjPad(l.num)} - ${escXml(l.tipo)}</td><td class="r">$</td><td class="r">${kjN(l.monto)}</td>${ivaCell}${totCell}
+      <td class="c b">${sem}</td><td class="c b R">${escXml(l.fact || '-')}</td>${amort}</tr>`;
+  };
+  let body = '';
+  E.ant.forEach((l,i)=>{ body += row(l, (i===0?'mesbreak':'') + (i===E.ant.length-1?' last':''), true); });
+  body += `<tr class="tot"><td class="nob"></td><td class="nob"></td><td class="tt c">TOTAL ANTICIPO</td><td class="tt r">$</td><td class="tt r">${kjN(E.a.monto)}</td><td class="tt r">$</td><td class="tt r">${kjN(E.a.iva)}</td><td class="tt r">$</td><td class="tt r">${kjN(E.a.total)}</td><td colspan="7" class="nob"></td></tr>`;
+  body += `<tr class="spacer"><td colspan="16" class="nob"></td></tr>`;
+  let prevMes = null;
+  E.pagos.forEach((l,i)=>{
+    const brk = (prevMes===null || l.mes!==prevMes) ? 'mesbreak' : '';
+    prevMes = l.mes;
+    body += row(l, brk + (i===E.pagos.length-1?' last':''), false);
+  });
+  body += `<tr class="tot"><td class="nob"></td><td class="nob"></td><td class="ttb c">TOTAL PAGADO</td><td class="ttb r">$</td><td class="ttb r">${kjN(E.p.monto)}</td><td class="ttb r">$</td><td class="ttb r">${kjN(E.p.iva)}</td><td class="ttb r">$</td><td class="ttb r">${kjN(E.p.total)}</td><td colspan="2" class="nob"></td><td class="gap"></td><td class="ttb r">$</td><td class="ttb r">${kjN(E.p.amort)}</td><td class="ttb r">$</td><td class="ttb r">${kjN(E.p.est)}</td></tr>`;
+
+  return `<div class="kj-page">
+    ${kjPageHeader('ESTADO DE CUENTA GLOBAL')}
+    <div class="kj-top">
+      <div class="kj-top-left">
+        <div class="kj-titlerow"><div class="t">${kjTituloRecibo(r)}</div><div class="kj-fecha">FECHA:&nbsp; ${kjFechaLarga(r.f)}</div></div>
+        <div class="kj-recibi">RECIBÍ DEL ${escXml(KJ.clienteFormal)}, &nbsp;${kjN(recibi)} ( ${escXml(kjNumLetras(recibi))} ) . POR CONCEPTO DE ${escXml(concepto)}</div>
+        <div class="kj-firma">DIRECTOR DE PROYECTOS - ${escXml(KJ.director)}</div>
+        <div class="kj-sect">RESÚMEN DE PAGOS</div>
+      </div>
+      <table class="kj-ppto">
+        <tr><td class="r">MONTO PRESUPUESTO</td><td>$</td><td></td><td class="r">${kjN(P.monto)}</td></tr>
+        <tr><td class="r">IVA&nbsp; PRESUPUESTO</td><td>$</td><td></td><td class="r">${kjN(P.iva)}</td></tr>
+        <tr class="sep"><td class="r">TOTAL NETO PRESUPUESTO</td><td>$</td><td></td><td class="r">${kjN(P.neto)}</td></tr>
+        <tr class="gap"><td colspan="4"></td></tr>
+        <tr class="sep"><td class="r">ANTICIPO</td><td>$</td><td class="r">${kjN(E.a.monto)}</td><td class="r">${kjPct(E.pctAnt)}</td></tr>
+        <tr><td class="r">FONDO GARANTÍA</td><td>$</td><td class="r">${KJ.fondoGarantia ? kjN(KJ.fondoGarantia) : '-'}</td><td class="r">${kjPct(KJ.fondoGarantia/P.monto)}</td></tr>
+      </table>
+    </div>
+    <table class="kj-tbl ${dens}">${cols}
+      <thead><tr><th>MES</th><th>FECHA</th><th>CONCEPTO</th><th colspan="2">MONTO</th><th colspan="2">IVA</th><th colspan="2">TOTAL</th><th>SEM. PROY.</th><th>FACT.</th><th class="gap"></th><th colspan="2">AMORTIZACIÓN</th><th colspan="2">TOTAL ESTIMADO</th></tr></thead>
+      <tbody>${body}</tbody>
+    </table>
+    <div class="kj-bottom">
+      <table class="kj-sum">
+        <tr><td class="nob"></td><th colspan="2">PRESUPUESTO</th><th>IVA</th><th colspan="2">TOTAL NETO</th><td class="nob"></td></tr>
+        <tr><td class="lbl">PAGADO TOTAL + ANTICIPO</td><td class="r" style="border-right:none;">$</td><td class="r" style="border-left:none;">${kjN(E.acum.monto)}</td><td class="r">$${kjN(E.acum.iva)}</td><td class="r" style="border-right:none;">$</td><td class="r" style="border-left:none;">${kjN(E.acum.neto)}</td><td class="nob" style="padding-left:10px;">$&nbsp;&nbsp;&nbsp;${kjN(P.neto)}</td></tr>
+        <tr class="saldo"><td class="lbl">SALDO</td><td class="r" style="border-right:none;">$</td><td class="r" style="border-left:none;">${kjN(E.saldo.monto)}</td><td class="r">$${kjN(E.saldo.iva)}</td><td class="r" style="border-right:none;">$</td><td class="r" style="border-left:none;">${kjN(E.saldo.neto)}</td><td class="pct">${kjPct(E.pctPagado)}</td></tr>
+      </table>
+      <table class="kj-estbox">
+        <tr><td>TOTAL ESTIMADO</td><td>$</td><td class="r">${kjN(E.p.est)}</td></tr>
+        <tr><td style="text-align:center;">% ESTIMADO</td><td colspan="2" class="r" style="text-align:center;">${kjPct(E.pctEst)}</td></tr>
+        <tr class="gap"><td colspan="3"></td></tr>
+        <tr><td>TOTAL AMORT.</td><td>$</td><td class="r">${kjN(E.p.amort)}</td></tr>
+      </table>
+    </div>
+    ${kjFranjaIndicadores(E)}
+  </div>`;
+}
+
+function kjFranjaIndicadores(E){
+  const P = E.P;
+  const bar = (pct)=> `<div class="kj-st-bar"><span style="width:${Math.max(0,Math.min(100,pct*100)).toFixed(1)}%"></span></div>`;
+  const donut = kjDonut([
+    {l:'Pagado total + anticipo', v:E.acum.neto, c:KJ_C.pag},
+    {l:'Saldo pendiente', v:Math.max(0,E.saldo.neto), c:KJ_C.saldo}], 92, kjPct(E.pctPagado,1), 'pagado');
+  return `<div class="kj-strip">
+    <div class="kj-st"><div class="h">Avance estimado</div><div class="big">${kjPct(E.pctEst,1)}</div>${bar(E.pctEst)}
+      <div class="sub">${kjM(E.p.est)} estimado de ${kjM(P.monto)} (sin IVA)</div></div>
+    <div class="kj-st"><div class="h">Anticipo amortizado</div><div class="big">${kjPct(E.pctAmort,1)}</div>${bar(E.pctAmort)}
+      <div class="sub">${kjM(E.p.amort)} amortizado de ${kjM(E.a.monto)}</div></div>
+    <div class="kj-st kj-st-donut">${donut}<div><div class="h">Pagado vs. saldo pendiente</div><div class="kj-legend" style="margin-top:6px;">
+      <div class="it"><span class="sw" style="background:${KJ_C.pag}"></span><div>Pagado total + anticipo<div class="lv">${kjM(E.acum.neto)} <span class="lp">· ${kjPct(E.pctPagado,1)}</span></div></div></div>
+      <div class="it"><span class="sw" style="background:${KJ_C.saldo}"></span><div>Saldo pendiente<div class="lv">${kjM(E.saldo.neto)} <span class="lp">· ${kjPct(E.saldo.neto/P.neto,1)}</span></div></div></div>
+    </div><div class="sub" style="margin-top:3px;">Montos netos (con IVA)</div></div></div>
+  </div>`;
+}
+
+/* ---------- Hoja única: Presupuesto y Programa ---------- */
+function kjHojaPrograma(E){
+  E = E || kjEstado(9999);
+  const prog = KJ.programa, per = prog.periodos;
+  const nowIdx = E.curIdx;
+  const halves = (per.length-1)*2; // sin anticipo
+  // Cada periodo dura 4 semanas a partir de la semana 1.
+  const cal = (idx)=>{ if(idx<1) return ''; const d = new Date(kjDate(KJ.semana1).getTime() + (idx-1)*28*86400000); return d.getDate()+' '+KJ_MES_CORTO[d.getMonth()]; };
+  let colg = `<colgroup><col style="width:24px"><col style="width:150px"><col style="width:34px"><col style="width:66px"><col style="width:34px">`;
+  for(let i=0;i<halves;i++) colg += `<col>`;
+  colg += `</colgroup>`;
+  let h1 = `<tr><th colspan="4" style="text-align:left;padding-left:5px;">ACTIVIDAD</th><th>ANT.</th>`;
+  let h2 = `<tr class="cal"><th colspan="2" style="text-align:left;padding-left:5px;"></th><th>% ETAPA</th><th>COSTO</th><th></th>`;
+  per.slice(1).forEach((p,k)=>{ const now = (k+1)===nowIdx ? ' style="box-shadow:inset -2px 0 0 #D64545;color:#D64545;"' : '';
+    h1 += `<th colspan="2"${now}>${p.short}</th>`; h2 += `<th colspan="2">${cal(k+1)}</th>`; });
+  h1 += `</tr>`; h2 += `</tr>`;
+  let rows = '';
+  KJ.actividades.forEach(a=>{
+    const pct = a.pct!=null ? (a.pct*100).toFixed(1)+'%' : '';
+    let cells = `<td class="g pstart"></td>`;
+    for(let i=0;i<halves;i++){
+      const pIdx = 1 + Math.floor(i/2);
+      const cls = 'g' + (i%2===0 ? ' pstart' : '') + (pIdx===nowIdx && i%2===1 ? ' now' : '');
+      let bar = '';
+      if(a.bar && i>=a.bar[0] && i<=a.bar[1]) bar = `<div class="bar${i===a.bar[0]?' s':''}${i===a.bar[1]?' e':''}"></div>`;
+      cells += `<td class="${cls}">${bar}</td>`;
+    }
+    rows += `<tr class="${a.grp?'grp':''}"><td class="a code">${escXml(a.code)}</td><td class="a">${escXml(a.n)}</td><td class="a r">${pct}</td><td class="a r">${kjN(a.costo)}</td>${cells}</tr>`;
+  });
+  const flowRow = (label, vals, cls, fmt)=>{
+    let s = `<tr class="flow ${cls}"><td colspan="4" class="lab">${label}</td>`;
+    vals.forEach((v,i)=>{ const span = i===0?1:2; const now = i===nowIdx?' now':'';
+      s += `<td colspan="${span}" class="${now}" title="${per[i].label}: ${v==null?'—':kjM(v)}">${v==null?'—':fmt(v)}</td>`; });
+    return s + `</tr>`;
+  };
+  let hito = `<tr class="hito"><td colspan="4" class="lab">Hitos</td>`;
+  per.forEach((p,i)=>{ hito += `<td colspan="${i===0?1:2}" title="${escXml(p.hito||'')}">${p.hito?'◆ '+escXml(p.hitoCorto||p.hito):''}</td>`; });
+  hito += `</tr>`;
+  const upTo = (arr)=> arr.map((v,i)=> i<=E.curIdx ? v : null);
+  const difVals = upTo(per.map((p,i)=> p.acumNeto - E.acumPag[i]));
+  const tabla = `<table class="kj-prog">${colg}<thead>${h1}${h2}</thead><tbody>${rows}
+    <tr><td colspan="${5+halves}" style="height:6px;"></td></tr>
+    ${hito}
+    ${flowRow('Flujo programado / periodo (sin IVA)', per.map(p=>p.flujo), '', kjK)}
+    ${flowRow('Programado NETO / periodo', per.map(p=>p.neto), 'neto', kjK)}
+    ${flowRow('Pagado NETO / periodo', upTo(E.pagPer), 'paid', kjK)}
+    <tr><td colspan="${5+halves}" style="height:5px;"></td></tr>
+    ${flowRow('Acumulado programado (NETO)', per.map(p=>p.acumNeto), 'neto', kjK)}
+    ${flowRow('Acumulado pagado (NETO)', upTo(E.acumPag), 'paid', kjK)}
+    ${flowRow('Diferencia acumulada', difVals, 'dif', kjK)}
+  </tbody></table>`;
+  return `<div class="kj-page">
+    ${kjPageHeader('PRESUPUESTO Y PROGRAMA DE OBRA')}
+    <div style="display:flex;justify-content:space-between;font-size:9px;margin:-6px 0 8px;color:#5A6B7B;">
+      <span><b style="color:#14202B;">${escXml(KJ.proyectoLargo)}</b></span>
+      <span>${kjN(prog.m2)} m² de construcción · ${kjM(prog.costoM2)} /m² · Al ${E.recibo ? 'Recibo '+kjPad(E.recibo.num)+' ('+kjFechaLarga(E.recibo.f).toLowerCase()+')' : ''}: <b style="color:#14202B;">${escXml(per[nowIdx].label)}</b></span>
+    </div>
+    ${tabla}
+    <div class="kj-prog-bottom">
+      <table class="kj-tot">
+        <tr><td>Construcción</td><td class="r">${kjM(prog.construccion)}</td></tr>
+        <tr><td>Otros trabajos</td><td class="r">${kjM(prog.otros)}</td></tr>
+        <tr class="hl"><td>Gran total (sin IVA)</td><td class="r">${kjM(prog.granTotal)}</td></tr>
+        <tr><td>IVA ajustado</td><td class="r">${kjM(prog.iva)}</td></tr>
+        <tr class="neto"><td>Neto</td><td class="r">${kjM(prog.neto)}</td></tr>
+        <tr><td>Pagado a la fecha (neto)</td><td class="r">${kjM(E.acum.neto)}</td></tr>
+      </table>
+      <div>
+        <div class="kj-legend-row"><span class="it"><span class="ln dash" style="border-color:${KJ_C.prog}"></span>Programado acumulado (neto)</span><span class="it"><span class="ln" style="border-color:${KJ_C.pag}"></span>Pagado acumulado</span><span class="it"><span class="sw" style="background:#A9D18E"></span>Programa de obra</span></div>
+        ${kjChartAcumulado(E, 600, 128, {})}
+      </div>
+    </div>
+  </div>`;
+}
+
+/* ---------- escalado de hojas en pantalla ---------- */
+function kjFitPages(root){
+  (root||document).querySelectorAll('.kj-page-wrap').forEach(w=>{
+    const page = w.querySelector('.kj-page'); if(!page) return;
+    const par = w.parentElement, cs = par ? getComputedStyle(par) : null;
+    const inner = par ? par.clientWidth - parseFloat(cs.paddingLeft||0) - parseFloat(cs.paddingRight||0) : 0;
+    const avail = inner > 0 ? inner : 970;
+    const s = Math.min(1, avail/970);
+    page.style.transform = `scale(${s})`;
+    w.style.width = (970*s)+'px';
+    w.style.height = (720*s)+'px';
+  });
+}
+window.addEventListener('resize', debounce(()=>kjFitPages(), 150));
+
+/* ---------- pestañas ---------- */
+function kjSetTab(t){
+  document.querySelectorAll('.kj-tab').forEach(b=>b.classList.toggle('active', b.dataset.kjtab===t));
+  document.getElementById('kj-tab-recibos').style.display = t==='recibos' ? '' : 'none';
+  document.getElementById('kj-tab-programa').style.display = t==='programa' ? '' : 'none';
+  if(t==='programa'){ kjRenderPrograma(); }
+}
+function kjRenderPrograma(){
+  const el = document.getElementById('kj-prog-page'); if(!el) return;
+  const last = kjAllRecibos().slice(-1)[0];
+  el.outerHTML = kjHojaPrograma(kjEstado(last.num)).replace('<div class="kj-page">','<div class="kj-page" id="kj-prog-page">');
+  kjFitPages(document.getElementById('kj-tab-programa'));
+}
+function kjPrintPrograma(){
+  document.body.classList.add('printing-kjprog');
+  triggerPrint();
+  setTimeout(()=>document.body.classList.remove('printing-kjprog'), 4000);
+}
+
+/* ---------- panel derecho: resumen ---------- */
+function kjRenderSide(){
+  const el = document.getElementById('kj-side'); if(!el) return;
+  const last = kjAllRecibos().slice(-1)[0];
+  const E = kjEstado(last.num);
+  const corte = KJ.programa.periodos[E.curIdx];
+  el.innerHTML = `
+    <div class="panel-title">Estado de cuenta al Recibo ${kjPad(last.num)}</div>
+    <div class="panel-sub">${kjFechaLarga(last.f).toLowerCase()} · montos netos (con IVA)</div>
+    <div class="kj-kpis">
+      <div class="kj-kpi"><span class="l">Presupuesto neto</span><span class="v">${kjM(E.P.neto)}</span></div>
+      <div class="kj-kpi"><span class="l">Pagado + anticipo</span><span class="v">${kjM(E.acum.neto)}</span></div>
+      <div class="kj-kpi accent"><span class="l">Saldo</span><span class="v">${kjM(E.saldo.neto)}</span></div>
+      <div class="kj-kpi"><span class="l">Programado al ${escXml(corte.label)}</span><span class="v">${kjM(corte.acumNeto)}</span></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      ${kjDonut([{l:'Pagado + anticipo',v:E.acum.neto,c:KJ_C.pag},{l:'Saldo',v:Math.max(0,E.saldo.neto),c:KJ_C.saldo}], 110, kjPct(E.pctPagado,1), 'pagado')}
+      <div class="kj-legend">
+        <div class="it"><span class="sw" style="background:${KJ_C.pag}"></span><div>Pagado + anticipo<div class="lv">${kjPct(E.pctPagado,1)}</div></div></div>
+        <div class="it"><span class="sw" style="background:${KJ_C.saldo}"></span><div>Saldo<div class="lv">${kjPct(E.saldo.neto/E.P.neto,1)}</div></div></div>
+      </div>
+    </div>
+    <div class="kj-mini-chart"><div class="t">Acumulado: programado vs. pagado</div><div class="s">Línea punteada = programa de flujos (neto)</div>
+      ${kjChartAcumulado(E, 360, 170, {compact:true})}</div>`;
+  const svg = el.querySelector('.kj-mini-chart svg'); if(svg){ svg.setAttribute('width','100%'); svg.removeAttribute('height'); }
+}
+
+/* ---------- lista de recibos ---------- */
+function kjRenderList(){
+  const el = document.getElementById('kj-list'); if(!el) return;
+  const msgEl = document.getElementById('kj-list-msg');
+  if(msgEl) msgEl.innerHTML = kjMsg ? `<div class="${kjMsg.startsWith('⚠️')?'kj-warn':'kj-ok'}">${escXml(kjMsg)}</div>` : '';
+  const recs = kjAllRecibos();
+  const nums = Array.from(new Set(recs.map(r=>r.num).concat(kjPdfs.map(p=>p.num)))).sort((a,b)=>b-a);
+  let rows = '';
+  nums.forEach(n=>{
+    const r = recs.find(x=>x.num===n);
+    const pdfs = kjPdfs.filter(p=>p.num===n);
+    const monto = r ? kjRecibiMonto(r) : null;
+    const total = r ? r.lineas.reduce((s,l)=>s+kjTotalLinea(l),0) : null;
+    const tipos = r ? (r.anticipo ? 'Anticipo' : Array.from(new Set(r.lineas.map(l=>l.tipo==='TRANSFER'?'Transf.':'Efectivo'))).join(' + ')) : 'PDF cargado';
+    const origen = r ? (r._seed ? '<span class="kj-origin">Histórico</span>' : '<span class="kj-origin gen">Generado</span>') : '<span class="kj-origin">Solo PDF</span>';
+    let btns = '';
+    if(r) btns += `<button class="btn-sm" onclick="kjVerRecibo(${n})">Ver</button>`;
+    pdfs.forEach(p=>{ btns += `<button class="btn-sm pdf" title="${escXml(p.nombre||'')}" onclick="kjVerPdf('${p.id}')">PDF</button>`; });
+    if(r && !r._seed) btns += `<button class="btn-sm del" onclick="kjEliminarRecibo('${r._fbId||''}', ${n})">Eliminar</button>`;
+    pdfs.forEach(p=>{ btns += `<button class="btn-sm del" title="Eliminar PDF" onclick="kjEliminarPdf('${p.id}')">✕ PDF</button>`; });
+    const f = r ? r.f : (pdfs[0] && pdfs[0].f);
+    const sub = [r && r.sem ? 'SEM '+r.sem : '', f ? fmtDate(f) : ''].filter(Boolean).join(' · ');
+    rows += `<tr><td><b>Recibo ${kjPad(n)}</b> ${origen}<span class="kj-sub">${sub}</span></td><td class="forma">${tipos}</td>
+      <td class="money">${monto!=null?kjM(monto):''}</td><td class="money">${total!=null?kjM(total):''}</td><td><div class="kj-btns">${btns}</div></td></tr>`;
+  });
+  el.innerHTML = `<table class="kj-list"><thead><tr><th>Recibo</th><th>Forma</th><th class="money">Monto</th><th class="money">Total c/IVA</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+/* ---------- formulario: generar recibo nuevo ---------- */
+function kjToggleForm(){ kjFormOpen = !kjFormOpen; kjRenderForm(); }
+function kjRenderForm(){
+  const el = document.getElementById('kj-form-wrap'); if(!el) return;
+  const btn = document.getElementById('kj-new-btn');
+  if(btn) btn.textContent = kjFormOpen ? 'Cerrar formulario' : '+ Nuevo recibo';
+  if(!kjFormOpen){ el.innerHTML = ''; return; }
+  const hoy = kjIso(new Date());
+  const num = kjNextNum();
+  el.innerHTML = `<div class="kj-form">
+    <div class="kj-form-grid">
+      <div><label>No. recibo</label><input type="number" id="kj-f-num" value="${num}" min="1" oninput="kjFormCalc()"></div>
+      <div><label>Fecha del recibo</label><input type="date" id="kj-f-fecha" value="${hoy}" oninput="kjFormFecha()"></div>
+      <div><label>Semana proy.</label><input type="number" id="kj-f-sem" value="${kjSemOf(hoy)}" min="1"></div>
+      <div><label>Mes de obra</label><input type="number" id="kj-f-mes" value="${kjMesOf(hoy)}" min="1"></div>
+    </div>
+    <div class="kj-line">
+      <div class="kj-line-tag">Efectivo</div>
+      <div><label>Fecha</label><input type="date" id="kj-f-ef-fecha" value="${hoy}"></div>
+      <div><label>Monto</label><input type="number" step="0.01" id="kj-f-ef-monto" placeholder="0.00" oninput="kjFormCalc()"></div>
+      <div></div><div></div><div></div>
+    </div>
+    <div class="kj-line">
+      <div class="kj-line-tag">Transferencia</div>
+      <div><label>Fecha</label><input type="date" id="kj-f-tr-fecha" value="${hoy}"></div>
+      <div><label>Neto transferido (con IVA)</label><input type="number" step="0.01" id="kj-f-tr-neto" placeholder="0.00" oninput="kjFormNeto()"></div>
+      <div><label>Monto sin IVA</label><input type="number" step="0.01" id="kj-f-tr-monto" placeholder="auto" oninput="kjFormIva()"></div>
+      <div><label>IVA 16%</label><input type="number" step="0.01" id="kj-f-tr-iva" placeholder="auto" oninput="kjFormCalc()"></div>
+      <div><label>No. factura</label><input type="text" id="kj-f-tr-fact" placeholder="FACT. 350 / Pdte"></div>
+    </div>
+    <div class="kj-form-grid three" style="border-top:1px dashed var(--gray-300);padding-top:10px;">
+      <div><label>Monto "Recibí" (texto del recibo)</label><input type="number" step="0.01" id="kj-f-recibi" placeholder="auto = suma de montos"></div>
+      <div style="grid-column:span 2;"><label>Concepto</label><textarea id="kj-f-concepto">${escXml(KJ.conceptoDefault)}</textarea></div>
+    </div>
+    <div class="kj-form-foot">
+      <div class="kj-form-sum" id="kj-f-sum"></div>
+      <button class="btn-orange" onclick="kjGenerar()">Generar recibo</button>
+    </div>
+    <div id="kj-f-err"></div>
+  </div>`;
+  kjFormCalc();
+}
+function kjFormFecha(){
+  const f = document.getElementById('kj-f-fecha').value; if(!f) return;
+  document.getElementById('kj-f-sem').value = kjSemOf(f);
+  document.getElementById('kj-f-mes').value = kjMesOf(f);
+  ['kj-f-ef-fecha','kj-f-tr-fecha'].forEach(id=>{ document.getElementById(id).value = f; });
+}
+function kjFormNeto(){
+  const n = parseFloat(document.getElementById('kj-f-tr-neto').value)||0;
+  const m = n ? Math.round(n/1.16*100)/100 : 0;
+  document.getElementById('kj-f-tr-monto').value = n ? m.toFixed(2) : '';
+  document.getElementById('kj-f-tr-iva').value = n ? (Math.round((n-m)*100)/100).toFixed(2) : '';
+  kjFormCalc();
+}
+function kjFormIva(){
+  const m = parseFloat(document.getElementById('kj-f-tr-monto').value)||0;
+  document.getElementById('kj-f-tr-iva').value = m ? (Math.round(m*16)/100).toFixed(2) : '';
+  kjFormCalc();
+}
+function kjFormCalc(){
+  const ef = parseFloat(document.getElementById('kj-f-ef-monto').value)||0;
+  const tr = parseFloat(document.getElementById('kj-f-tr-monto').value)||0;
+  const iva = parseFloat(document.getElementById('kj-f-tr-iva').value)||0;
+  const el = document.getElementById('kj-f-sum');
+  if(el) el.innerHTML = `Monto recibido: <b>${kjM(ef+tr)}</b> · Total con IVA: <b>${kjM(ef+tr+iva)}</b>`;
+}
+function kjGenerar(){
+  const v = id=> document.getElementById(id).value;
+  const errEl = document.getElementById('kj-f-err');
+  const num = parseInt(v('kj-f-num'),10), f = v('kj-f-fecha');
+  const sem = parseInt(v('kj-f-sem'),10) || kjSemOf(f), mes = parseInt(v('kj-f-mes'),10) || kjMesOf(f);
+  const ef = parseFloat(v('kj-f-ef-monto'))||0, tr = parseFloat(v('kj-f-tr-monto'))||0, iva = parseFloat(v('kj-f-tr-iva'))||0;
+  const err = (m)=>{ errEl.innerHTML = `<div class="kj-err">${escXml(m)}</div>`; };
+  if(!num || num<1) return err('Indica el número de recibo.');
+  if(kjAllRecibos().some(r=>r.num===num)) return err(`Ya existe el Recibo ${kjPad(num)} en el estado de cuenta.`);
+  if(!f) return err('Indica la fecha del recibo.');
+  if(ef<=0 && tr<=0) return err('Captura al menos un pago (efectivo o transferencia).');
+  const lineas = [];
+  if(ef>0) lineas.push({tipo:'EFECTIVO', f:v('kj-f-ef-fecha')||f, monto:ef, iva:0, fact:'', sem, mes});
+  if(tr>0) lineas.push({tipo:'TRANSFER', f:v('kj-f-tr-fecha')||f, monto:tr, iva:iva, fact:v('kj-f-tr-fact').trim(), sem, mes});
+  const recibiRaw = v('kj-f-recibi');
+  kjDraft = { num, f, sem, mes, lineas, recibi: recibiRaw!=='' ? parseFloat(recibiRaw) : null, concepto: v('kj-f-concepto').trim() || KJ.conceptoDefault };
+  errEl.innerHTML = '';
+  kjOpenRecibo(kjDraft, true);
+}
+
+/* ---------- visor (modal) ---------- */
+function kjOpenRecibo(rec, isDraft){
+  const E = kjEstado(rec.num, isDraft ? rec : null);
+  kjModalMode = isDraft ? 'draft' : 'view';
+  document.getElementById('kj-modal-title').textContent = `${isDraft?'Vista previa · ':''}Recibo ${kjPad(rec.num)} · ${kjFechaLarga(rec.f).toLowerCase()}`;
+  document.getElementById('kj-modal-extra').innerHTML = isDraft ? `<button class="btn-add" style="width:auto;" id="kj-confirm-btn" onclick="kjConfirmar()">Confirmar y guardar</button>` : '';
+  document.getElementById('kj-modal-print').style.display = '';
+  const body = document.getElementById('kj-modal-body');
+  body.innerHTML = `<div class="kj-page-wrap">${kjHoja1(E)}</div><div class="kj-page-wrap">${kjHojaPrograma(E)}</div>`;
+  document.getElementById('kj-modal').classList.add('open');
+  kjFitPages(body);
+}
+function kjVerRecibo(n){
+  const r = kjAllRecibos().find(x=>x.num===n); if(!r) return;
+  kjOpenRecibo(r, false);
+}
+function kjCloseModal(){
+  document.getElementById('kj-modal').classList.remove('open');
+  document.getElementById('kj-modal-body').innerHTML = '';
+  if(kjPdfUrl){ URL.revokeObjectURL(kjPdfUrl); kjPdfUrl = null; }
+  kjModalMode = null;
+}
+function kjPrintRecibo(){
+  const t = document.title, m = (document.getElementById('kj-modal-title').textContent.match(/Recibo (\d+)/)||[])[1];
+  if(m) document.title = `RECIBO ${m} - KANJUT - ESTADO DE CUENTA`;
+  document.body.classList.add('printing-kjrec');
+  triggerPrint();
+  setTimeout(()=>{ document.body.classList.remove('printing-kjrec'); document.title = t; }, 4000);
+}
+async function kjConfirmar(){
+  if(!kjDraft) return;
+  const btn = document.getElementById('kj-confirm-btn');
+  if(btn){ btn.disabled = true; btn.textContent = 'Guardando...'; }
+  const rec = { ...kjDraft };
+  let ok = false;
+  try{
+    if(window.FBK && window.FB && window.FB.ready){ rec._fbId = await window.FBK.addRecibo(rec); ok = true; }
+  }catch(e){ console.error('Error guardando recibo Kanjut:', e); }
+  kjRecibosExtra.push(rec);
+  kjDraft = null; kjFormOpen = false; kjRenderForm();
+  kjMsg = ok ? `✓ Recibo ${kjPad(rec.num)} guardado en la base de datos.` : `⚠️ Recibo ${kjPad(rec.num)} agregado solo a esta sesión — no se pudo guardar en Firebase (revisa conexión o reglas).`;
+  if(btn){ btn.textContent = ok ? '✓ Guardado' : 'Guardado solo en sesión'; }
+  document.getElementById('kj-modal-title').textContent = `Recibo ${kjPad(rec.num)} · ${kjFechaLarga(rec.f).toLowerCase()}`;
+  kjRenderAll();
+}
+async function kjEliminarRecibo(fbId, n){
+  if(!confirm(`¿Eliminar el Recibo ${kjPad(n)} generado?\n\nSe borra de la base de datos y del estado de cuenta.`)) return;
+  try{ if(fbId && window.FBK) await window.FBK.deleteRecibo(fbId); }
+  catch(e){ alert('No se pudo eliminar en Firebase. Intenta de nuevo.'); return; }
+  kjRecibosExtra = kjRecibosExtra.filter(r=>r.num!==n);
+  kjMsg = `Recibo ${kjPad(n)} eliminado.`;
+  kjRenderAll();
+}
+
+/* ---------- carga de PDF (arrastrar o seleccionar) ---------- */
+(function(){
+  const z = document.getElementById('kj-drop'); if(!z) return;
+  ['dragenter','dragover'].forEach(ev=> z.addEventListener(ev, e=>{ e.preventDefault(); z.classList.add('over'); }));
+  ['dragleave','drop'].forEach(ev=> z.addEventListener(ev, e=>{ e.preventDefault(); z.classList.remove('over'); }));
+  z.addEventListener('drop', e=>{ if(e.dataTransfer && e.dataTransfer.files) kjFileChosen(e.dataTransfer.files); });
+})();
+function kjFileChosen(files){
+  const f = files && files[0]; if(!f) return;
+  if(f.size > 4.5*1024*1024){ alert('El archivo pesa más de 4.5 MB. Reduce el PDF e intenta de nuevo.'); return; }
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    const b64 = String(reader.result).split(',')[1] || '';
+    const m = f.name.match(/RECIBO\s*[_-]?\s*0*(\d+)/i);
+    kjUpload = { name:f.name, type:f.type||'application/pdf', size:f.size, b64, guess: m ? parseInt(m[1],10) : kjNextNum() };
+    kjRenderUploadForm();
+  };
+  reader.readAsDataURL(f);
+  const inp = document.getElementById('kj-file'); if(inp) inp.value = '';
+}
+function kjRenderUploadForm(){
+  const el = document.getElementById('kj-upload-form'); if(!el) return;
+  if(!kjUpload){ el.innerHTML = ''; return; }
+  el.innerHTML = `<div class="kj-form">
+    <div style="font-size:12px;margin-bottom:8px;"><b>${escXml(kjUpload.name)}</b> · ${(kjUpload.size/1024).toFixed(0)} KB</div>
+    <div class="kj-form-grid three">
+      <div><label>No. recibo</label><input type="number" id="kj-u-num" value="${kjUpload.guess}" min="1"></div>
+      <div><label>Fecha</label><input type="date" id="kj-u-fecha" value="${kjIso(new Date())}"></div>
+      <div style="display:flex;gap:8px;align-items:end;"><button class="btn-orange" onclick="kjGuardarPdf()">Guardar PDF</button><button class="btn-sm" onclick="kjUpload=null;kjRenderUploadForm();">Cancelar</button></div>
+    </div>
+    <div style="font-size:11px;color:var(--gray-600);margin-top:8px;">El PDF se guarda como archivo del recibo. Para que sume al estado de cuenta, captura los pagos con "Nuevo recibo".</div>
+    <div id="kj-u-err"></div>
+  </div>`;
+}
+async function kjGuardarPdf(){
+  if(!kjUpload) return;
+  const num = parseInt(document.getElementById('kj-u-num').value,10), f = document.getElementById('kj-u-fecha').value;
+  if(!num){ document.getElementById('kj-u-err').innerHTML = '<div class="kj-err">Indica el número de recibo.</div>'; return; }
+  const meta = { num, f, nombre:kjUpload.name, type:kjUpload.type, size:kjUpload.size };
+  let ok = false;
+  try{
+    if(window.FBK && window.FB && window.FB.ready){ meta.id = await window.FBK.addPdf(meta, kjUpload.b64); ok = true; }
+  }catch(e){ console.error('Error guardando PDF Kanjut:', e); }
+  if(!ok){ meta.id = 'local-' + Date.now(); meta._local = kjUpload.b64; }
+  kjPdfs.push(meta);
+  kjUpload = null;
+  kjMsg = ok ? `✓ PDF del Recibo ${kjPad(num)} guardado en la base de datos.` : `⚠️ PDF agregado solo a esta sesión — no se pudo guardar en Firebase (revisa conexión o reglas).`;
+  kjRenderUploadForm(); kjRenderList();
+}
+async function kjVerPdf(id){
+  const p = kjPdfs.find(x=>x.id===id); if(!p) return;
+  let b64 = p._local;
+  try{ if(!b64 && window.FBK) b64 = await window.FBK.getPdfData(p); }
+  catch(e){ alert('No se pudo descargar el PDF de Firebase.'); return; }
+  if(!b64){ alert('No se encontró el contenido del PDF.'); return; }
+  const bin = atob(b64), arr = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) arr[i] = bin.charCodeAt(i);
+  if(kjPdfUrl) URL.revokeObjectURL(kjPdfUrl);
+  kjPdfUrl = URL.createObjectURL(new Blob([arr], {type:p.type||'application/pdf'}));
+  kjModalMode = 'pdf';
+  document.getElementById('kj-modal-title').textContent = `Recibo ${kjPad(p.num)} · ${p.nombre||'PDF'}`;
+  document.getElementById('kj-modal-extra').innerHTML = `<a class="btn-sm" href="${kjPdfUrl}" target="_blank" rel="noopener" download="${escXml(p.nombre||('RECIBO_'+p.num+'.pdf'))}">Abrir / descargar</a>`;
+  document.getElementById('kj-modal-print').style.display = 'none';
+  document.getElementById('kj-modal-body').innerHTML = (p.type||'').startsWith('image/')
+    ? `<img src="${kjPdfUrl}" style="max-width:100%;border:1px solid var(--gray-300);border-radius:8px;">`
+    : `<iframe class="kj-pdf-frame" src="${kjPdfUrl}"></iframe>`;
+  document.getElementById('kj-modal').classList.add('open');
+}
+async function kjEliminarPdf(id){
+  const p = kjPdfs.find(x=>x.id===id); if(!p) return;
+  if(!confirm(`¿Eliminar el PDF "${p.nombre}" del Recibo ${kjPad(p.num)}?`)) return;
+  try{ if(!p._local && window.FBK) await window.FBK.deletePdf(p); }
+  catch(e){ alert('No se pudo eliminar en Firebase. Intenta de nuevo.'); return; }
+  kjPdfs = kjPdfs.filter(x=>x.id!==id);
+  kjMsg = 'PDF eliminado.';
+  kjRenderList();
+}
+
+/* ---------- Firebase: carga inicial ---------- */
+window.onKanjutLoaded = function(recibos, pdfs){
+  kjFbStatus = 'ok';
+  recibos.forEach(r=>{ if(!kjRecibosExtra.some(x=>x._fbId===r._fbId)) kjRecibosExtra.push(r); });
+  pdfs.forEach(p=>{ if(!kjPdfs.some(x=>x.id===p.id)) kjPdfs.push(p); });
+  kjRenderAll();
+};
+window.onKanjutError = function(msg){
+  kjFbStatus = 'error';
+  const el = document.getElementById('kj-fb-warn');
+  if(el) el.innerHTML = `<div class="kj-warn no-print">⚠️ No se pudieron leer los recibos de Kanjut en Firebase (${escXml(msg||'permiso denegado')}). Revisa que las reglas de Firestore incluyan las colecciones <b>kanjut_recibos</b>, <b>kanjut_pdfs</b> y <b>kanjut_pdf_chunks</b>.</div>`;
+};
+
+function kjRenderAll(){
+  kjRenderList();
+  kjRenderSide();
+  if(document.getElementById('kj-tab-programa').style.display !== 'none') kjRenderPrograma();
+}
+kjRenderAll();
+kjRenderForm();
+document.querySelectorAll('.nav-btn[data-view="kanjut"]').forEach(b=> b.addEventListener('click', ()=> setTimeout(()=>kjFitPages(), 30)));
+
+</script>
+<script>
 if('serviceWorker' in navigator){
   window.addEventListener('load', ()=>{
     navigator.serviceWorker.register('service-worker.js').catch(()=>{});
@@ -3301,7 +4289,7 @@ if('serviceWorker' in navigator){
 <!-- ===================== FIREBASE (Firestore + Authentication) ===================== -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, getDocs, getDoc, setDoc, doc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
   import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
   const firebaseConfig = {
@@ -3354,6 +4342,31 @@ if('serviceWorker' in navigator){
     }
   };
 
+
+  // ---- Cliente Aldo Sánchez · Kanjut ----
+  const KJ_REC = 'kanjut_recibos', KJ_PDF = 'kanjut_pdfs', KJ_CHUNK = 'kanjut_pdf_chunks', KJ_CHUNK_SIZE = 700000;
+  window.FBK = {
+    async loadRecibos(){ const snap = await getDocs(collection(db, KJ_REC)); return snap.docs.map(d => { const x = d.data(); delete x.creadoEn; return { ...x, _fbId: d.id }; }); },
+    async addRecibo(r){ const clean = JSON.parse(JSON.stringify(r)); const ref = await addDoc(collection(db, KJ_REC), { ...clean, creadoEn: serverTimestamp() }); return ref.id; },
+    async deleteRecibo(id){ await deleteDoc(doc(db, KJ_REC, id)); },
+    async loadPdfs(){ const snap = await getDocs(collection(db, KJ_PDF)); return snap.docs.map(d => { const x = d.data(); delete x.creadoEn; return { ...x, id: d.id }; }); },
+    async addPdf(meta, b64){
+      const chunks = Math.max(1, Math.ceil(b64.length / KJ_CHUNK_SIZE));
+      const ref = doc(collection(db, KJ_PDF));
+      for(let i=0;i<chunks;i++){ await setDoc(doc(db, KJ_CHUNK, ref.id + '_' + i), { data: b64.slice(i*KJ_CHUNK_SIZE, (i+1)*KJ_CHUNK_SIZE) }); }
+      await setDoc(ref, { num: meta.num, f: meta.f, nombre: meta.nombre, type: meta.type, size: meta.size, chunks, creadoEn: serverTimestamp() });
+      meta.chunks = chunks;
+      return ref.id;
+    },
+    async getPdfData(p){
+      const parts = await Promise.all(Array.from({length: p.chunks || 1}, (_, i) => getDoc(doc(db, KJ_CHUNK, p.id + '_' + i))));
+      return parts.map(snap => snap.exists() ? snap.data().data : '').join('');
+    },
+    async deletePdf(p){
+      for(let i=0;i<(p.chunks||1);i++){ await deleteDoc(doc(db, KJ_CHUNK, p.id + '_' + i)); }
+      await deleteDoc(doc(db, KJ_PDF, p.id));
+    }
+  };
   window.FBAuth = {
     signIn(email, password){ return signInWithEmailAndPassword(auth, email, password); },
     signInGoogle(){ return signInWithPopup(auth, googleProvider); },
@@ -3379,6 +4392,14 @@ if('serviceWorker' in navigator){
     } catch(e){
       console.error('Error conectando a Firestore:', e);
       if(typeof window.onFirestoreReady === 'function') window.onFirestoreReady(false, 0, e.message);
+    }
+
+    try {
+      const [kr, kp] = await Promise.all([window.FBK.loadRecibos(), window.FBK.loadPdfs()]);
+      if(typeof window.onKanjutLoaded === 'function') window.onKanjutLoaded(kr, kp);
+    } catch(e){
+      console.error('Kanjut (Firestore):', e);
+      if(typeof window.onKanjutError === 'function') window.onKanjutError(e.code || e.message);
     }
   });
 </script>
