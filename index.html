@@ -1641,6 +1641,30 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 .tp-proy-prev img{width:100%;height:auto;max-height:360px;object-fit:contain;object-position:top center;}
 .tp-proy-prev iframe{height:320px;}
 .tp-proy-prev .tp-proy-load{display:block;text-align:center;padding:48px 10px;}
+.sync-wrap{padding:0 8px 6px;}
+.sync-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--orange-500,#E07B2E);color:#fff;border:0;border-radius:10px;padding:10px 12px;font-weight:800;font-size:13px;letter-spacing:.3px;cursor:pointer;font-family:inherit;}
+.sync-btn svg{width:17px;height:17px;}
+.sync-btn:hover{filter:brightness(1.06);}
+.sync-btn.busy{opacity:.8;cursor:wait;}
+.sync-btn.busy svg{animation:syncspin 1s linear infinite;}
+@keyframes syncspin{to{transform:rotate(360deg);}}
+.sync-last{font-size:10.5px;color:var(--gray-400,#9AA8B8);text-align:center;margin-top:5px;}
+.sync-modal{position:fixed;inset:0;background:rgba(10,24,44,.45);display:none;align-items:center;justify-content:center;z-index:9000;padding:16px;}
+.sync-modal.open{display:flex;}
+.sync-box{background:#fff;border-radius:14px;max-width:620px;width:100%;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25);padding:18px 20px;gap:12px;}
+.sync-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;}
+.sync-title{font-size:16px;font-weight:800;color:var(--navy-900,#0E2440);}
+.sync-sub{font-size:11px;color:var(--gray-600,#5B6B7E);}
+.sync-log{flex:1;min-height:120px;max-height:42vh;overflow-y:auto;background:var(--gray-50,#F6F8FA);border:1px solid var(--gray-200,#E3EAF1);border-radius:10px;padding:10px 12px;font-size:12px;color:var(--navy-900,#0E2440);}
+.sync-line{padding:2px 0;}.sync-line.head{margin-top:8px;}.sync-line.ok{color:#23804A;}.sync-line.warn,.sync-line .w{color:#B4561A;}
+.sync-help{font-size:12px;background:#FFF7EC;border:1px solid #F6D9B8;border-radius:10px;padding:10px 12px;color:#6B3A0E;}
+.sync-help ol{margin:6px 0 0 18px;padding:0;}
+.sync-res{display:flex;flex-direction:column;gap:8px;}
+.sync-card{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--gray-200,#E3EAF1);border-radius:10px;padding:9px 12px;font-size:12.5px;color:var(--navy-900,#0E2440);}
+.sync-card small{display:block;font-size:10.5px;color:var(--gray-600,#5B6B7E);}
+.sync-card a{white-space:nowrap;text-decoration:none;}
+.sync-foot{font-size:10.5px;color:var(--gray-600,#5B6B7E);line-height:1.45;}
+@media (max-width:720px){.sync-wrap{padding:0;}.sync-btn{padding:8px 10px;font-size:12px;white-space:nowrap;}.sync-last{display:none;}}
 </style>
 </head>
 <body>
@@ -1669,7 +1693,7 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
     <button class="btn-orange" id="login-btn" style="width:100%;" onclick="doLogin()">Entrar</button>
     <div style="text-align:center;margin-top:10px;"><a href="#" onclick="doResetPassword();return false;" style="font-size:12px;color:#3B6EA5;">¿Sin contraseña u olvidaste la tuya? Enviar enlace a mi correo</a></div>
     <div class="login-status" id="login-status">Conectando con Firebase...</div>
-    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 07-Oct-2026 23:25 · incluye Terrapark</div>
+    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 08-Oct-2026 00:02 · incluye Terrapark</div>
   </div>
 </div>
 
@@ -1716,6 +1740,13 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
         <span class="nav-badge" id="nav-badge-validacion" style="display:none;"></span>
       </button>
     </nav>
+    <div class="sync-wrap no-print" id="sync-wrap" style="display:none;">
+      <button class="sync-btn" id="sync-btn" onclick="amdSyncRun()" title="Respaldar recibos, facturas, presupuesto y proyecto de cada cliente en Google Drive">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.2L3 16"/><path d="M3 12a9 9 0 0 1 15.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M3 21v-5h5"/></svg>
+        <span class="t">SYNC Drive</span>
+      </button>
+      <div class="sync-last" id="sync-last"></div>
+    </div>
     <div class="sidebar-foot">
       Dashboard de Gastos<br>Datos actualizados al cierre de julio 2026
       <button class="logout-btn no-print" id="logout-btn" style="display:none;" onclick="doLogout()">Cerrar sesión</button>
@@ -3821,6 +3852,7 @@ function doLogout(){
   if(window.FBAuth && window.FBAuth.signOutUser) window.FBAuth.signOutUser();
 }
 window.onAuthChanged = function(loggedIn, errMsg){
+  if(typeof window.onAuthChangedSync === 'function') window.onAuthChangedSync(loggedIn);
   const overlay = document.getElementById('login-overlay');
   const logoutBtn = document.getElementById('logout-btn');
   const btn = document.getElementById('login-btn');
@@ -5725,6 +5757,48 @@ kjRenderAll();
 kjRenderForm();
 document.querySelectorAll('.nav-btn[data-view="kanjut"]').forEach(b=> b.addEventListener('click', ()=> setTimeout(()=>kjFitPages(), 30)));
 
+/* ---------- SYNC con Google Drive: este cliente se registra como fuente ---------- */
+(function(){
+  const SUB = { facturas:'02 FACTURAS', presupuesto:'03 PRESUPUESTO', adicionales:'03 PRESUPUESTO/Adicionales', proyecto:'04 PROYECTO', otros:'05 OTROS ANEXOS' };
+  const limpio = s => String(s||'archivo').replace(/[\\/:*?"<>|]+/g,'-').trim();
+  window.AMD_SYNC = window.AMD_SYNC || [];
+  window.AMD_SYNC.push({
+    key: 'kj',
+    titulo: `${KJ.proyecto} · ${KJ.cliente}`,
+    collect(){
+      const items = [], sinPdf = [];
+      kjPdfs.filter(p=>!p._local && p.id).forEach(p=>{
+        const n = limpio(p.nombre||'recibo.pdf');
+        items.push({ key:'pdf:'+p.id, folder:'01 RECIBOS', nombre: /recibo/i.test(n) ? n : `Recibo ${kjPad(p.num)} - ${n}`, type:p.type||'application/pdf', size:p.size||0,
+                     get: ()=>window.FBK.getPdfData(p) });
+      });
+      kjAllRecibos().forEach(r=>{ if(!kjPdfs.some(p=>p.num===r.num)) sinPdf.push(r.num); });
+      kjAnexos.filter(a=>!a._local && a.id).forEach(a=>{
+        const folder = SUB[a.cat||'otros'] || SUB.otros;
+        let n = limpio(a.nombre);
+        if(a.cat==='facturas' && kjFactNum(a.fol) && !new RegExp('\\b' + kjFactNum(a.fol) + '\\b').test(n)) n = `Fact ${kjFactNum(a.fol)} - ${n}`;
+        if(a.cat==='proyecto' && a.f) n = `${a.f} - ${n}`;
+        items.push({ key:'ax:'+a.id, folder, nombre:n, type:a.type||'application/octet-stream', size:a.size||0, get: ()=>window.FBK.getAnexoData(a) });
+      });
+      return { items, sinPdf };
+    },
+    respaldo(){
+      const recs = kjAllRecibos();
+      const data = { cliente: KJ.cliente, proyecto: KJ.proyecto, generado: new Date().toISOString(), presupuesto: KJ.presupuesto,
+        recibos: recs.map(r=>({ num:r.num, f:r.f, historico:!!r._seed, recibi:kjRecibiMonto(r), lineas:r.lineas })),
+        pdfs: kjPdfs.filter(p=>!p._local).map(p=>({ num:p.num, nombre:p.nombre, f:p.f })),
+        anexos: kjAnexos.filter(a=>!a._local).map(a=>{ const x = {...a}; delete x._local; return x; }) };
+      const q = v => '"' + String(v==null?'':v).replace(/"/g,'""') + '"';
+      let csv = '﻿Recibo,Fecha recibo,Origen,Linea,Fecha linea,Monto,IVA,Total,Factura\n';
+      recs.forEach(r=>r.lineas.forEach(l=>{ csv += [r.num, r.f, r._seed?'Histórico':'Generado', q(l.tipo||l.partida||''), l.f||'', l.monto, l.iva||0, kjTotalLinea(l), q(l.fact||'')].join(',') + '\n'; }));
+      return [
+        { nombre:'respaldo_datos.json', type:'application/json', texto: JSON.stringify(data, null, 1) },
+        { nombre:'recibos_lineas.csv', type:'text/csv', texto: csv }
+      ];
+    }
+  });
+})();
+
 </script>
 <script>
 const TP = {"modo": "partidas", "cliente": "JUAN CARLOS SÁNCHEZ CABRIALES", "clienteFormal": "SR. JUAN CARLOS SÁNCHEZ CABRIALES", "proyecto": "BODEGA I - TERRAPARK", "proyectoLargo": "BODEGA I - TERRAPARK, GARCÍA, NL", "ubicacion": "GARCÍA, NL", "director": "ING. ARMANDO TREVIÑO GARZA", "presupuesto": {"monto": 7355001.69, "iva": 0.0, "neto": 7355001.69}, "fondoGarantia": 0.0, "semana1": "2025-11-03", "mesCal": [2025, 11], "conceptoDefault": "TRABAJOS DE “CONSTRUCCIÓN BODEGA I - TERRAPARK”, PARA PROYECTO UBICADO EN GARCÍA, NL", "lbl": {"ppto": "Presupuesto total", "montos": "montos sin IVA", "pagado": "Pagado a la fecha"}, "partidas": [{"id": "perm", "code": "", "n": "Proyecto y permiso", "total": 451969.22, "bar": [0, 1], "dist": {"1": 1.0}}, {"id": "mov", "code": "1", "n": "Movimientos de tierra", "total": 544593.5, "bar": [0, 0], "dist": {"1": 1.0}}, {"id": "cim", "code": "2", "n": "Cimentación", "total": 824250.0, "bar": [2, 6], "dist": {"2": 0.5, "3": 0.25, "4": 0.25}}, {"id": "alb", "code": "3", "n": "Albañilerías", "total": 1040125.0, "bar": [4, 10], "dist": {"3": 0.25, "4": 0.25, "5": 0.25, "6": 0.25}}, {"id": "blk", "code": "", "n": "Cambio de block térmico", "total": 125588.97, "bar": [4, 10], "dist": {"3": 0.25, "4": 0.25, "5": 0.25, "6": 0.25}}, {"id": "est", "code": "4", "n": "Estructura metálica y cubierta", "total": 1785875.0, "bar": [6, 14], "dist": {"4": 0.2, "5": 0.2, "6": 0.2, "7": 0.2, "8": 0.2}}, {"id": "fir", "code": "5", "n": "Firmes (incluye aditiva 20 cm)", "total": 1032350.0, "bar": [14, 14], "dist": {"8": 1.0}}, {"id": "aca", "code": "6", "n": "Acabados", "total": 353250.0, "bar": [16, 18], "dist": {"9": 0.5, "10": 0.5}}, {"id": "ofi", "code": "7", "n": "Oficinas ($10,500/m²) 114 m²", "total": 1197000.0, "bar": [12, 22], "dist": {"7": 0.2, "8": 0.2, "9": 0.3, "10": 0.3}}], "recibos": [{"num": 1, "f": "2025-11-07", "sem": null, "lineas": [{"partida": "mov", "tipo": "FACTURA", "f": "2025-11-07", "monto": 163378.05, "iva": 26140.49, "fact": "FACT 314", "mes": 1}]}, {"num": 2, "f": "2025-11-13", "sem": null, "lineas": [{"partida": "mov", "tipo": "EFECTIVO", "f": "2025-11-13", "monto": 381215.45, "iva": 0.0, "fact": "", "mes": 1}]}, {"num": 3, "f": "2025-12-16", "sem": null, "lineas": [{"partida": "cim", "tipo": "FACTURA", "f": "2025-12-16", "monto": 175000.0, "iva": 28000.0, "fact": "FACT 316", "mes": 2}]}, {"num": 4, "f": "2026-01-23", "sem": null, "lineas": [{"partida": "cim", "tipo": "EFECTIVO", "f": "2026-01-23", "monto": 150000.0, "iva": 0.0, "fact": "", "mes": 3}]}, {"num": 5, "f": "2026-02-06", "sem": null, "lineas": [{"partida": "cim", "tipo": "EFECTIVO", "f": "2026-02-06", "monto": 125000.0, "iva": 0.0, "fact": "", "mes": 4}, {"partida": "cim", "tipo": "FACTURA", "f": "2026-02-06", "monto": 125000.0, "iva": 20000.0, "fact": "FACT 318", "mes": 4}]}, {"num": 6, "f": "2026-02-20", "sem": null, "lineas": [{"partida": "cim", "tipo": "EFECTIVO", "f": "2026-02-20", "monto": 100000.0, "iva": 0.0, "fact": "", "mes": 4}, {"partida": "cim", "tipo": "FACTURA", "f": "2026-02-20", "monto": 149250.0, "iva": 23880.0, "fact": "FACT 319", "mes": 4}]}, {"num": 7, "f": "2026-03-06", "sem": null, "lineas": [{"partida": "alb", "tipo": "FACTURA", "f": "2026-03-06", "monto": 200000.0, "iva": 32000.0, "fact": "FACT. 320", "mes": 5}, {"partida": "ofi", "tipo": "EFECTIVO", "f": "2026-03-06", "monto": 150000.0, "iva": 0.0, "fact": "", "mes": 5}]}, {"num": 8, "f": "2026-03-27", "sem": null, "lineas": [{"partida": "alb", "tipo": "EFECTIVO", "f": "2026-03-27", "monto": 150000.0, "iva": 0.0, "fact": "", "mes": 5}, {"partida": "est", "tipo": "FACTURA", "f": "2026-03-27", "monto": 280000.0, "iva": 44800.0, "fact": "FACT 323", "mes": 5}]}, {"num": 9, "f": "2026-04-10", "sem": null, "lineas": [{"partida": "alb", "tipo": "EFECTIVO", "f": "2026-04-10", "monto": 150000.0, "iva": 0.0, "fact": "", "mes": 6}, {"partida": "est", "tipo": "FACTURA", "f": "2026-04-10", "monto": 100000.0, "iva": 16000.0, "fact": "FACT 329", "mes": 6}]}, {"num": 10, "f": "2026-04-23", "sem": null, "lineas": [{"partida": "alb", "tipo": "EFECTIVO", "f": "2026-04-23", "monto": 75000.0, "iva": 0.0, "fact": "", "mes": 6}, {"partida": "est", "tipo": "EFECTIVO", "f": "2026-04-23", "monto": 75000.0, "iva": 0.0, "fact": "", "mes": 6}, {"partida": "ofi", "tipo": "FACTURA", "f": "2026-04-23", "monto": 125000.0, "iva": 20000.0, "fact": "FACT 325", "mes": 6}]}, {"num": 11, "f": "2026-05-08", "sem": null, "lineas": [{"partida": "alb", "tipo": "EFECTIVO", "f": "2026-05-08", "monto": 50000.0, "iva": 0.0, "fact": "", "mes": 7}, {"partida": "est", "tipo": "EFECTIVO", "f": "2026-05-08", "monto": 100000.0, "iva": 0.0, "fact": "", "mes": 7}, {"partida": "ofi", "tipo": "FACTURA", "f": "2026-05-08", "monto": 175000.0, "iva": 28000.0, "fact": "FACT 327", "mes": 7}]}, {"num": 12, "f": "2026-05-21", "sem": null, "lineas": [{"partida": "est", "tipo": "FACTURA", "f": "2026-05-21", "monto": 125000.0, "iva": 20000.0, "fact": "FACT 323", "mes": 7}, {"partida": "ofi", "tipo": "EFECTIVO", "f": "2026-05-21", "monto": 125000.0, "iva": 0.0, "fact": "", "mes": 7}]}, {"num": 13, "f": "2026-06-03", "sem": null, "lineas": [{"partida": "alb", "tipo": "EFECTIVO", "f": "2026-06-03", "monto": 180000.0, "iva": 0.0, "fact": "", "mes": 8}, {"partida": "est", "tipo": "TRANSFER", "f": "2026-06-03", "monto": 60000.0, "iva": 9600.0, "fact": "FACT 331", "mes": 8}]}, {"num": 14, "f": "2026-06-20", "sem": null, "lineas": [{"partida": "est", "tipo": "TRANSFER", "f": "2026-06-20", "monto": 240000.0, "iva": 38400.0, "fact": "FACT 334", "mes": 8}, {"partida": "ofi", "tipo": "EFECTIVO", "f": "2026-06-20", "monto": 100000.0, "iva": 0.0, "fact": "", "mes": 8}]}, {"num": 15, "f": "2026-07-01", "sem": null, "lineas": [{"partida": "blk", "tipo": "EFECTIVO", "f": "2026-07-01", "monto": 80000.0, "iva": 0.0, "fact": "", "mes": 9}, {"partida": "est", "tipo": "TRANSFER", "f": "2026-07-01", "monto": 60000.0, "iva": 9600.0, "fact": "FACT 337", "mes": 9}]}, {"num": 16, "f": "2026-07-15", "sem": null, "lineas": [{"partida": "blk", "tipo": "EFECTIVO", "f": "2026-07-15", "monto": 45588.97, "iva": 0.0, "fact": "", "mes": 9}, {"partida": "alb", "tipo": "EFECTIVO", "f": "2026-07-15", "monto": 54411.03, "iva": 0.0, "fact": "", "mes": 9}, {"partida": "est", "tipo": "TRANSFER", "f": "2026-07-15", "monto": 125000.0, "iva": 20000.0, "fact": "FACT 338", "mes": 9}]}, {"num": 17, "f": "2026-07-30", "sem": null, "lineas": [{"partida": "alb", "tipo": "EFECTIVO", "f": "2026-07-30", "monto": 75000.0, "iva": 0.0, "fact": "", "mes": 9}, {"partida": "est", "tipo": "EFECTIVO", "f": "2026-07-30", "monto": 50000.0, "iva": 0.0, "fact": "", "mes": 9}, {"partida": "aca", "tipo": "TRANSFER", "f": "2026-07-30", "monto": 40000.0, "iva": 6400.0, "fact": "FACT 342", "mes": 9}]}, {"num": 18, "f": "2026-08-14", "sem": null, "lineas": [{"partida": "perm", "tipo": "EFECTIVO", "f": "2026-08-14", "monto": 87619.6, "iva": 0, "fact": "", "mes": 10, "concepto": "PAGO - FACTOR2710", "fl": "FACTOR"}, {"partida": "perm", "tipo": "EFECTIVO", "f": "2026-08-14", "monto": 58000.0, "iva": 0, "fact": "", "mes": 10, "concepto": "PAGO A CTA PERMISOS"}, {"partida": "alb", "tipo": "EFECTIVO", "f": "2026-08-14", "monto": 50000.0, "iva": 0.0, "fact": "", "mes": 10}, {"partida": "est", "tipo": "TRANSFER", "f": "2026-08-14", "monto": 120000.0, "iva": 19200.0, "fact": "FACT 343", "mes": 10}]}, {"num": 19, "f": "2026-08-26", "sem": null, "lineas": [{"partida": "perm", "tipo": "TRANSFER", "f": "2026-08-26", "monto": 15791.57, "iva": 0, "fact": "TRANSF.", "mes": 10, "concepto": "PAGO PERMISO CONSTRUCCIÓN - TRANSF. DIRECTO JCSC"}, {"partida": "est", "tipo": "EFECTIVO", "f": "2026-08-26", "monto": 75000.0, "iva": 0.0, "fact": "", "mes": 10}, {"partida": "fir", "tipo": "FACTURA", "f": "2026-08-26", "monto": 125000.0, "iva": 20000.0, "fact": "FACT 346", "mes": 10}, {"partida": "aca", "tipo": "EFECTIVO", "f": "2026-08-26", "monto": 75000.0, "iva": 0.0, "fact": "", "mes": 10}]}, {"num": 20, "f": "2026-09-11", "sem": null, "lineas": [{"partida": "alb", "tipo": "EFECTIVO", "f": "2026-09-11", "monto": 55713.97, "iva": 0.0, "fact": "", "mes": 11}, {"partida": "est", "tipo": "EFECTIVO", "f": "2026-09-11", "monto": 94286.03, "iva": 0.0, "fact": "", "mes": 11}, {"partida": "fir", "tipo": "TRANSFER", "f": "2026-09-11", "monto": 95000.0, "iva": 15200.0, "fact": "", "mes": 11}]}, {"num": 21, "f": "2026-09-22", "sem": null, "lineas": [{"partida": "perm", "tipo": "EFECTIVO", "f": "2026-09-25", "monto": 50000.0, "iva": 0, "fact": "", "mes": 11, "concepto": "A CTA PERMISOS - RECIBO 21"}, {"partida": "fir", "tipo": "EFECTIVO", "f": "2026-09-22", "monto": 450000.0, "iva": 0.0, "fact": "", "mes": 11}]}], "programa": {"periodos": [{"label": "Mes 1", "short": "M1", "mes": 1, "flujo": 996562.72, "neto": 996562.72, "acumNeto": 996562.72, "hito": null}, {"label": "Mes 2", "short": "M2", "mes": 2, "flujo": 412125.0, "neto": 412125.0, "acumNeto": 1408687.72, "hito": null}, {"label": "Mes 3", "short": "M3", "mes": 3, "flujo": 497490.99, "neto": 497490.99, "acumNeto": 1906178.71, "hito": null}, {"label": "Mes 4", "short": "M4", "mes": 4, "flujo": 854665.99, "neto": 854665.99, "acumNeto": 2760844.7, "hito": null}, {"label": "Mes 5", "short": "M5", "mes": 5, "flujo": 648603.49, "neto": 648603.49, "acumNeto": 3409448.19, "hito": null}, {"label": "Mes 6", "short": "M6", "mes": 6, "flujo": 648603.5, "neto": 648603.5, "acumNeto": 4058051.69, "hito": null}, {"label": "Mes 7", "short": "M7", "mes": 7, "flujo": 596575.0, "neto": 596575.0, "acumNeto": 4654626.69, "hito": null}, {"label": "Mes 8", "short": "M8", "mes": 8, "flujo": 1628925.0, "neto": 1628925.0, "acumNeto": 6283551.69, "hito": null}, {"label": "Mes 9", "short": "M9", "mes": 9, "flujo": 535725.0, "neto": 535725.0, "acumNeto": 6819276.69, "hito": null}, {"label": "Mes 10", "short": "M10", "mes": 10, "flujo": 535725.0, "neto": 535725.0, "acumNeto": 7355001.69, "hito": null}, {"label": "Mes 11", "short": "M11", "mes": 11, "flujo": 0.0, "neto": 0.0, "acumNeto": 7355001.69, "hito": null}, {"label": "Mes 12", "short": "M12", "mes": 12, "flujo": 0.0, "neto": 0.0, "acumNeto": 7355001.69, "hito": null}], "granTotal": 7355001.69, "iva": 0.0, "neto": 7355001.69, "construccion": 7355001.69, "otros": 0.0, "m2": 0.0, "costoM2": 0.0}, "actividades": []};
@@ -6833,6 +6907,48 @@ function tpRenderAll(){
 tpRenderAll();
 tpRenderForm();
 document.querySelectorAll('.nav-btn[data-view="terrapark"]').forEach(b=> b.addEventListener('click', ()=> setTimeout(()=>tpFitPages(), 30)));
+
+/* ---------- SYNC con Google Drive: este cliente se registra como fuente ---------- */
+(function(){
+  const SUB = { facturas:'02 FACTURAS', presupuesto:'03 PRESUPUESTO', adicionales:'03 PRESUPUESTO/Adicionales', proyecto:'04 PROYECTO', otros:'05 OTROS ANEXOS' };
+  const limpio = s => String(s||'archivo').replace(/[\\/:*?"<>|]+/g,'-').trim();
+  window.AMD_SYNC = window.AMD_SYNC || [];
+  window.AMD_SYNC.push({
+    key: 'tp',
+    titulo: `${TP.proyecto} · ${TP.cliente}`,
+    collect(){
+      const items = [], sinPdf = [];
+      tpPdfs.filter(p=>!p._local && p.id).forEach(p=>{
+        const n = limpio(p.nombre||'recibo.pdf');
+        items.push({ key:'pdf:'+p.id, folder:'01 RECIBOS', nombre: /recibo/i.test(n) ? n : `Recibo ${tpPad(p.num)} - ${n}`, type:p.type||'application/pdf', size:p.size||0,
+                     get: ()=>window.FBT.getPdfData(p) });
+      });
+      tpAllRecibos().forEach(r=>{ if(!tpPdfs.some(p=>p.num===r.num)) sinPdf.push(r.num); });
+      tpAnexos.filter(a=>!a._local && a.id).forEach(a=>{
+        const folder = SUB[a.cat||'otros'] || SUB.otros;
+        let n = limpio(a.nombre);
+        if(a.cat==='facturas' && tpFactNum(a.fol) && !new RegExp('\\b' + tpFactNum(a.fol) + '\\b').test(n)) n = `Fact ${tpFactNum(a.fol)} - ${n}`;
+        if(a.cat==='proyecto' && a.f) n = `${a.f} - ${n}`;
+        items.push({ key:'ax:'+a.id, folder, nombre:n, type:a.type||'application/octet-stream', size:a.size||0, get: ()=>window.FBT.getAnexoData(a) });
+      });
+      return { items, sinPdf };
+    },
+    respaldo(){
+      const recs = tpAllRecibos();
+      const data = { cliente: TP.cliente, proyecto: TP.proyecto, generado: new Date().toISOString(), presupuesto: TP.presupuesto,
+        recibos: recs.map(r=>({ num:r.num, f:r.f, historico:!!r._seed, recibi:tpRecibiMonto(r), lineas:r.lineas })),
+        pdfs: tpPdfs.filter(p=>!p._local).map(p=>({ num:p.num, nombre:p.nombre, f:p.f })),
+        anexos: tpAnexos.filter(a=>!a._local).map(a=>{ const x = {...a}; delete x._local; return x; }) };
+      const q = v => '"' + String(v==null?'':v).replace(/"/g,'""') + '"';
+      let csv = '﻿Recibo,Fecha recibo,Origen,Linea,Fecha linea,Monto,IVA,Total,Factura\n';
+      recs.forEach(r=>r.lineas.forEach(l=>{ csv += [r.num, r.f, r._seed?'Histórico':'Generado', q(l.tipo||l.partida||''), l.f||'', l.monto, l.iva||0, tpTotalLinea(l), q(l.fact||'')].join(',') + '\n'; }));
+      return [
+        { nombre:'respaldo_datos.json', type:'application/json', texto: JSON.stringify(data, null, 1) },
+        { nombre:'recibos_lineas.csv', type:'text/csv', texto: csv }
+      ];
+    }
+  });
+})();
 
 /* =========================================================
    MODO "PARTIDAS" (Terrapark): estimación por partida, sin anticipo ni amortización.
@@ -8199,6 +8315,268 @@ amRenderAll();
 amRenderForm();
 document.querySelectorAll('.nav-btn[data-view="amani"]').forEach(b=> b.addEventListener('click', ()=> setTimeout(()=>amFitPages(), 30)));
 
+/* ---------- SYNC con Google Drive: este cliente se registra como fuente ---------- */
+(function(){
+  const SUB = { facturas:'02 FACTURAS', presupuesto:'03 PRESUPUESTO', adicionales:'03 PRESUPUESTO/Adicionales', proyecto:'04 PROYECTO', otros:'05 OTROS ANEXOS' };
+  const limpio = s => String(s||'archivo').replace(/[\\/:*?"<>|]+/g,'-').trim();
+  window.AMD_SYNC = window.AMD_SYNC || [];
+  window.AMD_SYNC.push({
+    key: 'am',
+    titulo: `${AM.proyecto} · ${AM.cliente}`,
+    collect(){
+      const items = [], sinPdf = [];
+      amPdfs.filter(p=>!p._local && p.id).forEach(p=>{
+        const n = limpio(p.nombre||'recibo.pdf');
+        items.push({ key:'pdf:'+p.id, folder:'01 RECIBOS', nombre: /recibo/i.test(n) ? n : `Recibo ${amPad(p.num)} - ${n}`, type:p.type||'application/pdf', size:p.size||0,
+                     get: ()=>window.FBA.getPdfData(p) });
+      });
+      amAllRecibos().forEach(r=>{ if(!amPdfs.some(p=>p.num===r.num)) sinPdf.push(r.num); });
+      amAnexos.filter(a=>!a._local && a.id).forEach(a=>{
+        const folder = SUB[a.cat||'otros'] || SUB.otros;
+        let n = limpio(a.nombre);
+        if(a.cat==='facturas' && amFactNum(a.fol) && !new RegExp('\\b' + amFactNum(a.fol) + '\\b').test(n)) n = `Fact ${amFactNum(a.fol)} - ${n}`;
+        if(a.cat==='proyecto' && a.f) n = `${a.f} - ${n}`;
+        items.push({ key:'ax:'+a.id, folder, nombre:n, type:a.type||'application/octet-stream', size:a.size||0, get: ()=>window.FBA.getAnexoData(a) });
+      });
+      return { items, sinPdf };
+    },
+    respaldo(){
+      const recs = amAllRecibos();
+      const data = { cliente: AM.cliente, proyecto: AM.proyecto, generado: new Date().toISOString(), presupuesto: AM.presupuesto,
+        recibos: recs.map(r=>({ num:r.num, f:r.f, historico:!!r._seed, recibi:amRecibiMonto(r), lineas:r.lineas })),
+        pdfs: amPdfs.filter(p=>!p._local).map(p=>({ num:p.num, nombre:p.nombre, f:p.f })),
+        anexos: amAnexos.filter(a=>!a._local).map(a=>{ const x = {...a}; delete x._local; return x; }) };
+      const q = v => '"' + String(v==null?'':v).replace(/"/g,'""') + '"';
+      let csv = '﻿Recibo,Fecha recibo,Origen,Linea,Fecha linea,Monto,IVA,Total,Factura\n';
+      recs.forEach(r=>r.lineas.forEach(l=>{ csv += [r.num, r.f, r._seed?'Histórico':'Generado', q(l.tipo||l.partida||''), l.f||'', l.monto, l.iva||0, amTotalLinea(l), q(l.fact||'')].join(',') + '\n'; }));
+      return [
+        { nombre:'respaldo_datos.json', type:'application/json', texto: JSON.stringify(data, null, 1) },
+        { nombre:'recibos_lineas.csv', type:'text/csv', texto: csv }
+      ];
+    }
+  });
+})();
+
+</script>
+<div class="sync-modal no-print" id="sync-modal" onclick="if(event.target===this) amdSyncClose()">
+  <div class="sync-box">
+    <div class="sync-head"><div><div class="sync-title">SYNC con Google Drive</div>
+      <div class="sync-sub">Mi unidad / AMD DASHBOARD / cliente / CLIENTE (compartida) · INTERNO</div></div>
+      <button class="btn-sm" onclick="amdSyncClose()">Cerrar</button></div>
+    <div class="sync-log" id="sync-log"></div>
+    <div id="sync-help" class="sync-help" style="display:none;">
+      <b>Activar la Google Drive API (una sola vez):</b>
+      <ol><li>Abre <a href="https://console.cloud.google.com/apis/library/drive.googleapis.com?project=dashboard-amd" target="_blank" rel="noopener">Google Drive API en el proyecto dashboard-amd</a> con armando@amdproyectos.mx.</li>
+      <li>Presiona <b>Habilitar</b>. Espera 1–2 minutos.</li><li>Regresa aquí y presiona <b>SYNC Drive</b> otra vez.</li></ol>
+    </div>
+    <div class="sync-res" id="sync-res"></div>
+    <div class="sync-foot">Solo se suben archivos nuevos. Nada se borra en Drive: lo eliminado en el dashboard se mueve a <i>INTERNO/_Eliminados</i> y las revisiones viejas del proyecto a <i>04 PROYECTO/Revisiones anteriores</i>. Para compartir con el cliente: en Drive, clic derecho sobre <b>CLIENTE (compartida)</b> → Compartir → su Gmail como <b>Lector</b>.</div>
+  </div>
+</div>
+<script>
+/* ======================= SYNC MAESTRO → GOOGLE DRIVE =======================
+   Respaldo manual de los documentos de cada cliente en "Mi unidad":
+   AMD DASHBOARD / <Proyecto · Cliente> / CLIENTE (compartida) / 01 RECIBOS, 02 FACTURAS, 03 PRESUPUESTO, 04 PROYECTO, 05 OTROS ANEXOS
+                                        / INTERNO / Respaldo datos, _Eliminados
+   Usa el permiso drive.file: el dashboard solo ve las carpetas y archivos que él mismo crea.
+   Solo sube lo nuevo; nunca borra: lo que se elimina en el dashboard se mueve a INTERNO/_Eliminados
+   (y las revisiones viejas del proyecto a 04 PROYECTO/Revisiones anteriores). */
+const AMD_DRIVE_ROOT = 'AMD DASHBOARD';
+const AMD_CLIENTE_DIR = 'CLIENTE (compartida)';
+const AMD_INTERNO_DIR = 'INTERNO';
+const AMD_FOLDER_MIME = 'application/vnd.google-apps.folder';
+let amdSyncTok = null, amdSyncRunning = false, amdSyncChecked = new Set();
+
+function amdSyncLog(html, cls){
+  const el = document.getElementById('sync-log'); if(!el) return;
+  const d = document.createElement('div'); d.className = 'sync-line' + (cls ? ' ' + cls : ''); d.innerHTML = html; el.appendChild(d);
+  el.scrollTop = el.scrollHeight;
+}
+function amdSyncEsc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function amdSyncOpen(){ document.getElementById('sync-modal').classList.add('open'); }
+function amdSyncClose(){ if(amdSyncRunning) return; document.getElementById('sync-modal').classList.remove('open'); }
+
+class AmdDriveError extends Error { constructor(status, reason, msg){ super(msg); this.status = status; this.reason = reason; } }
+async function amdDrive(method, url, body, headers){
+  const r = await fetch(url, { method, body, headers: Object.assign({ Authorization: 'Bearer ' + amdSyncTok.token }, headers || {}) });
+  if(!r.ok){
+    let reason = '', msg = r.status + ' ' + r.statusText;
+    try{ const j = await r.json(); const e = j.error || {}; msg = e.message || msg; reason = (e.errors && e.errors[0] && e.errors[0].reason) || e.status || ''; }catch(_){}
+    throw new AmdDriveError(r.status, reason, msg);
+  }
+  return r;
+}
+const AMD_API = 'https://www.googleapis.com/drive/v3/files';
+const AMD_UP  = 'https://www.googleapis.com/upload/drive/v3/files';
+async function amdFolderExists(id){
+  if(!id) return false;
+  try{ const r = await amdDrive('GET', `${AMD_API}/${id}?fields=id,trashed`); const j = await r.json(); return !j.trashed; }
+  catch(e){ if(e.status === 404) return false; throw e; }
+}
+async function amdFindOrCreateFolder(name, parent){
+  const q = `name='${name.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}' and mimeType='${AMD_FOLDER_MIME}' and '${parent}' in parents and trashed=false`;
+  const r = await amdDrive('GET', `${AMD_API}?q=${encodeURIComponent(q)}&fields=files(id)&spaces=drive`);
+  const j = await r.json();
+  if(j.files && j.files.length) return j.files[0].id;
+  const c = await amdDrive('POST', `${AMD_API}?fields=id`, JSON.stringify({ name, mimeType: AMD_FOLDER_MIME, parents:[parent] }), { 'Content-Type':'application/json' });
+  return (await c.json()).id;
+}
+function amdB64Blob(b64, type){
+  const bin = atob(b64), arr = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], { type: type || 'application/octet-stream' });
+}
+async function amdUpload(blob, meta){
+  // < 5 MB: multipart; más grande: carga reanudable
+  if(blob.size <= 5*1024*1024){
+    const bd = 'amd' + Math.random().toString(36).slice(2);
+    const body = new Blob([`--${bd}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${bd}\r\nContent-Type: ${blob.type||'application/octet-stream'}\r\n\r\n`, blob, `\r\n--${bd}--`]);
+    const r = await amdDrive('POST', `${AMD_UP}?uploadType=multipart&fields=id`, body, { 'Content-Type': `multipart/related; boundary=${bd}` });
+    return (await r.json()).id;
+  }
+  const s = await amdDrive('POST', `${AMD_UP}?uploadType=resumable&fields=id`, JSON.stringify(meta), { 'Content-Type':'application/json; charset=UTF-8', 'X-Upload-Content-Type': blob.type||'application/octet-stream' });
+  const loc = s.headers.get('Location'); if(!loc) throw new AmdDriveError(0, 'noLocation', 'Drive no devolvió la URL de carga');
+  const r = await fetch(loc, { method:'PUT', body: blob });
+  if(!r.ok) throw new AmdDriveError(r.status, '', 'Error subiendo archivo grande (' + r.status + ')');
+  return (await r.json()).id;
+}
+async function amdUpdateContent(id, blob){
+  await amdDrive('PATCH', `${AMD_UP}/${id}?uploadType=media&fields=id`, blob, { 'Content-Type': blob.type||'application/octet-stream' });
+}
+async function amdMove(id, toParent){
+  const r = await amdDrive('GET', `${AMD_API}/${id}?fields=parents`);
+  const j = await r.json();
+  await amdDrive('PATCH', `${AMD_API}/${id}?addParents=${toParent}&removeParents=${(j.parents||[]).join(',')}&fields=id`, '{}', { 'Content-Type':'application/json' });
+}
+function amdSyncExplain(e){
+  const m = String(e && e.message || e);
+  if(e && e.status === 401) return 'La autorización de Google expiró. Presiona SYNC de nuevo.';
+  if(e && (e.reason === 'accessNotConfigured' || /has not been used|is disabled|SERVICE_DISABLED/i.test(m))) return 'La Google Drive API no está activada en el proyecto dashboard-amd. Actívala (instrucciones abajo) y vuelve a intentar.';
+  if(e && e.status === 403 && /insufficient|scope|PERMISSION_DENIED/i.test(m + e.reason)) return 'Google no dio permiso para Drive. Al autorizar, deja marcada la casilla de Google Drive.';
+  if(e && e.code === 'auth/popup-blocked') return 'El navegador bloqueó la ventana de Google. Permite ventanas emergentes para este sitio e intenta de nuevo.';
+  if(e && (e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request')) return 'Se cerró la ventana de Google antes de autorizar.';
+  return m;
+}
+
+async function amdSyncFolder(st, path, base){
+  // path relativo a la carpeta del cliente: "CLIENTE (compartida)/03 PRESUPUESTO/Adicionales"
+  if(st.folders[path] && amdSyncChecked.has(st.folders[path])) return st.folders[path];
+  const parts = path.split('/');
+  let parent = base, acc = '';
+  for(const p of parts){
+    acc = acc ? acc + '/' + p : p;
+    if(st.folders[acc] && !amdSyncChecked.has(st.folders[acc]) && !(await amdFolderExists(st.folders[acc]))) delete st.folders[acc];
+    if(!st.folders[acc]) st.folders[acc] = await amdFindOrCreateFolder(p, parent);
+    amdSyncChecked.add(st.folders[acc]);
+    parent = st.folders[acc];
+  }
+  return parent;
+}
+
+async function amdSyncRun(){
+  if(amdSyncRunning) return;
+  const fresh = amdSyncTok && amdSyncTok.exp > Date.now() + 60000;
+  amdSyncOpen();
+  const logEl = document.getElementById('sync-log'); if(logEl) logEl.innerHTML = '';
+  document.getElementById('sync-help').style.display = 'none';
+  if(!(window.FBDrive && window.FB && window.FB.ready)){ amdSyncLog('⚠️ Inicia sesión primero; el SYNC necesita tu conexión a Firebase.', 'warn'); return; }
+  amdSyncRunning = true; amdSyncBtnState(true); amdSyncChecked = new Set();
+  const resumen = [];
+  try{
+    if(!fresh){
+      amdSyncLog('Pidiendo autorización de Google Drive…');
+      amdSyncTok = await window.FBDrive.getToken();   // ventana de Google (debe ser lo primero tras el clic)
+    }
+    const rootSt = (await window.FBDrive.loadState('_root')) || {};
+    let root = rootSt.id;
+    if(!(await amdFolderExists(root))){ root = await amdFindOrCreateFolder(AMD_DRIVE_ROOT, 'root'); await window.FBDrive.saveState('_root', { id: root }); }
+    amdSyncLog(`Carpeta principal: <b>Mi unidad / ${AMD_DRIVE_ROOT}</b>`);
+    for(const src of (window.AMD_SYNC || [])){
+      amdSyncLog(`<b>${amdSyncEsc(src.titulo)}</b>`, 'head');
+      let st = (await window.FBDrive.loadState(src.key)) || {};
+      if(!(await amdFolderExists(st.id))){
+        st = { id: await amdFindOrCreateFolder(src.titulo, root), folders:{}, files:{}, datos:{} };
+      }
+      st.folders = st.folders || {}; st.files = st.files || {}; st.datos = st.datos || {};
+      const base = st.id;
+      const { items, sinPdf } = src.collect();
+      const nuevos = items.filter(it=>!st.files[it.key] || st.files[it.key].retirado);
+      let ok = 0, err = 0;
+      for(const it of nuevos){
+        try{
+          const folder = await amdSyncFolder(st, AMD_CLIENTE_DIR + '/' + it.folder, base);
+          const b64 = await it.get();
+          if(!b64) throw new Error('sin contenido en Firebase');
+          const id = await amdUpload(amdB64Blob(b64, it.type), { name: it.nombre, parents:[folder], mimeType: it.type });
+          st.files[it.key] = { id, folder: it.folder, nombre: it.nombre };
+          ok++; amdSyncLog(`✓ ${amdSyncEsc(it.folder)} / ${amdSyncEsc(it.nombre)}`, 'ok');
+          await window.FBDrive.saveState(src.key, st);
+        }catch(e){
+          if(e instanceof AmdDriveError && (e.status === 401 || e.status === 403)) throw e;
+          err++; amdSyncLog(`⚠️ No se subió ${amdSyncEsc(it.nombre)}: ${amdSyncEsc(amdSyncExplain(e))}`, 'warn');
+        }
+      }
+      // lo que ya no existe en el dashboard: se mueve, nunca se borra
+      const vivos = new Set(items.map(it=>it.key));
+      let movidos = 0;
+      for(const [k, f] of Object.entries(st.files)){
+        if(vivos.has(k) || f.retirado) continue;
+        try{
+          const dest = /^04 PROYECTO/.test(f.folder) ? AMD_CLIENTE_DIR + '/04 PROYECTO/Revisiones anteriores' : AMD_INTERNO_DIR + '/_Eliminados';
+          await amdMove(f.id, await amdSyncFolder(st, dest, base));
+          f.retirado = true; movidos++;
+          amdSyncLog(`↪ ${amdSyncEsc(f.nombre)} → ${amdSyncEsc(dest.replace(AMD_CLIENTE_DIR + '/', ''))}`);
+        }catch(e){ if(e.status === 404){ f.retirado = true; } else amdSyncLog(`⚠️ No se pudo mover ${amdSyncEsc(f.nombre)}: ${amdSyncEsc(amdSyncExplain(e))}`, 'warn'); }
+      }
+      // respaldo de datos (se sobreescribe en cada SYNC)
+      try{
+        const dfolder = await amdSyncFolder(st, AMD_INTERNO_DIR + '/Respaldo datos', base);
+        for(const d of src.respaldo()){
+          const blob = new Blob([d.texto], { type: d.type });
+          let id = st.datos[d.nombre];
+          if(id){ try{ await amdUpdateContent(id, blob); }catch(e){ if(e.status === 404) id = null; else throw e; } }
+          if(!id) st.datos[d.nombre] = await amdUpload(blob, { name: d.nombre, parents:[dfolder], mimeType: d.type });
+        }
+        amdSyncLog('✓ Respaldo de datos actualizado (JSON + CSV)', 'ok');
+      }catch(e){ if(e instanceof AmdDriveError && (e.status === 401 || e.status === 403)) throw e; amdSyncLog('⚠️ Respaldo de datos: ' + amdSyncEsc(amdSyncExplain(e)), 'warn'); }
+      // carga los "folders" estándar aunque estén vacíos, para que el cliente vea la estructura completa
+      for(const f of ['01 RECIBOS','02 FACTURAS','03 PRESUPUESTO','04 PROYECTO','05 OTROS ANEXOS']) await amdSyncFolder(st, AMD_CLIENTE_DIR + '/' + f, base);
+      st.ultimo = new Date().toISOString();
+      await window.FBDrive.saveState(src.key, st);
+      const total = Object.values(st.files).filter(f=>!f.retirado).length;
+      resumen.push({ titulo: src.titulo, ok, err, movidos, total, sinPdf, link: 'https://drive.google.com/drive/folders/' + st.folders[AMD_CLIENTE_DIR] });
+      amdSyncLog(`${ok ? ok + ' nuevo' + (ok===1?'':'s') : 'Sin archivos nuevos'} · ${total} en Drive${movidos ? ' · ' + movidos + ' movido' + (movidos===1?'':'s') : ''}${err ? ' · <span class="w">' + err + ' con error</span>' : ''}`);
+    }
+    try{ localStorage.setItem('amdLastSync', new Date().toISOString()); }catch(_){}
+    amdSyncLog('<b>SYNC terminado.</b>', 'ok');
+    amdSyncResumen(resumen);
+  }catch(e){
+    console.error('SYNC Drive:', e);
+    amdSyncLog('⚠️ ' + amdSyncEsc(amdSyncExplain(e)), 'warn');
+    if(e && (e.status === 401)) amdSyncTok = null;
+    if(e && (e.reason === 'accessNotConfigured' || /has not been used|is disabled|SERVICE_DISABLED/i.test(String(e.message)))) document.getElementById('sync-help').style.display = '';
+    if(resumen.length) amdSyncResumen(resumen);
+  }finally{
+    amdSyncRunning = false; amdSyncBtnState(false);
+  }
+}
+function amdSyncResumen(res){
+  const el = document.getElementById('sync-res'); if(!el) return;
+  el.innerHTML = res.map(r=>`<div class="sync-card"><div><b>${amdSyncEsc(r.titulo)}</b>
+    <small>${r.total} archivo${r.total===1?'':'s'} en la carpeta del cliente${r.sinPdf.length ? ` · ${r.sinPdf.length} recibo${r.sinPdf.length===1?'':'s'} sin PDF (no se suben)` : ''}</small></div>
+    <a class="btn-sm pdf" href="${r.link}" target="_blank" rel="noopener">Abrir en Drive</a></div>`).join('');
+}
+function amdSyncBtnState(busy){
+  const b = document.getElementById('sync-btn'); if(!b) return;
+  b.disabled = busy; b.classList.toggle('busy', busy);
+  b.querySelector('.t').textContent = busy ? 'Sincronizando…' : 'SYNC Drive';
+  let last = ''; try{ last = localStorage.getItem('amdLastSync') || ''; }catch(_){}
+  const s = document.getElementById('sync-last');
+  if(s) s.textContent = last ? 'Último: ' + new Date(last).toLocaleString('es-MX', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' }) : 'Aún sin sincronizar';
+}
+window.onAuthChangedSync = function(ok){ const w = document.getElementById('sync-wrap'); if(w) w.style.display = ok ? '' : 'none'; };
+amdSyncBtnState(false);
+
 </script>
 <script>
 if('serviceWorker' in navigator){
@@ -8224,7 +8602,7 @@ window.addEventListener('error', function(e){
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
   import { getFirestore, collection, addDoc, getDocs, getDoc, setDoc, doc, updateDoc, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-  import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword, signInWithPopup, reauthenticateWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyA1nsMr0Qqa4-Udu21E_HCLP7VPv7i7bDU",
@@ -8327,6 +8705,21 @@ window.addEventListener('error', function(e){
   window.FBK = makeClientFB('kanjut');
   window.FBA = makeClientFB('amani');
   window.FBT = makeClientFB('terrapark');
+
+  // ---- Google Drive (SYNC): token con permiso drive.file + estado del sync en Firestore ----
+  window.FBDrive = {
+    async getToken(){
+      const p = new GoogleAuthProvider();
+      p.addScope('https://www.googleapis.com/auth/drive.file');
+      p.setCustomParameters({ login_hint: ALLOWED_EMAIL });
+      const res = await reauthenticateWithPopup(auth.currentUser, p);
+      const cred = GoogleAuthProvider.credentialFromResult(res);
+      if(!cred || !cred.accessToken) throw new Error('Google no devolvió el permiso de Drive.');
+      return { token: cred.accessToken, exp: Date.now() + 55*60*1000 };
+    },
+    async loadState(key){ const snap = await getDoc(doc(db, 'drive_sync', key)); return snap.exists() ? snap.data() : null; },
+    async saveState(key, data){ await setDoc(doc(db, 'drive_sync', key), JSON.parse(JSON.stringify(data))); }
+  };
   window.FBAuth = {
     signIn(email, password){ return signInWithEmailAndPassword(auth, email, password); },
     signInGoogle(){ return signInWithPopup(auth, googleProvider); },
