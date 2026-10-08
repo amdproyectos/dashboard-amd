@@ -780,7 +780,9 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
   body:not(.printing-kjrec) #kj-modal{display:none !important;}
   body.printing-kjprog .content > section:not(#view-kanjut){display:none !important;}
   body.printing-kjprog #view-kanjut > *:not(#kj-tab-programa){display:none !important;}
-  body.printing-kjprog #kj-tab-programa > *:not(.kj-page-wrap){display:none !important;}
+  body.printing-kjprog #kj-tab-programa > *:not(.kj-prog-grid){display:none !important;}
+  body.printing-kjprog .kj-prog-grid{display:block !important;}
+  body.printing-kjprog .kj-anexos{display:none !important;}
   body.printing-kjprog #kj-tab-programa{display:block !important;border:none !important;padding:0 !important;}
   .kj-modal-body{padding:0 !important;}
   .kj-page-wrap{width:auto !important;height:auto !important;overflow:visible !important;margin:0 !important;page-break-after:always;break-after:page;}
@@ -865,6 +867,31 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 .kj-pform td.pn{white-space:normal;line-height:1.2;font-size:11.5px;}
 .kj-pform td{padding:3px 3px !important;}
 .kj-pform input{min-width:0;}
+
+/* ---------- Presupuesto y Programa: hoja a la izquierda + panel de presupuesto / anexos a la derecha ---------- */
+.kj-prog-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start;}
+.kj-prog-main{min-width:0;}
+.kj-anexos{display:flex;flex-direction:column;gap:14px;min-width:0;}
+.kj-ax-tot{border:1.5px solid var(--gray-300);border-radius:var(--radius-sm);background:var(--blue-50);padding:6px 14px;}
+.kj-ax-tot .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid var(--gray-100);}
+.kj-ax-tot .row:last-child{border-bottom:none;}
+.kj-ax-tot .l{font-size:10.5px;font-weight:800;color:var(--gray-600);text-transform:uppercase;letter-spacing:.3px;}
+.kj-ax-tot .v{font-size:17px;font-weight:800;color:var(--navy-900);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.kj-ax-tot .row.neto .v{color:#B4561A;}
+.kj-ax-tot .row.small .v{font-size:12.5px;font-weight:700;}
+.kj-ax-tot .row.small .l{font-weight:700;}
+.kj-ax-note{font-size:10.5px;color:var(--gray-600);padding:2px 0 6px;}
+.kj-ax-sec{border:1px solid var(--gray-200,#E3EAF1);border-radius:var(--radius-sm);padding:10px 12px;background:var(--white);}
+.kj-ax-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;}
+.kj-ax-head h4{margin:0;font-size:12px;color:var(--navy-900);}
+.kj-ax-add{font-size:11px;font-weight:700;color:#8A4B12;background:var(--orange-100);border-radius:20px;padding:4px 10px;cursor:pointer;white-space:nowrap;}
+.kj-ax-empty{font-size:11px;color:var(--gray-600);padding:6px 0 2px;}
+.kj-ax-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--gray-100);}
+.kj-ax-item .n{flex:1;min-width:0;font-size:12px;font-weight:600;color:var(--navy-900);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.kj-ax-item .n small{display:block;font-weight:400;font-size:10px;color:var(--gray-600);}
+.kj-ax-item .btn-sm{padding:4px 9px;font-size:11px;}
+.kj-ax-item .btn-sm.del{color:var(--red-600);}
+@media (max-width: 1180px){ .kj-prog-grid{grid-template-columns:1fr;} }
 
 /* =========================================================
    CLIENTE HÉCTOR DÁVILA · RESIDENCIA AMANI TERRA
@@ -1066,7 +1093,9 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
   body:not(.printing-amrec) #am-modal{display:none !important;}
   body.printing-amprog .content > section:not(#view-amani){display:none !important;}
   body.printing-amprog #view-amani > *:not(#am-tab-programa){display:none !important;}
-  body.printing-amprog #am-tab-programa > *:not(.am-page-wrap){display:none !important;}
+  body.printing-amprog #am-tab-programa > *:not(.am-prog-grid){display:none !important;}
+  body.printing-amprog .am-prog-grid{display:block !important;}
+  body.printing-amprog .am-anexos{display:none !important;}
   body.printing-amprog #am-tab-programa{display:block !important;border:none !important;padding:0 !important;}
   .am-modal-body{padding:0 !important;}
   .am-page-wrap{width:auto !important;height:auto !important;overflow:visible !important;margin:0 !important;page-break-after:always;break-after:page;}
@@ -1151,6 +1180,31 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 .am-pform td.pn{white-space:normal;line-height:1.2;font-size:11.5px;}
 .am-pform td{padding:3px 3px !important;}
 .am-pform input{min-width:0;}
+
+/* ---------- Presupuesto y Programa: hoja a la izquierda + panel de presupuesto / anexos a la derecha ---------- */
+.am-prog-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start;}
+.am-prog-main{min-width:0;}
+.am-anexos{display:flex;flex-direction:column;gap:14px;min-width:0;}
+.am-ax-tot{border:1.5px solid var(--gray-300);border-radius:var(--radius-sm);background:var(--blue-50);padding:6px 14px;}
+.am-ax-tot .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid var(--gray-100);}
+.am-ax-tot .row:last-child{border-bottom:none;}
+.am-ax-tot .l{font-size:10.5px;font-weight:800;color:var(--gray-600);text-transform:uppercase;letter-spacing:.3px;}
+.am-ax-tot .v{font-size:17px;font-weight:800;color:var(--navy-900);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.am-ax-tot .row.neto .v{color:#B4561A;}
+.am-ax-tot .row.small .v{font-size:12.5px;font-weight:700;}
+.am-ax-tot .row.small .l{font-weight:700;}
+.am-ax-note{font-size:10.5px;color:var(--gray-600);padding:2px 0 6px;}
+.am-ax-sec{border:1px solid var(--gray-200,#E3EAF1);border-radius:var(--radius-sm);padding:10px 12px;background:var(--white);}
+.am-ax-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;}
+.am-ax-head h4{margin:0;font-size:12px;color:var(--navy-900);}
+.am-ax-add{font-size:11px;font-weight:700;color:#8A4B12;background:var(--orange-100);border-radius:20px;padding:4px 10px;cursor:pointer;white-space:nowrap;}
+.am-ax-empty{font-size:11px;color:var(--gray-600);padding:6px 0 2px;}
+.am-ax-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--gray-100);}
+.am-ax-item .n{flex:1;min-width:0;font-size:12px;font-weight:600;color:var(--navy-900);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.am-ax-item .n small{display:block;font-weight:400;font-size:10px;color:var(--gray-600);}
+.am-ax-item .btn-sm{padding:4px 9px;font-size:11px;}
+.am-ax-item .btn-sm.del{color:var(--red-600);}
+@media (max-width: 1180px){ .am-prog-grid{grid-template-columns:1fr;} }
 
 /* =========================================================
    CLIENTE ALDO SÁNCHEZ · RESIDENCIA TERRAPARK
@@ -1352,7 +1406,9 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
   body:not(.printing-tprec) #tp-modal{display:none !important;}
   body.printing-tpprog .content > section:not(#view-terrapark){display:none !important;}
   body.printing-tpprog #view-terrapark > *:not(#tp-tab-programa){display:none !important;}
-  body.printing-tpprog #tp-tab-programa > *:not(.tp-page-wrap){display:none !important;}
+  body.printing-tpprog #tp-tab-programa > *:not(.tp-prog-grid){display:none !important;}
+  body.printing-tpprog .tp-prog-grid{display:block !important;}
+  body.printing-tpprog .tp-anexos{display:none !important;}
   body.printing-tpprog #tp-tab-programa{display:block !important;border:none !important;padding:0 !important;}
   .tp-modal-body{padding:0 !important;}
   .tp-page-wrap{width:auto !important;height:auto !important;overflow:visible !important;margin:0 !important;page-break-after:always;break-after:page;}
@@ -1437,6 +1493,31 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 .tp-pform td.pn{white-space:normal;line-height:1.2;font-size:11.5px;}
 .tp-pform td{padding:3px 3px !important;}
 .tp-pform input{min-width:0;}
+
+/* ---------- Presupuesto y Programa: hoja a la izquierda + panel de presupuesto / anexos a la derecha ---------- */
+.tp-prog-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start;}
+.tp-prog-main{min-width:0;}
+.tp-anexos{display:flex;flex-direction:column;gap:14px;min-width:0;}
+.tp-ax-tot{border:1.5px solid var(--gray-300);border-radius:var(--radius-sm);background:var(--blue-50);padding:6px 14px;}
+.tp-ax-tot .row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid var(--gray-100);}
+.tp-ax-tot .row:last-child{border-bottom:none;}
+.tp-ax-tot .l{font-size:10.5px;font-weight:800;color:var(--gray-600);text-transform:uppercase;letter-spacing:.3px;}
+.tp-ax-tot .v{font-size:17px;font-weight:800;color:var(--navy-900);font-variant-numeric:tabular-nums;white-space:nowrap;}
+.tp-ax-tot .row.neto .v{color:#B4561A;}
+.tp-ax-tot .row.small .v{font-size:12.5px;font-weight:700;}
+.tp-ax-tot .row.small .l{font-weight:700;}
+.tp-ax-note{font-size:10.5px;color:var(--gray-600);padding:2px 0 6px;}
+.tp-ax-sec{border:1px solid var(--gray-200,#E3EAF1);border-radius:var(--radius-sm);padding:10px 12px;background:var(--white);}
+.tp-ax-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:6px;}
+.tp-ax-head h4{margin:0;font-size:12px;color:var(--navy-900);}
+.tp-ax-add{font-size:11px;font-weight:700;color:#8A4B12;background:var(--orange-100);border-radius:20px;padding:4px 10px;cursor:pointer;white-space:nowrap;}
+.tp-ax-empty{font-size:11px;color:var(--gray-600);padding:6px 0 2px;}
+.tp-ax-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-top:1px solid var(--gray-100);}
+.tp-ax-item .n{flex:1;min-width:0;font-size:12px;font-weight:600;color:var(--navy-900);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tp-ax-item .n small{display:block;font-weight:400;font-size:10px;color:var(--gray-600);}
+.tp-ax-item .btn-sm{padding:4px 9px;font-size:11px;}
+.tp-ax-item .btn-sm.del{color:var(--red-600);}
+@media (max-width: 1180px){ .tp-prog-grid{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
@@ -1465,7 +1546,7 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
     <button class="btn-orange" id="login-btn" style="width:100%;" onclick="doLogin()">Entrar</button>
     <div style="text-align:center;margin-top:10px;"><a href="#" onclick="doResetPassword();return false;" style="font-size:12px;color:#3B6EA5;">¿Sin contraseña u olvidaste la tuya? Enviar enlace a mi correo</a></div>
     <div class="login-status" id="login-status">Conectando con Firebase...</div>
-    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 07-Oct-2026 03:25 · incluye Terrapark</div>
+    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 07-Oct-2026 20:56 · incluye Terrapark</div>
   </div>
 </div>
 
@@ -1765,7 +1846,10 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
           </div>
           <button class="btn btn-print" onclick="kjPrintPrograma()">Imprimir (PDF)</button>
         </div>
-        <div class="kj-page-wrap" id="kj-prog-wrap"><div class="kj-page" id="kj-prog-page"></div></div>
+        <div class="kj-prog-grid">
+          <div class="kj-prog-main"><div class="kj-page-wrap" id="kj-prog-wrap"><div class="kj-page" id="kj-prog-page"></div></div></div>
+          <aside class="kj-anexos no-print" id="kj-anexos"></aside>
+        </div>
       </div>
 
       <footer class="appfoot no-print">AMD Proyectos · Dashboard interno de gastos</footer>
@@ -1825,7 +1909,10 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
           </div>
           <button class="btn btn-print" onclick="amPrintPrograma()">Imprimir (PDF)</button>
         </div>
-        <div class="am-page-wrap" id="am-prog-wrap"><div class="am-page" id="am-prog-page"></div></div>
+        <div class="am-prog-grid">
+          <div class="am-prog-main"><div class="am-page-wrap" id="am-prog-wrap"><div class="am-page" id="am-prog-page"></div></div></div>
+          <aside class="am-anexos no-print" id="am-anexos"></aside>
+        </div>
       </div>
 
       <footer class="appfoot no-print">AMD Proyectos · Dashboard interno de gastos</footer>
@@ -1885,7 +1972,10 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;"><button class="btn-orange" onclick="tpGoGenerar()">Generar estimación por partida</button><button class="btn btn-print" onclick="tpPrintPrograma()">Imprimir (PDF)</button></div>
         </div>
-        <div class="tp-page-wrap" id="tp-prog-wrap"><div class="tp-page" id="tp-prog-page"></div></div>
+        <div class="tp-prog-grid">
+          <div class="tp-prog-main"><div class="tp-page-wrap" id="tp-prog-wrap"><div class="tp-page" id="tp-prog-page"></div></div></div>
+          <aside class="tp-anexos no-print" id="tp-anexos"></aside>
+        </div>
       </div>
 
       <footer class="appfoot no-print">AMD Proyectos · Dashboard interno de gastos</footer>
@@ -4410,6 +4500,7 @@ const KJ_MES_CORTO = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct
 const KJ_C = { pag:'#3B6EA5', pagLight:'#8DB0D6', saldo:'#D96B1F', prog:'#5A6B7B', progBar:'#B9C7D4', rest:'#E3EAF1', ink:'#14202B', muted:'#5A6B7B', grid:'#E6ECF2' };
 
 let kjRecibosExtra = [];   // recibos generados y guardados (Firestore kanjut_recibos)
+let kjAnexos = [];        // archivos anexos del presupuesto (Firestore kanjut_anexos)
 let kjPdfs = [];           // PDFs cargados (Firestore kanjut_pdfs)
 let kjDraft = null;        // recibo en vista previa, aún sin guardar
 let kjFormOpen = false;
@@ -4791,6 +4882,7 @@ function kjRenderPrograma(){
   const last = kjAllRecibos().slice(-1)[0];
   el.outerHTML = kjHojaPrograma(kjEstado(last.num)).replace('<div class="kj-page">','<div class="kj-page" id="kj-prog-page">');
   kjFitPages(document.getElementById('kj-tab-programa'));
+  kjRenderAnexos();
 }
 function kjPrintPrograma(){
   document.body.classList.add('printing-kjprog');
@@ -5156,6 +5248,105 @@ window.onKanjutError = function(msg){
   if(el) el.innerHTML = `<div class="kj-warn no-print">⚠️ No se pudieron leer los recibos de Kanjut en Firebase (${escXml(msg||'permiso denegado')}). Revisa que las reglas de Firestore incluyan las colecciones <b>kanjut_recibos</b>, <b>kanjut_pdfs</b> y <b>kanjut_pdf_chunks</b>.</div>`;
 };
 
+/* ---------- Presupuesto y Programa: totales + archivos anexos ---------- */
+const KJ_ANEXO_CATS = [
+  ['presupuesto', 'Presupuesto', 'Presupuesto contratado (PDF o Excel).'],
+  ['adicionales', 'Adicionales', 'Espacio para presupuestos o cotizaciones de adicionales.'],
+  ['otros', 'Otros anexos', 'Planos, contratos u otros documentos.']
+];
+let kjAnexoMsg = '';
+function kjFmtSize(b){ return b >= 1048576 ? (b/1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b/1024)) + ' KB'; }
+function kjRenderAnexos(){
+  const el = document.getElementById('kj-anexos'); if(!el) return;
+  const P = KJ.presupuesto, LB = KJ.lbl || {};
+  const otros = KJ.programa && KJ.programa.otros ? KJ.programa.otros : 0;
+  let h = `<div class="kj-ax-tot">
+    <div class="row"><span class="l">PPTO sin IVA</span><span class="v">${kjM(P.monto)}</span></div>
+    <div class="row neto"><span class="l">PPTO neto${P.iva ? ' (con IVA)' : ''}</span><span class="v">${kjM(P.neto)}</span></div>
+    ${P.iva ? `<div class="row small"><span class="l">IVA</span><span class="v">${kjM(P.iva)}</span></div>` : ''}
+    ${otros ? `<div class="row small"><span class="l">${escXml((KJ.programa.otrosLabel || 'Otros trabajos'))} (incluidos)</span><span class="v">${kjM(otros)}</span></div>` : ''}
+  </div>
+  ${!P.iva ? '<div class="kj-ax-note">Este cliente se maneja sin IVA: el presupuesto neto y el presupuesto sin IVA son el mismo monto.</div>' : ''}`;
+  if(kjAnexoMsg) h += `<div class="${kjAnexoMsg.startsWith('⚠️')?'kj-warn':'kj-ok'}">${escXml(kjAnexoMsg)}</div>`;
+  KJ_ANEXO_CATS.forEach(([cat, titulo, vacio])=>{
+    const items = kjAnexos.filter(a=>(a.cat||'otros')===cat).sort((a,b)=>String(b.f||'').localeCompare(String(a.f||'')));
+    h += `<div class="kj-ax-sec"><div class="kj-ax-head"><h4>${titulo}</h4>
+      <label class="kj-ax-add" for="kj-ax-file-${cat}">+ Agregar</label>
+      <input type="file" id="kj-ax-file-${cat}" multiple style="display:none;" accept=".pdf,.xlsx,.xls,.csv,.doc,.docx,.png,.jpg,.jpeg,application/pdf,image/*" onchange="kjAnexoChosen('${cat}', this)"></div>`;
+    if(!items.length) h += `<div class="kj-ax-empty">${vacio}</div>`;
+    items.forEach(a=>{
+      const ver = /^(application\/pdf|image\/)/.test(a.type||'') ? `<button class="btn-sm" onclick="kjVerAnexo('${a.id}')">Ver</button>` : '';
+      h += `<div class="kj-ax-item"><div class="n" title="${escXml(a.nombre||'')}">${escXml(a.nombre||'archivo')}<small>${kjFmtSize(a.size||0)}${a.f ? ' · ' + fmtDate(a.f) : ''}${a._local ? ' · solo en esta sesión' : ''}</small></div>
+        ${ver}<button class="btn-sm pdf" onclick="kjDescargarAnexo('${a.id}')">Descargar</button><button class="btn-sm del" title="Eliminar" onclick="kjEliminarAnexo('${a.id}')">✕</button></div>`;
+    });
+    h += `</div>`;
+  });
+  el.innerHTML = h;
+}
+async function kjAnexoChosen(cat, inp){
+  const files = Array.from(inp.files || []); inp.value = '';
+  let okN = 0, local = 0, big = 0;
+  for(const f of files){
+    if(f.size > 4.5*1024*1024){ big++; continue; }
+    const b64 = await kjReadB64(f);
+    const meta = { cat, nombre:f.name, type:f.type || 'application/octet-stream', size:f.size, f:kjIso(new Date()) };
+    let ok = false;
+    try{ if(window.FBK && window.FB && window.FB.ready){ meta.id = await window.FBK.addAnexo(meta, b64); ok = true; } }
+    catch(e){ console.error('Error guardando anexo Kanjut:', e); }
+    if(!ok){ meta.id = 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2,7); meta._local = b64; local++; } else okN++;
+    kjAnexos.push(meta);
+  }
+  kjAnexoMsg = big ? `⚠️ ${big} archivo(s) pesan más de 4.5 MB y no se cargaron. Reduce el tamaño e intenta de nuevo.`
+    : local ? `⚠️ ${local} archivo(s) quedaron solo en esta sesión — no se pudieron guardar en Firebase (revisa conexión o reglas).`
+    : okN ? `✓ ${okN} archivo${okN===1?'':'s'} guardado${okN===1?'':'s'} en la base de datos.` : '';
+  kjRenderAnexos();
+}
+async function kjAnexoBytes(a){
+  let b64 = a._local;
+  if(!b64 && window.FBK) b64 = await window.FBK.getAnexoData(a);
+  if(!b64) throw new Error('sin contenido');
+  const bin = atob(b64), arr = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], {type:a.type||'application/octet-stream'});
+}
+async function kjDescargarAnexo(id){
+  const a = kjAnexos.find(x=>x.id===id); if(!a) return;
+  try{
+    const blob = await kjAnexoBytes(a), url = URL.createObjectURL(blob);
+    const l = document.createElement('a'); l.href = url; l.download = a.nombre || 'anexo'; document.body.appendChild(l); l.click(); l.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 60000);
+  }catch(e){ alert('No se pudo descargar el archivo de Firebase.'); }
+}
+async function kjVerAnexo(id){
+  const a = kjAnexos.find(x=>x.id===id); if(!a) return;
+  try{
+    const blob = await kjAnexoBytes(a);
+    if(kjPdfUrl) URL.revokeObjectURL(kjPdfUrl);
+    kjPdfUrl = URL.createObjectURL(blob);
+    kjModalMode = 'pdf';
+    document.getElementById('kj-modal-title').textContent = a.nombre || 'Anexo';
+    document.getElementById('kj-modal-extra').innerHTML = `<a class="btn-sm" href="${kjPdfUrl}" target="_blank" rel="noopener" download="${escXml(a.nombre||'anexo')}">Abrir / descargar</a>`;
+    document.getElementById('kj-modal-print').style.display = 'none';
+    document.getElementById('kj-modal-body').innerHTML = (a.type||'').startsWith('image/')
+      ? `<img src="${kjPdfUrl}" style="max-width:100%;border:1px solid var(--gray-300);border-radius:8px;">`
+      : `<iframe class="kj-pdf-frame" src="${kjPdfUrl}"></iframe>`;
+    document.getElementById('kj-modal').classList.add('open');
+  }catch(e){ alert('No se pudo abrir el archivo de Firebase.'); }
+}
+async function kjEliminarAnexo(id){
+  const a = kjAnexos.find(x=>x.id===id); if(!a) return;
+  if(!confirm(`¿Eliminar el archivo "${a.nombre}"?`)) return;
+  try{ if(!a._local && window.FBK) await window.FBK.deleteAnexo(a); }
+  catch(e){ alert('No se pudo eliminar en Firebase. Intenta de nuevo.'); return; }
+  kjAnexos = kjAnexos.filter(x=>x.id!==id);
+  kjAnexoMsg = 'Archivo eliminado.';
+  kjRenderAnexos();
+}
+window.onKanjutAnexos = function(anexos){
+  anexos.forEach(a=>{ if(!kjAnexos.some(x=>x.id===a.id)) kjAnexos.push(a); });
+  kjRenderAnexos();
+};
+
 function kjRenderAll(){
   kjRenderList();
   kjRenderSide();
@@ -5178,6 +5369,7 @@ const TP_MES_CORTO = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct
 const TP_C = { pag:'#3B6EA5', pagLight:'#8DB0D6', saldo:'#D96B1F', prog:'#5A6B7B', progBar:'#B9C7D4', rest:'#E3EAF1', ink:'#14202B', muted:'#5A6B7B', grid:'#E6ECF2' };
 
 let tpRecibosExtra = [];   // recibos generados y guardados (Firestore terrapark_recibos)
+let tpAnexos = [];        // archivos anexos del presupuesto (Firestore terrapark_anexos)
 let tpPdfs = [];           // PDFs cargados (Firestore terrapark_pdfs)
 let tpDraft = null;        // recibo en vista previa, aún sin guardar
 let tpFormOpen = false;
@@ -5559,6 +5751,7 @@ function tpRenderPrograma(){
   const last = tpAllRecibos().slice(-1)[0];
   el.outerHTML = tpHojaPrograma(tpEstado(last.num)).replace('<div class="tp-page">','<div class="tp-page" id="tp-prog-page">');
   tpFitPages(document.getElementById('tp-tab-programa'));
+  tpRenderAnexos();
 }
 function tpPrintPrograma(){
   document.body.classList.add('printing-tpprog');
@@ -5924,6 +6117,105 @@ window.onTerraparkError = function(msg){
   if(el) el.innerHTML = `<div class="tp-warn no-print">⚠️ No se pudieron leer los recibos de Terrapark en Firebase (${escXml(msg||'permiso denegado')}). Revisa que las reglas de Firestore incluyan las colecciones <b>terrapark_recibos</b>, <b>terrapark_pdfs</b> y <b>terrapark_pdf_chunks</b>.</div>`;
 };
 
+/* ---------- Presupuesto y Programa: totales + archivos anexos ---------- */
+const TP_ANEXO_CATS = [
+  ['presupuesto', 'Presupuesto', 'Presupuesto contratado (PDF o Excel).'],
+  ['adicionales', 'Adicionales', 'Espacio para presupuestos o cotizaciones de adicionales.'],
+  ['otros', 'Otros anexos', 'Planos, contratos u otros documentos.']
+];
+let tpAnexoMsg = '';
+function tpFmtSize(b){ return b >= 1048576 ? (b/1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b/1024)) + ' KB'; }
+function tpRenderAnexos(){
+  const el = document.getElementById('tp-anexos'); if(!el) return;
+  const P = TP.presupuesto, LB = TP.lbl || {};
+  const otros = TP.programa && TP.programa.otros ? TP.programa.otros : 0;
+  let h = `<div class="tp-ax-tot">
+    <div class="row"><span class="l">PPTO sin IVA</span><span class="v">${tpM(P.monto)}</span></div>
+    <div class="row neto"><span class="l">PPTO neto${P.iva ? ' (con IVA)' : ''}</span><span class="v">${tpM(P.neto)}</span></div>
+    ${P.iva ? `<div class="row small"><span class="l">IVA</span><span class="v">${tpM(P.iva)}</span></div>` : ''}
+    ${otros ? `<div class="row small"><span class="l">${escXml((TP.programa.otrosLabel || 'Otros trabajos'))} (incluidos)</span><span class="v">${tpM(otros)}</span></div>` : ''}
+  </div>
+  ${!P.iva ? '<div class="tp-ax-note">Este cliente se maneja sin IVA: el presupuesto neto y el presupuesto sin IVA son el mismo monto.</div>' : ''}`;
+  if(tpAnexoMsg) h += `<div class="${tpAnexoMsg.startsWith('⚠️')?'tp-warn':'tp-ok'}">${escXml(tpAnexoMsg)}</div>`;
+  TP_ANEXO_CATS.forEach(([cat, titulo, vacio])=>{
+    const items = tpAnexos.filter(a=>(a.cat||'otros')===cat).sort((a,b)=>String(b.f||'').localeCompare(String(a.f||'')));
+    h += `<div class="tp-ax-sec"><div class="tp-ax-head"><h4>${titulo}</h4>
+      <label class="tp-ax-add" for="tp-ax-file-${cat}">+ Agregar</label>
+      <input type="file" id="tp-ax-file-${cat}" multiple style="display:none;" accept=".pdf,.xlsx,.xls,.csv,.doc,.docx,.png,.jpg,.jpeg,application/pdf,image/*" onchange="tpAnexoChosen('${cat}', this)"></div>`;
+    if(!items.length) h += `<div class="tp-ax-empty">${vacio}</div>`;
+    items.forEach(a=>{
+      const ver = /^(application\/pdf|image\/)/.test(a.type||'') ? `<button class="btn-sm" onclick="tpVerAnexo('${a.id}')">Ver</button>` : '';
+      h += `<div class="tp-ax-item"><div class="n" title="${escXml(a.nombre||'')}">${escXml(a.nombre||'archivo')}<small>${tpFmtSize(a.size||0)}${a.f ? ' · ' + fmtDate(a.f) : ''}${a._local ? ' · solo en esta sesión' : ''}</small></div>
+        ${ver}<button class="btn-sm pdf" onclick="tpDescargarAnexo('${a.id}')">Descargar</button><button class="btn-sm del" title="Eliminar" onclick="tpEliminarAnexo('${a.id}')">✕</button></div>`;
+    });
+    h += `</div>`;
+  });
+  el.innerHTML = h;
+}
+async function tpAnexoChosen(cat, inp){
+  const files = Array.from(inp.files || []); inp.value = '';
+  let okN = 0, local = 0, big = 0;
+  for(const f of files){
+    if(f.size > 4.5*1024*1024){ big++; continue; }
+    const b64 = await tpReadB64(f);
+    const meta = { cat, nombre:f.name, type:f.type || 'application/octet-stream', size:f.size, f:tpIso(new Date()) };
+    let ok = false;
+    try{ if(window.FBT && window.FB && window.FB.ready){ meta.id = await window.FBT.addAnexo(meta, b64); ok = true; } }
+    catch(e){ console.error('Error guardando anexo Terrapark:', e); }
+    if(!ok){ meta.id = 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2,7); meta._local = b64; local++; } else okN++;
+    tpAnexos.push(meta);
+  }
+  tpAnexoMsg = big ? `⚠️ ${big} archivo(s) pesan más de 4.5 MB y no se cargaron. Reduce el tamaño e intenta de nuevo.`
+    : local ? `⚠️ ${local} archivo(s) quedaron solo en esta sesión — no se pudieron guardar en Firebase (revisa conexión o reglas).`
+    : okN ? `✓ ${okN} archivo${okN===1?'':'s'} guardado${okN===1?'':'s'} en la base de datos.` : '';
+  tpRenderAnexos();
+}
+async function tpAnexoBytes(a){
+  let b64 = a._local;
+  if(!b64 && window.FBT) b64 = await window.FBT.getAnexoData(a);
+  if(!b64) throw new Error('sin contenido');
+  const bin = atob(b64), arr = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], {type:a.type||'application/octet-stream'});
+}
+async function tpDescargarAnexo(id){
+  const a = tpAnexos.find(x=>x.id===id); if(!a) return;
+  try{
+    const blob = await tpAnexoBytes(a), url = URL.createObjectURL(blob);
+    const l = document.createElement('a'); l.href = url; l.download = a.nombre || 'anexo'; document.body.appendChild(l); l.click(); l.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 60000);
+  }catch(e){ alert('No se pudo descargar el archivo de Firebase.'); }
+}
+async function tpVerAnexo(id){
+  const a = tpAnexos.find(x=>x.id===id); if(!a) return;
+  try{
+    const blob = await tpAnexoBytes(a);
+    if(tpPdfUrl) URL.revokeObjectURL(tpPdfUrl);
+    tpPdfUrl = URL.createObjectURL(blob);
+    tpModalMode = 'pdf';
+    document.getElementById('tp-modal-title').textContent = a.nombre || 'Anexo';
+    document.getElementById('tp-modal-extra').innerHTML = `<a class="btn-sm" href="${tpPdfUrl}" target="_blank" rel="noopener" download="${escXml(a.nombre||'anexo')}">Abrir / descargar</a>`;
+    document.getElementById('tp-modal-print').style.display = 'none';
+    document.getElementById('tp-modal-body').innerHTML = (a.type||'').startsWith('image/')
+      ? `<img src="${tpPdfUrl}" style="max-width:100%;border:1px solid var(--gray-300);border-radius:8px;">`
+      : `<iframe class="tp-pdf-frame" src="${tpPdfUrl}"></iframe>`;
+    document.getElementById('tp-modal').classList.add('open');
+  }catch(e){ alert('No se pudo abrir el archivo de Firebase.'); }
+}
+async function tpEliminarAnexo(id){
+  const a = tpAnexos.find(x=>x.id===id); if(!a) return;
+  if(!confirm(`¿Eliminar el archivo "${a.nombre}"?`)) return;
+  try{ if(!a._local && window.FBT) await window.FBT.deleteAnexo(a); }
+  catch(e){ alert('No se pudo eliminar en Firebase. Intenta de nuevo.'); return; }
+  tpAnexos = tpAnexos.filter(x=>x.id!==id);
+  tpAnexoMsg = 'Archivo eliminado.';
+  tpRenderAnexos();
+}
+window.onTerraparkAnexos = function(anexos){
+  anexos.forEach(a=>{ if(!tpAnexos.some(x=>x.id===a.id)) tpAnexos.push(a); });
+  tpRenderAnexos();
+};
+
 function tpRenderAll(){
   tpRenderList();
   tpRenderSide();
@@ -6202,6 +6494,7 @@ const AM_MES_CORTO = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct
 const AM_C = { pag:'#3B6EA5', pagLight:'#8DB0D6', saldo:'#D96B1F', prog:'#5A6B7B', progBar:'#B9C7D4', rest:'#E3EAF1', ink:'#14202B', muted:'#5A6B7B', grid:'#E6ECF2' };
 
 let amRecibosExtra = [];   // recibos generados y guardados (Firestore amani_recibos)
+let amAnexos = [];        // archivos anexos del presupuesto (Firestore amani_anexos)
 let amPdfs = [];           // PDFs cargados (Firestore amani_pdfs)
 let amDraft = null;        // recibo en vista previa, aún sin guardar
 let amFormOpen = false;
@@ -6583,6 +6876,7 @@ function amRenderPrograma(){
   const last = amAllRecibos().slice(-1)[0];
   el.outerHTML = amHojaPrograma(amEstado(last.num)).replace('<div class="am-page">','<div class="am-page" id="am-prog-page">');
   amFitPages(document.getElementById('am-tab-programa'));
+  amRenderAnexos();
 }
 function amPrintPrograma(){
   document.body.classList.add('printing-amprog');
@@ -6948,6 +7242,105 @@ window.onAmaniError = function(msg){
   if(el) el.innerHTML = `<div class="am-warn no-print">⚠️ No se pudieron leer los recibos de Amani en Firebase (${escXml(msg||'permiso denegado')}). Revisa que las reglas de Firestore incluyan las colecciones <b>amani_recibos</b>, <b>amani_pdfs</b> y <b>amani_pdf_chunks</b>.</div>`;
 };
 
+/* ---------- Presupuesto y Programa: totales + archivos anexos ---------- */
+const AM_ANEXO_CATS = [
+  ['presupuesto', 'Presupuesto', 'Presupuesto contratado (PDF o Excel).'],
+  ['adicionales', 'Adicionales', 'Espacio para presupuestos o cotizaciones de adicionales.'],
+  ['otros', 'Otros anexos', 'Planos, contratos u otros documentos.']
+];
+let amAnexoMsg = '';
+function amFmtSize(b){ return b >= 1048576 ? (b/1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b/1024)) + ' KB'; }
+function amRenderAnexos(){
+  const el = document.getElementById('am-anexos'); if(!el) return;
+  const P = AM.presupuesto, LB = AM.lbl || {};
+  const otros = AM.programa && AM.programa.otros ? AM.programa.otros : 0;
+  let h = `<div class="am-ax-tot">
+    <div class="row"><span class="l">PPTO sin IVA</span><span class="v">${amM(P.monto)}</span></div>
+    <div class="row neto"><span class="l">PPTO neto${P.iva ? ' (con IVA)' : ''}</span><span class="v">${amM(P.neto)}</span></div>
+    ${P.iva ? `<div class="row small"><span class="l">IVA</span><span class="v">${amM(P.iva)}</span></div>` : ''}
+    ${otros ? `<div class="row small"><span class="l">${escXml((AM.programa.otrosLabel || 'Otros trabajos'))} (incluidos)</span><span class="v">${amM(otros)}</span></div>` : ''}
+  </div>
+  ${!P.iva ? '<div class="am-ax-note">Este cliente se maneja sin IVA: el presupuesto neto y el presupuesto sin IVA son el mismo monto.</div>' : ''}`;
+  if(amAnexoMsg) h += `<div class="${amAnexoMsg.startsWith('⚠️')?'am-warn':'am-ok'}">${escXml(amAnexoMsg)}</div>`;
+  AM_ANEXO_CATS.forEach(([cat, titulo, vacio])=>{
+    const items = amAnexos.filter(a=>(a.cat||'otros')===cat).sort((a,b)=>String(b.f||'').localeCompare(String(a.f||'')));
+    h += `<div class="am-ax-sec"><div class="am-ax-head"><h4>${titulo}</h4>
+      <label class="am-ax-add" for="am-ax-file-${cat}">+ Agregar</label>
+      <input type="file" id="am-ax-file-${cat}" multiple style="display:none;" accept=".pdf,.xlsx,.xls,.csv,.doc,.docx,.png,.jpg,.jpeg,application/pdf,image/*" onchange="amAnexoChosen('${cat}', this)"></div>`;
+    if(!items.length) h += `<div class="am-ax-empty">${vacio}</div>`;
+    items.forEach(a=>{
+      const ver = /^(application\/pdf|image\/)/.test(a.type||'') ? `<button class="btn-sm" onclick="amVerAnexo('${a.id}')">Ver</button>` : '';
+      h += `<div class="am-ax-item"><div class="n" title="${escXml(a.nombre||'')}">${escXml(a.nombre||'archivo')}<small>${amFmtSize(a.size||0)}${a.f ? ' · ' + fmtDate(a.f) : ''}${a._local ? ' · solo en esta sesión' : ''}</small></div>
+        ${ver}<button class="btn-sm pdf" onclick="amDescargarAnexo('${a.id}')">Descargar</button><button class="btn-sm del" title="Eliminar" onclick="amEliminarAnexo('${a.id}')">✕</button></div>`;
+    });
+    h += `</div>`;
+  });
+  el.innerHTML = h;
+}
+async function amAnexoChosen(cat, inp){
+  const files = Array.from(inp.files || []); inp.value = '';
+  let okN = 0, local = 0, big = 0;
+  for(const f of files){
+    if(f.size > 4.5*1024*1024){ big++; continue; }
+    const b64 = await amReadB64(f);
+    const meta = { cat, nombre:f.name, type:f.type || 'application/octet-stream', size:f.size, f:amIso(new Date()) };
+    let ok = false;
+    try{ if(window.FBA && window.FB && window.FB.ready){ meta.id = await window.FBA.addAnexo(meta, b64); ok = true; } }
+    catch(e){ console.error('Error guardando anexo Amani:', e); }
+    if(!ok){ meta.id = 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2,7); meta._local = b64; local++; } else okN++;
+    amAnexos.push(meta);
+  }
+  amAnexoMsg = big ? `⚠️ ${big} archivo(s) pesan más de 4.5 MB y no se cargaron. Reduce el tamaño e intenta de nuevo.`
+    : local ? `⚠️ ${local} archivo(s) quedaron solo en esta sesión — no se pudieron guardar en Firebase (revisa conexión o reglas).`
+    : okN ? `✓ ${okN} archivo${okN===1?'':'s'} guardado${okN===1?'':'s'} en la base de datos.` : '';
+  amRenderAnexos();
+}
+async function amAnexoBytes(a){
+  let b64 = a._local;
+  if(!b64 && window.FBA) b64 = await window.FBA.getAnexoData(a);
+  if(!b64) throw new Error('sin contenido');
+  const bin = atob(b64), arr = new Uint8Array(bin.length);
+  for(let i=0;i<bin.length;i++) arr[i] = bin.charCodeAt(i);
+  return new Blob([arr], {type:a.type||'application/octet-stream'});
+}
+async function amDescargarAnexo(id){
+  const a = amAnexos.find(x=>x.id===id); if(!a) return;
+  try{
+    const blob = await amAnexoBytes(a), url = URL.createObjectURL(blob);
+    const l = document.createElement('a'); l.href = url; l.download = a.nombre || 'anexo'; document.body.appendChild(l); l.click(); l.remove();
+    setTimeout(()=>URL.revokeObjectURL(url), 60000);
+  }catch(e){ alert('No se pudo descargar el archivo de Firebase.'); }
+}
+async function amVerAnexo(id){
+  const a = amAnexos.find(x=>x.id===id); if(!a) return;
+  try{
+    const blob = await amAnexoBytes(a);
+    if(amPdfUrl) URL.revokeObjectURL(amPdfUrl);
+    amPdfUrl = URL.createObjectURL(blob);
+    amModalMode = 'pdf';
+    document.getElementById('am-modal-title').textContent = a.nombre || 'Anexo';
+    document.getElementById('am-modal-extra').innerHTML = `<a class="btn-sm" href="${amPdfUrl}" target="_blank" rel="noopener" download="${escXml(a.nombre||'anexo')}">Abrir / descargar</a>`;
+    document.getElementById('am-modal-print').style.display = 'none';
+    document.getElementById('am-modal-body').innerHTML = (a.type||'').startsWith('image/')
+      ? `<img src="${amPdfUrl}" style="max-width:100%;border:1px solid var(--gray-300);border-radius:8px;">`
+      : `<iframe class="am-pdf-frame" src="${amPdfUrl}"></iframe>`;
+    document.getElementById('am-modal').classList.add('open');
+  }catch(e){ alert('No se pudo abrir el archivo de Firebase.'); }
+}
+async function amEliminarAnexo(id){
+  const a = amAnexos.find(x=>x.id===id); if(!a) return;
+  if(!confirm(`¿Eliminar el archivo "${a.nombre}"?`)) return;
+  try{ if(!a._local && window.FBA) await window.FBA.deleteAnexo(a); }
+  catch(e){ alert('No se pudo eliminar en Firebase. Intenta de nuevo.'); return; }
+  amAnexos = amAnexos.filter(x=>x.id!==id);
+  amAnexoMsg = 'Archivo eliminado.';
+  amRenderAnexos();
+}
+window.onAmaniAnexos = function(anexos){
+  anexos.forEach(a=>{ if(!amAnexos.some(x=>x.id===a.id)) amAnexos.push(a); });
+  amRenderAnexos();
+};
+
 function amRenderAll(){
   amRenderList();
   amRenderSide();
@@ -7038,7 +7431,7 @@ window.addEventListener('error', function(e){
   // ---- Clientes: Aldo Sánchez · Kanjut y Héctor Dávila · Amani Terra ----
   const KJ_CHUNK_SIZE = 700000;
   const makeClientFB = (pfx) => {
-    const REC = pfx + '_recibos', PDF = pfx + '_pdfs', CHUNK = pfx + '_pdf_chunks';
+    const REC = pfx + '_recibos', PDF = pfx + '_pdfs', CHUNK = pfx + '_pdf_chunks', AX = pfx + '_anexos', AXC = pfx + '_anexo_chunks';
     return {
       async loadRecibos(){ const snap = await getDocs(collection(db, REC)); return snap.docs.map(d => { const x = d.data(); delete x.creadoEn; return { ...x, _fbId: d.id }; }); },
       async addRecibo(r){ const clean = JSON.parse(JSON.stringify(r)); const ref = await addDoc(collection(db, REC), { ...clean, creadoEn: serverTimestamp() }); return ref.id; },
@@ -7055,6 +7448,23 @@ window.addEventListener('error', function(e){
       async getPdfData(p){
         const parts = await Promise.all(Array.from({length: p.chunks || 1}, (_, i) => getDoc(doc(db, CHUNK, p.id + '_' + i))));
         return parts.map(snap => snap.exists() ? snap.data().data : '').join('');
+      },
+      async loadAnexos(){ const snap = await getDocs(collection(db, AX)); return snap.docs.map(d => { const x = d.data(); delete x.creadoEn; return { ...x, id: d.id }; }); },
+      async addAnexo(meta, b64){
+        const chunks = Math.max(1, Math.ceil(b64.length / KJ_CHUNK_SIZE));
+        const ref = doc(collection(db, AX));
+        for(let i=0;i<chunks;i++){ await setDoc(doc(db, AXC, ref.id + '_' + i), { data: b64.slice(i*KJ_CHUNK_SIZE, (i+1)*KJ_CHUNK_SIZE) }); }
+        await setDoc(ref, { cat: meta.cat, nombre: meta.nombre, type: meta.type, size: meta.size, f: meta.f, chunks, creadoEn: serverTimestamp() });
+        meta.chunks = chunks;
+        return ref.id;
+      },
+      async getAnexoData(a){
+        const parts = await Promise.all(Array.from({length: a.chunks || 1}, (_, i) => getDoc(doc(db, AXC, a.id + '_' + i))));
+        return parts.map(snap => snap.exists() ? snap.data().data : '').join('');
+      },
+      async deleteAnexo(a){
+        for(let i=0;i<(a.chunks||1);i++){ await deleteDoc(doc(db, AXC, a.id + '_' + i)); }
+        await deleteDoc(doc(db, AX, a.id));
       },
       async deletePdf(p){
         for(let i=0;i<(p.chunks||1);i++){ await deleteDoc(doc(db, CHUNK, p.id + '_' + i)); }
@@ -7098,6 +7508,11 @@ window.addEventListener('error', function(e){
       try {
         const [rr, pp] = await Promise.all([fb.loadRecibos(), fb.loadPdfs()]);
         if(typeof window[okName] === 'function') window[okName](rr, pp);
+        try {
+          const aa = await fb.loadAnexos();
+          const anxName = okName.replace('Loaded', 'Anexos');
+          if(typeof window[anxName] === 'function') window[anxName](aa);
+        } catch(e2){ console.error(okName + ' anexos (Firestore):', e2); }
       } catch(e){
         console.error(okName + ' (Firestore):', e);
         if(typeof window[errName] === 'function') window[errName](e.code || e.message);
