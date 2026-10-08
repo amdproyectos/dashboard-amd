@@ -909,6 +909,31 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 
 .kj-list .btn-sm.recon{border-style:dashed;color:var(--gray-600);}
 
+.kj-side-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;margin-top:6px;}
+.kj-side-grid .kj-kpis{margin-bottom:0;}
+.kj-side-grid .kj-kpi{flex-direction:column;align-items:flex-start;gap:1px;padding:7px 0;}
+.kj-side-donut{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.kj-side-donut .kj-legend{display:flex;flex-direction:column;gap:4px;}
+.kj-fa-list{max-height:calc(100vh - 640px);min-height:110px;overflow-y:auto;}
+@media(min-width:1101px){.kj-grid>.kj-col:last-child,.kj-col:last-child{position:sticky;top:10px;align-self:start;}}
+@media(max-width:1100px){.kj-fa-list{max-height:none;}}
+
+.kj-proy .kj-proy-empty{font-size:11px;color:var(--gray-600);padding:6px 0 2px;}
+.kj-proy-prev{position:relative;border:1px solid var(--gray-200,#E3EAF1);border-radius:10px;background:var(--gray-50,#F6F8FA);overflow:hidden;cursor:pointer;aspect-ratio:3/4;display:flex;align-items:flex-start;justify-content:center;margin:2px 0 8px;max-height:340px;}
+.kj-proy-prev img{width:100%;height:100%;object-fit:contain;object-position:top center;background:#fff;display:block;}
+.kj-proy-prev iframe{width:100%;height:100%;border:0;pointer-events:none;background:#fff;}
+.kj-proy-load{align-self:center;font-size:11px;color:var(--gray-600);padding:10px;text-align:center;}
+.kj-proy-pg{position:absolute;right:8px;bottom:8px;background:rgba(14,36,64,.78);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.kj-proy-cap{font-size:12px;color:var(--navy-900);}
+.kj-proy-cap small{display:block;font-size:10.5px;color:var(--gray-600);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.kj-proy-btns{display:flex;gap:6px;margin-top:8px;}
+.kj-proy-btns .btn-sm{padding:4px 10px;font-size:11px;}.kj-proy-btns .btn-sm.del{color:var(--red-600);}
+
+.kj-proy-prev{aspect-ratio:auto;min-height:120px;max-height:none;display:block;background:#fff;}
+.kj-proy-prev img{width:100%;height:auto;max-height:360px;object-fit:contain;object-position:top center;}
+.kj-proy-prev iframe{height:320px;}
+.kj-proy-prev .kj-proy-load{display:block;text-align:center;padding:48px 10px;}
+
 /* =========================================================
    CLIENTE HÉCTOR DÁVILA · RESIDENCIA AMANI TERRA
    ========================================================= */
@@ -1238,6 +1263,31 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 
 .am-list .btn-sm.recon{border-style:dashed;color:var(--gray-600);}
 
+.am-side-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;margin-top:6px;}
+.am-side-grid .am-kpis{margin-bottom:0;}
+.am-side-grid .am-kpi{flex-direction:column;align-items:flex-start;gap:1px;padding:7px 0;}
+.am-side-donut{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.am-side-donut .am-legend{display:flex;flex-direction:column;gap:4px;}
+.am-fa-list{max-height:calc(100vh - 640px);min-height:110px;overflow-y:auto;}
+@media(min-width:1101px){.am-grid>.am-col:last-child,.am-col:last-child{position:sticky;top:10px;align-self:start;}}
+@media(max-width:1100px){.am-fa-list{max-height:none;}}
+
+.am-proy .am-proy-empty{font-size:11px;color:var(--gray-600);padding:6px 0 2px;}
+.am-proy-prev{position:relative;border:1px solid var(--gray-200,#E3EAF1);border-radius:10px;background:var(--gray-50,#F6F8FA);overflow:hidden;cursor:pointer;aspect-ratio:3/4;display:flex;align-items:flex-start;justify-content:center;margin:2px 0 8px;max-height:340px;}
+.am-proy-prev img{width:100%;height:100%;object-fit:contain;object-position:top center;background:#fff;display:block;}
+.am-proy-prev iframe{width:100%;height:100%;border:0;pointer-events:none;background:#fff;}
+.am-proy-load{align-self:center;font-size:11px;color:var(--gray-600);padding:10px;text-align:center;}
+.am-proy-pg{position:absolute;right:8px;bottom:8px;background:rgba(14,36,64,.78);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.am-proy-cap{font-size:12px;color:var(--navy-900);}
+.am-proy-cap small{display:block;font-size:10.5px;color:var(--gray-600);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.am-proy-btns{display:flex;gap:6px;margin-top:8px;}
+.am-proy-btns .btn-sm{padding:4px 10px;font-size:11px;}.am-proy-btns .btn-sm.del{color:var(--red-600);}
+
+.am-proy-prev{aspect-ratio:auto;min-height:120px;max-height:none;display:block;background:#fff;}
+.am-proy-prev img{width:100%;height:auto;max-height:360px;object-fit:contain;object-position:top center;}
+.am-proy-prev iframe{height:320px;}
+.am-proy-prev .am-proy-load{display:block;text-align:center;padding:48px 10px;}
+
 /* =========================================================
    CLIENTE ALDO SÁNCHEZ · RESIDENCIA TERRAPARK
    ========================================================= */
@@ -1566,6 +1616,31 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 .tp-fa-item .btn-sm.del{color:var(--red-600);}
 
 .tp-list .btn-sm.recon{border-style:dashed;color:var(--gray-600);}
+
+.tp-side-grid{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;margin-top:6px;}
+.tp-side-grid .tp-kpis{margin-bottom:0;}
+.tp-side-grid .tp-kpi{flex-direction:column;align-items:flex-start;gap:1px;padding:7px 0;}
+.tp-side-donut{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.tp-side-donut .tp-legend{display:flex;flex-direction:column;gap:4px;}
+.tp-fa-list{max-height:calc(100vh - 640px);min-height:110px;overflow-y:auto;}
+@media(min-width:1101px){.tp-grid>.tp-col:last-child,.tp-col:last-child{position:sticky;top:10px;align-self:start;}}
+@media(max-width:1100px){.tp-fa-list{max-height:none;}}
+
+.tp-proy .tp-proy-empty{font-size:11px;color:var(--gray-600);padding:6px 0 2px;}
+.tp-proy-prev{position:relative;border:1px solid var(--gray-200,#E3EAF1);border-radius:10px;background:var(--gray-50,#F6F8FA);overflow:hidden;cursor:pointer;aspect-ratio:3/4;display:flex;align-items:flex-start;justify-content:center;margin:2px 0 8px;max-height:340px;}
+.tp-proy-prev img{width:100%;height:100%;object-fit:contain;object-position:top center;background:#fff;display:block;}
+.tp-proy-prev iframe{width:100%;height:100%;border:0;pointer-events:none;background:#fff;}
+.tp-proy-load{align-self:center;font-size:11px;color:var(--gray-600);padding:10px;text-align:center;}
+.tp-proy-pg{position:absolute;right:8px;bottom:8px;background:rgba(14,36,64,.78);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+.tp-proy-cap{font-size:12px;color:var(--navy-900);}
+.tp-proy-cap small{display:block;font-size:10.5px;color:var(--gray-600);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.tp-proy-btns{display:flex;gap:6px;margin-top:8px;}
+.tp-proy-btns .btn-sm{padding:4px 10px;font-size:11px;}.tp-proy-btns .btn-sm.del{color:var(--red-600);}
+
+.tp-proy-prev{aspect-ratio:auto;min-height:120px;max-height:none;display:block;background:#fff;}
+.tp-proy-prev img{width:100%;height:auto;max-height:360px;object-fit:contain;object-position:top center;}
+.tp-proy-prev iframe{height:320px;}
+.tp-proy-prev .tp-proy-load{display:block;text-align:center;padding:48px 10px;}
 </style>
 </head>
 <body>
@@ -1594,7 +1669,7 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
     <button class="btn-orange" id="login-btn" style="width:100%;" onclick="doLogin()">Entrar</button>
     <div style="text-align:center;margin-top:10px;"><a href="#" onclick="doResetPassword();return false;" style="font-size:12px;color:#3B6EA5;">¿Sin contraseña u olvidaste la tuya? Enviar enlace a mi correo</a></div>
     <div class="login-status" id="login-status">Conectando con Firebase...</div>
-    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 07-Oct-2026 22:28 · incluye Terrapark</div>
+    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 07-Oct-2026 23:25 · incluye Terrapark</div>
   </div>
 </div>
 
@@ -1848,8 +1923,8 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       </div>
 
       <div class="sheet-nav no-print">
-        <button class="sheet-tab kj-tab active" data-kjtab="recibos" onclick="kjSetTab('recibos')">Recibos</button>
-        <button class="sheet-tab kj-tab" data-kjtab="programa" onclick="kjSetTab('programa')">Presupuesto y Programa</button>
+        <button class="sheet-tab kj-tab active" data-kjtab="recibos" onclick="kjSetTab('recibos')">Recibos/Facturas</button>
+        <button class="sheet-tab kj-tab" data-kjtab="programa" onclick="kjSetTab('programa')">Presupuesto y programa</button>
       </div>
 
       <div id="kj-fb-warn"></div>
@@ -1913,8 +1988,8 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       </div>
 
       <div class="sheet-nav no-print">
-        <button class="sheet-tab am-tab active" data-amtab="recibos" onclick="amSetTab('recibos')">Recibos</button>
-        <button class="sheet-tab am-tab" data-amtab="programa" onclick="amSetTab('programa')">Presupuesto y Programa</button>
+        <button class="sheet-tab am-tab active" data-amtab="recibos" onclick="amSetTab('recibos')">Recibos/Facturas</button>
+        <button class="sheet-tab am-tab" data-amtab="programa" onclick="amSetTab('programa')">Presupuesto y programa</button>
       </div>
 
       <div id="am-fb-warn"></div>
@@ -1978,8 +2053,8 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       </div>
 
       <div class="sheet-nav no-print">
-        <button class="sheet-tab tp-tab active" data-tptab="recibos" onclick="tpSetTab('recibos')">Recibos</button>
-        <button class="sheet-tab tp-tab" data-tptab="programa" onclick="tpSetTab('programa')">Presupuesto y Programa</button>
+        <button class="sheet-tab tp-tab active" data-tptab="recibos" onclick="tpSetTab('recibos')">Recibos/Facturas</button>
+        <button class="sheet-tab tp-tab" data-tptab="programa" onclick="tpSetTab('programa')">Presupuesto y programa</button>
       </div>
 
       <div id="tp-fb-warn"></div>
@@ -4953,22 +5028,21 @@ function kjRenderSide(){
   el.innerHTML = `
     <div class="panel-title">Estado de cuenta al Recibo ${kjPad(last.num)}</div>
     <div class="panel-sub">${kjFechaLarga(last.f).toLowerCase()} · ${LB.montos || 'montos netos (con IVA)'}</div>
-    <div class="kj-kpis">
-      <div class="kj-kpi"><span class="l">${LB.ppto || 'Presupuesto neto'}</span><span class="v">${kjM(E.P.neto)}</span></div>
-      <div class="kj-kpi"><span class="l">${LB.pagado || 'Pagado + anticipo'}</span><span class="v">${kjM(E.acum.neto)}</span></div>
-      <div class="kj-kpi accent"><span class="l">Saldo</span><span class="v">${kjM(E.saldo.neto)}</span></div>
-      <div class="kj-kpi"><span class="l">Programado al ${escXml(corte.label)}</span><span class="v">${kjM(corte.acumNeto)}</span></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      ${kjDonut([{l:LB.pagado || 'Pagado + anticipo',v:E.acum.neto,c:KJ_C.pag},{l:'Saldo',v:Math.max(0,E.saldo.neto),c:KJ_C.saldo}], 110, kjPct(E.pctPagado,1), 'pagado')}
-      <div class="kj-legend">
-        <div class="it"><span class="sw" style="background:${KJ_C.pag}"></span><div>${LB.pagado || 'Pagado + anticipo'}<div class="lv">${kjPct(E.pctPagado,1)}</div></div></div>
-        <div class="it"><span class="sw" style="background:${KJ_C.saldo}"></span><div>Saldo<div class="lv">${kjPct(E.saldo.neto/E.P.neto,1)}</div></div></div>
+    <div class="kj-side-grid">
+      <div class="kj-kpis">
+        <div class="kj-kpi"><span class="l">${LB.ppto || 'Presupuesto neto'}</span><span class="v">${kjM(E.P.neto)}</span></div>
+        <div class="kj-kpi"><span class="l">${LB.pagado || 'Pagado + anticipo'}</span><span class="v">${kjM(E.acum.neto)}</span></div>
+        <div class="kj-kpi accent"><span class="l">Saldo</span><span class="v">${kjM(E.saldo.neto)}</span></div>
+        <div class="kj-kpi"><span class="l">Programado al ${escXml(corte.label)}</span><span class="v">${kjM(corte.acumNeto)}</span></div>
       </div>
-    </div>
-    <div class="kj-mini-chart"><div class="t">Acumulado: programado vs. pagado</div><div class="s">Línea punteada = programa de flujos (neto)</div>
-      ${kjChartAcumulado(E, 360, 170, {compact:true})}</div>`;
-  const svg = el.querySelector('.kj-mini-chart svg'); if(svg){ svg.setAttribute('width','100%'); svg.removeAttribute('height'); }
+      <div class="kj-side-donut">
+        ${kjDonut([{l:LB.pagado || 'Pagado + anticipo',v:E.acum.neto,c:KJ_C.pag},{l:'Saldo',v:Math.max(0,E.saldo.neto),c:KJ_C.saldo}], 124, kjPct(E.pctPagado,1), 'pagado')}
+        <div class="kj-legend">
+          <div class="it"><span class="sw" style="background:${KJ_C.pag}"></span><div>${LB.pagado || 'Pagado + anticipo'}<div class="lv">${kjPct(E.pctPagado,1)}</div></div></div>
+          <div class="it"><span class="sw" style="background:${KJ_C.saldo}"></span><div>Saldo<div class="lv">${kjPct(E.saldo.neto/E.P.neto,1)}</div></div></div>
+        </div>
+      </div>
+    </div>`;
 }
 
 /* ---------- lista de recibos ---------- */
@@ -5354,7 +5428,92 @@ function kjRenderAnexos(){
     });
     h += `</div>`;
   });
+  h += kjProyectoHtml();
   el.innerHTML = h;
+  kjProyectoPreview();
+}
+/* ---------- widget PROYECTO: última revisión del proyecto (PDF) con previsualización ---------- */
+let kjProyCache = {};   // id -> {thumb, url}
+function kjProyActual(){
+  return kjAnexos.filter(a=>a.cat==='proyecto').sort((a,b)=>String(b.f||'').localeCompare(String(a.f||'')) || String(b.id).localeCompare(String(a.id)))[0] || null;
+}
+function kjProyectoHtml(){
+  const a = kjProyActual();
+  let h = `<div class="kj-ax-sec kj-proy"><div class="kj-ax-head"><h4>PROYECTO</h4>
+    <label class="kj-ax-add" for="kj-proy-file">${a?'↻ Nueva revisión':'+ Agregar'}</label>
+    <input type="file" id="kj-proy-file" style="display:none;" accept=".pdf,application/pdf,image/*" onchange="kjProyectoChosen(this)"></div>`;
+  if(kjProyMsg) h += `<div class="${kjProyMsg.startsWith('⚠️')?'kj-warn':'kj-ok'}">${escXml(kjProyMsg)}</div>`;
+  if(!a){ h += `<div class="kj-proy-empty">Carga aquí el PDF de la última revisión del proyecto (planos, arquitectónico, estructural…).</div>`; }
+  else {
+    const c = kjProyCache[a.id];
+    h += `<div class="kj-proy-prev" id="kj-proy-prev" onclick="kjVerAnexo('${a.id}')" title="Abrir el proyecto">${c && c.thumb ? `<img src="${c.thumb}" alt="Vista previa del proyecto">` : '<span class="kj-proy-load">Cargando vista previa…</span>'}</div>
+      <div class="kj-proy-cap"><b>Última revisión cargada: ${a.f ? fmtDate(a.f) : '—'}</b><small title="${escXml(a.nombre||'')}">${escXml(a.nombre||'archivo')} · ${kjFmtSize(a.size||0)}${a._local ? ' · solo en esta sesión' : ''}</small></div>
+      <div class="kj-proy-btns"><button class="btn-sm" onclick="kjVerAnexo('${a.id}')">Ver</button><button class="btn-sm pdf" onclick="kjDescargarAnexo('${a.id}')">Descargar</button><button class="btn-sm del" title="Eliminar" onclick="kjEliminarAnexo('${a.id}')">✕</button></div>`;
+  }
+  return h + `</div>`;
+}
+let kjProyMsg = '';
+function kjLoadPdfJs(){
+  if(window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  if(window.__kjPdfJsP) return window.__kjPdfJsP;
+  window.__kjPdfJsP = new Promise((res, rej)=>{
+    const sc = document.createElement('script');
+    sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    sc.onload = ()=>{ try{ window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; res(window.pdfjsLib); }catch(e){ rej(e); } };
+    sc.onerror = ()=>{ window.__kjPdfJsP = null; rej(new Error('pdfjs')); };
+    document.head.appendChild(sc);
+    setTimeout(()=>rej(new Error('timeout')), 15000);
+  });
+  return window.__kjPdfJsP;
+}
+async function kjProyectoPreview(){
+  const a = kjProyActual(); if(!a) return;
+  const c = kjProyCache[a.id]; if(c && c.thumb) return;
+  const box = () => { const el = document.getElementById('kj-proy-prev'); return (el && kjProyActual() && kjProyActual().id===a.id) ? el : null; };
+  try{
+    const blob = await kjAnexoBytes(a);
+    if(/^image\//.test(a.type||'')){
+      const url = URL.createObjectURL(blob); kjProyCache[a.id] = { thumb:url };
+      if(box()) box().innerHTML = `<img src="${url}" alt="Vista previa del proyecto">`; return;
+    }
+    try{
+      const lib = await kjLoadPdfJs();
+      const buf = await blob.arrayBuffer();
+      const pdf = await lib.getDocument({data:new Uint8Array(buf)}).promise;
+      const page = await pdf.getPage(1);
+      const v0 = page.getViewport({scale:1}), sc = Math.min(2.2, 900 / v0.width);
+      const vp = page.getViewport({scale:sc});
+      const cv = document.createElement('canvas'); cv.width = Math.round(vp.width); cv.height = Math.round(vp.height);
+      await page.render({canvasContext: cv.getContext('2d'), viewport: vp}).promise;
+      const thumb = cv.toDataURL('image/jpeg', 0.85);
+      kjProyCache[a.id] = { thumb, pages: pdf.numPages };
+      if(box()) box().innerHTML = `<img src="${thumb}" alt="Vista previa del proyecto">${pdf.numPages>1?`<span class="kj-proy-pg">${pdf.numPages} págs.</span>`:''}`;
+    }catch(e){
+      console.warn('Vista previa con pdf.js no disponible:', e && e.message);
+      // sin pdf.js (sin internet): el visor nativo muestra la primera página
+      const url = URL.createObjectURL(blob);
+      if(box()) box().innerHTML = `<iframe src="${url}#page=1&toolbar=0&navpanes=0&view=FitH" tabindex="-1" scrolling="no"></iframe>`;
+    }
+  }catch(e){ if(box()) box().innerHTML = '<span class="kj-proy-load">Vista previa no disponible</span>'; }
+}
+async function kjProyectoChosen(inp){
+  const f = (inp.files || [])[0]; inp.value = ''; if(!f) return;
+  if(f.size > 10*1024*1024){ kjProyMsg = '⚠️ El archivo pesa más de 10 MB. Comprímelo (por ejemplo, exportar el PDF con menor calidad de imagen) e intenta de nuevo.'; kjRenderAnexos(); return; }
+  const prev = kjProyActual();
+  if(prev && !confirm(`Ya hay una revisión cargada (${prev.f ? fmtDate(prev.f) : prev.nombre}). ¿Reemplazarla por "${f.name}"?`)) return;
+  const b64 = await kjReadB64(f);
+  const meta = { cat:'proyecto', nombre:f.name, type:f.type || 'application/pdf', size:f.size, f:kjIso(new Date()) };
+  let ok = false;
+  try{ if(window.FBK && window.FB && window.FB.ready){ meta.id = await window.FBK.addAnexo(meta, b64); ok = true; } }
+  catch(e){ console.error('Error guardando proyecto:', e); }
+  if(!ok){ meta.id = 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2,7); meta._local = b64; }
+  kjAnexos.push(meta);
+  if(prev){
+    try{ if(!prev._local && window.FBK) await window.FBK.deleteAnexo(prev); }catch(e){ console.error(e); }
+    kjAnexos = kjAnexos.filter(x=>x.id!==prev.id); delete kjProyCache[prev.id];
+  }
+  kjProyMsg = ok ? '✓ Nueva revisión guardada en la base de datos.' : '⚠️ Quedó solo en esta sesión — no se pudo guardar en Firebase (revisa conexión o reglas).';
+  kjRenderAnexos();
 }
 async function kjAnexoChosen(cat, inp){
   const files = Array.from(inp.files || []); inp.value = '';
@@ -5462,6 +5621,7 @@ function kjRenderFacturas(){
   h += `<div class="kj-fa-sum">${gs.length} factura${gs.length===1?'':'s'} cargada${gs.length===1?'':'s'}${sinRec?` · <span class="w">${sinRec} sin recibo ligado</span>`:''}${pend.length?` · <span class="w">faltan ${pend.length} citada${pend.length===1?'':'s'} en recibos</span>`:''}</div>`;
   if(pend.length) h += `<div class="kj-ax-note">Citadas en recibos y sin archivo: ${pend.sort((a,b)=>a.rec-b.rec).map(o=>`Fact. ${o.fn} (R${kjPad(o.rec)})`).join(', ')}.</div>`;
   if(!gs.length) h += `<div class="kj-ax-empty">Aún no hay facturas cargadas. Con el XML se leen folio, fecha y total automáticamente.</div>`;
+  h += '<div class="kj-fa-list">';
   gs.forEach((g,i)=>{
     const recs = kjRecibosDeFactura(g.num);
     const tit = g.num ? `Factura ${escXml((g.ser?g.ser+'-':'')+g.fol)}` : escXml((g.archivos[0].nombre||'archivo').replace(/\.[^.]+$/,''));
@@ -5477,6 +5637,7 @@ function kjRenderFacturas(){
     b += `<button class="btn-sm del" title="Eliminar factura" onclick="kjFacturaEliminar(${i})">✕</button>`;
     h += `<div class="kj-fa-item"><div class="n"><b>${tit}</b><small>${[meta, link].filter(Boolean).join(' · ')}</small></div><div class="kj-btns">${b}</div></div>`;
   });
+  h += '</div>';
   el.innerHTML = h;
 }
 function kjParseCfdi(txt){
@@ -5976,22 +6137,21 @@ function tpRenderSide(){
   el.innerHTML = `
     <div class="panel-title">Estado de cuenta al Recibo ${tpPad(last.num)}</div>
     <div class="panel-sub">${tpFechaLarga(last.f).toLowerCase()} · ${LB.montos || 'montos netos (con IVA)'}</div>
-    <div class="tp-kpis">
-      <div class="tp-kpi"><span class="l">${LB.ppto || 'Presupuesto neto'}</span><span class="v">${tpM(E.P.neto)}</span></div>
-      <div class="tp-kpi"><span class="l">${LB.pagado || 'Pagado + anticipo'}</span><span class="v">${tpM(E.acum.neto)}</span></div>
-      <div class="tp-kpi accent"><span class="l">Saldo</span><span class="v">${tpM(E.saldo.neto)}</span></div>
-      <div class="tp-kpi"><span class="l">Programado al ${escXml(corte.label)}</span><span class="v">${tpM(corte.acumNeto)}</span></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      ${tpDonut([{l:LB.pagado || 'Pagado + anticipo',v:E.acum.neto,c:TP_C.pag},{l:'Saldo',v:Math.max(0,E.saldo.neto),c:TP_C.saldo}], 110, tpPct(E.pctPagado,1), 'pagado')}
-      <div class="tp-legend">
-        <div class="it"><span class="sw" style="background:${TP_C.pag}"></span><div>${LB.pagado || 'Pagado + anticipo'}<div class="lv">${tpPct(E.pctPagado,1)}</div></div></div>
-        <div class="it"><span class="sw" style="background:${TP_C.saldo}"></span><div>Saldo<div class="lv">${tpPct(E.saldo.neto/E.P.neto,1)}</div></div></div>
+    <div class="tp-side-grid">
+      <div class="tp-kpis">
+        <div class="tp-kpi"><span class="l">${LB.ppto || 'Presupuesto neto'}</span><span class="v">${tpM(E.P.neto)}</span></div>
+        <div class="tp-kpi"><span class="l">${LB.pagado || 'Pagado + anticipo'}</span><span class="v">${tpM(E.acum.neto)}</span></div>
+        <div class="tp-kpi accent"><span class="l">Saldo</span><span class="v">${tpM(E.saldo.neto)}</span></div>
+        <div class="tp-kpi"><span class="l">Programado al ${escXml(corte.label)}</span><span class="v">${tpM(corte.acumNeto)}</span></div>
       </div>
-    </div>
-    <div class="tp-mini-chart"><div class="t">Acumulado: programado vs. pagado</div><div class="s">Línea punteada = programa de flujos (neto)</div>
-      ${tpChartAcumulado(E, 360, 170, {compact:true})}</div>`;
-  const svg = el.querySelector('.tp-mini-chart svg'); if(svg){ svg.setAttribute('width','100%'); svg.removeAttribute('height'); }
+      <div class="tp-side-donut">
+        ${tpDonut([{l:LB.pagado || 'Pagado + anticipo',v:E.acum.neto,c:TP_C.pag},{l:'Saldo',v:Math.max(0,E.saldo.neto),c:TP_C.saldo}], 124, tpPct(E.pctPagado,1), 'pagado')}
+        <div class="tp-legend">
+          <div class="it"><span class="sw" style="background:${TP_C.pag}"></span><div>${LB.pagado || 'Pagado + anticipo'}<div class="lv">${tpPct(E.pctPagado,1)}</div></div></div>
+          <div class="it"><span class="sw" style="background:${TP_C.saldo}"></span><div>Saldo<div class="lv">${tpPct(E.saldo.neto/E.P.neto,1)}</div></div></div>
+        </div>
+      </div>
+    </div>`;
 }
 
 /* ---------- lista de recibos ---------- */
@@ -6377,7 +6537,92 @@ function tpRenderAnexos(){
     });
     h += `</div>`;
   });
+  h += tpProyectoHtml();
   el.innerHTML = h;
+  tpProyectoPreview();
+}
+/* ---------- widget PROYECTO: última revisión del proyecto (PDF) con previsualización ---------- */
+let tpProyCache = {};   // id -> {thumb, url}
+function tpProyActual(){
+  return tpAnexos.filter(a=>a.cat==='proyecto').sort((a,b)=>String(b.f||'').localeCompare(String(a.f||'')) || String(b.id).localeCompare(String(a.id)))[0] || null;
+}
+function tpProyectoHtml(){
+  const a = tpProyActual();
+  let h = `<div class="tp-ax-sec tp-proy"><div class="tp-ax-head"><h4>PROYECTO</h4>
+    <label class="tp-ax-add" for="tp-proy-file">${a?'↻ Nueva revisión':'+ Agregar'}</label>
+    <input type="file" id="tp-proy-file" style="display:none;" accept=".pdf,application/pdf,image/*" onchange="tpProyectoChosen(this)"></div>`;
+  if(tpProyMsg) h += `<div class="${tpProyMsg.startsWith('⚠️')?'tp-warn':'tp-ok'}">${escXml(tpProyMsg)}</div>`;
+  if(!a){ h += `<div class="tp-proy-empty">Carga aquí el PDF de la última revisión del proyecto (planos, arquitectónico, estructural…).</div>`; }
+  else {
+    const c = tpProyCache[a.id];
+    h += `<div class="tp-proy-prev" id="tp-proy-prev" onclick="tpVerAnexo('${a.id}')" title="Abrir el proyecto">${c && c.thumb ? `<img src="${c.thumb}" alt="Vista previa del proyecto">` : '<span class="tp-proy-load">Cargando vista previa…</span>'}</div>
+      <div class="tp-proy-cap"><b>Última revisión cargada: ${a.f ? fmtDate(a.f) : '—'}</b><small title="${escXml(a.nombre||'')}">${escXml(a.nombre||'archivo')} · ${tpFmtSize(a.size||0)}${a._local ? ' · solo en esta sesión' : ''}</small></div>
+      <div class="tp-proy-btns"><button class="btn-sm" onclick="tpVerAnexo('${a.id}')">Ver</button><button class="btn-sm pdf" onclick="tpDescargarAnexo('${a.id}')">Descargar</button><button class="btn-sm del" title="Eliminar" onclick="tpEliminarAnexo('${a.id}')">✕</button></div>`;
+  }
+  return h + `</div>`;
+}
+let tpProyMsg = '';
+function tpLoadPdfJs(){
+  if(window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  if(window.__tpPdfJsP) return window.__tpPdfJsP;
+  window.__tpPdfJsP = new Promise((res, rej)=>{
+    const sc = document.createElement('script');
+    sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    sc.onload = ()=>{ try{ window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; res(window.pdfjsLib); }catch(e){ rej(e); } };
+    sc.onerror = ()=>{ window.__tpPdfJsP = null; rej(new Error('pdfjs')); };
+    document.head.appendChild(sc);
+    setTimeout(()=>rej(new Error('timeout')), 15000);
+  });
+  return window.__tpPdfJsP;
+}
+async function tpProyectoPreview(){
+  const a = tpProyActual(); if(!a) return;
+  const c = tpProyCache[a.id]; if(c && c.thumb) return;
+  const box = () => { const el = document.getElementById('tp-proy-prev'); return (el && tpProyActual() && tpProyActual().id===a.id) ? el : null; };
+  try{
+    const blob = await tpAnexoBytes(a);
+    if(/^image\//.test(a.type||'')){
+      const url = URL.createObjectURL(blob); tpProyCache[a.id] = { thumb:url };
+      if(box()) box().innerHTML = `<img src="${url}" alt="Vista previa del proyecto">`; return;
+    }
+    try{
+      const lib = await tpLoadPdfJs();
+      const buf = await blob.arrayBuffer();
+      const pdf = await lib.getDocument({data:new Uint8Array(buf)}).promise;
+      const page = await pdf.getPage(1);
+      const v0 = page.getViewport({scale:1}), sc = Math.min(2.2, 900 / v0.width);
+      const vp = page.getViewport({scale:sc});
+      const cv = document.createElement('canvas'); cv.width = Math.round(vp.width); cv.height = Math.round(vp.height);
+      await page.render({canvasContext: cv.getContext('2d'), viewport: vp}).promise;
+      const thumb = cv.toDataURL('image/jpeg', 0.85);
+      tpProyCache[a.id] = { thumb, pages: pdf.numPages };
+      if(box()) box().innerHTML = `<img src="${thumb}" alt="Vista previa del proyecto">${pdf.numPages>1?`<span class="tp-proy-pg">${pdf.numPages} págs.</span>`:''}`;
+    }catch(e){
+      console.warn('Vista previa con pdf.js no disponible:', e && e.message);
+      // sin pdf.js (sin internet): el visor nativo muestra la primera página
+      const url = URL.createObjectURL(blob);
+      if(box()) box().innerHTML = `<iframe src="${url}#page=1&toolbar=0&navpanes=0&view=FitH" tabindex="-1" scrolling="no"></iframe>`;
+    }
+  }catch(e){ if(box()) box().innerHTML = '<span class="tp-proy-load">Vista previa no disponible</span>'; }
+}
+async function tpProyectoChosen(inp){
+  const f = (inp.files || [])[0]; inp.value = ''; if(!f) return;
+  if(f.size > 10*1024*1024){ tpProyMsg = '⚠️ El archivo pesa más de 10 MB. Comprímelo (por ejemplo, exportar el PDF con menor calidad de imagen) e intenta de nuevo.'; tpRenderAnexos(); return; }
+  const prev = tpProyActual();
+  if(prev && !confirm(`Ya hay una revisión cargada (${prev.f ? fmtDate(prev.f) : prev.nombre}). ¿Reemplazarla por "${f.name}"?`)) return;
+  const b64 = await tpReadB64(f);
+  const meta = { cat:'proyecto', nombre:f.name, type:f.type || 'application/pdf', size:f.size, f:tpIso(new Date()) };
+  let ok = false;
+  try{ if(window.FBT && window.FB && window.FB.ready){ meta.id = await window.FBT.addAnexo(meta, b64); ok = true; } }
+  catch(e){ console.error('Error guardando proyecto:', e); }
+  if(!ok){ meta.id = 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2,7); meta._local = b64; }
+  tpAnexos.push(meta);
+  if(prev){
+    try{ if(!prev._local && window.FBT) await window.FBT.deleteAnexo(prev); }catch(e){ console.error(e); }
+    tpAnexos = tpAnexos.filter(x=>x.id!==prev.id); delete tpProyCache[prev.id];
+  }
+  tpProyMsg = ok ? '✓ Nueva revisión guardada en la base de datos.' : '⚠️ Quedó solo en esta sesión — no se pudo guardar en Firebase (revisa conexión o reglas).';
+  tpRenderAnexos();
 }
 async function tpAnexoChosen(cat, inp){
   const files = Array.from(inp.files || []); inp.value = '';
@@ -6485,6 +6730,7 @@ function tpRenderFacturas(){
   h += `<div class="tp-fa-sum">${gs.length} factura${gs.length===1?'':'s'} cargada${gs.length===1?'':'s'}${sinRec?` · <span class="w">${sinRec} sin recibo ligado</span>`:''}${pend.length?` · <span class="w">faltan ${pend.length} citada${pend.length===1?'':'s'} en recibos</span>`:''}</div>`;
   if(pend.length) h += `<div class="tp-ax-note">Citadas en recibos y sin archivo: ${pend.sort((a,b)=>a.rec-b.rec).map(o=>`Fact. ${o.fn} (R${tpPad(o.rec)})`).join(', ')}.</div>`;
   if(!gs.length) h += `<div class="tp-ax-empty">Aún no hay facturas cargadas. Con el XML se leen folio, fecha y total automáticamente.</div>`;
+  h += '<div class="tp-fa-list">';
   gs.forEach((g,i)=>{
     const recs = tpRecibosDeFactura(g.num);
     const tit = g.num ? `Factura ${escXml((g.ser?g.ser+'-':'')+g.fol)}` : escXml((g.archivos[0].nombre||'archivo').replace(/\.[^.]+$/,''));
@@ -6500,6 +6746,7 @@ function tpRenderFacturas(){
     b += `<button class="btn-sm del" title="Eliminar factura" onclick="tpFacturaEliminar(${i})">✕</button>`;
     h += `<div class="tp-fa-item"><div class="n"><b>${tit}</b><small>${[meta, link].filter(Boolean).join(' · ')}</small></div><div class="tp-btns">${b}</div></div>`;
   });
+  h += '</div>';
   el.innerHTML = h;
 }
 function tpParseCfdi(txt){
@@ -7255,22 +7502,21 @@ function amRenderSide(){
   el.innerHTML = `
     <div class="panel-title">Estado de cuenta al Recibo ${amPad(last.num)}</div>
     <div class="panel-sub">${amFechaLarga(last.f).toLowerCase()} · ${LB.montos || 'montos netos (con IVA)'}</div>
-    <div class="am-kpis">
-      <div class="am-kpi"><span class="l">${LB.ppto || 'Presupuesto neto'}</span><span class="v">${amM(E.P.neto)}</span></div>
-      <div class="am-kpi"><span class="l">${LB.pagado || 'Pagado + anticipo'}</span><span class="v">${amM(E.acum.neto)}</span></div>
-      <div class="am-kpi accent"><span class="l">Saldo</span><span class="v">${amM(E.saldo.neto)}</span></div>
-      <div class="am-kpi"><span class="l">Programado al ${escXml(corte.label)}</span><span class="v">${amM(corte.acumNeto)}</span></div>
-    </div>
-    <div style="display:flex;align-items:center;gap:12px;">
-      ${amDonut([{l:LB.pagado || 'Pagado + anticipo',v:E.acum.neto,c:AM_C.pag},{l:'Saldo',v:Math.max(0,E.saldo.neto),c:AM_C.saldo}], 110, amPct(E.pctPagado,1), 'pagado')}
-      <div class="am-legend">
-        <div class="it"><span class="sw" style="background:${AM_C.pag}"></span><div>${LB.pagado || 'Pagado + anticipo'}<div class="lv">${amPct(E.pctPagado,1)}</div></div></div>
-        <div class="it"><span class="sw" style="background:${AM_C.saldo}"></span><div>Saldo<div class="lv">${amPct(E.saldo.neto/E.P.neto,1)}</div></div></div>
+    <div class="am-side-grid">
+      <div class="am-kpis">
+        <div class="am-kpi"><span class="l">${LB.ppto || 'Presupuesto neto'}</span><span class="v">${amM(E.P.neto)}</span></div>
+        <div class="am-kpi"><span class="l">${LB.pagado || 'Pagado + anticipo'}</span><span class="v">${amM(E.acum.neto)}</span></div>
+        <div class="am-kpi accent"><span class="l">Saldo</span><span class="v">${amM(E.saldo.neto)}</span></div>
+        <div class="am-kpi"><span class="l">Programado al ${escXml(corte.label)}</span><span class="v">${amM(corte.acumNeto)}</span></div>
       </div>
-    </div>
-    <div class="am-mini-chart"><div class="t">Acumulado: programado vs. pagado</div><div class="s">Línea punteada = programa de flujos (neto)</div>
-      ${amChartAcumulado(E, 360, 170, {compact:true})}</div>`;
-  const svg = el.querySelector('.am-mini-chart svg'); if(svg){ svg.setAttribute('width','100%'); svg.removeAttribute('height'); }
+      <div class="am-side-donut">
+        ${amDonut([{l:LB.pagado || 'Pagado + anticipo',v:E.acum.neto,c:AM_C.pag},{l:'Saldo',v:Math.max(0,E.saldo.neto),c:AM_C.saldo}], 124, amPct(E.pctPagado,1), 'pagado')}
+        <div class="am-legend">
+          <div class="it"><span class="sw" style="background:${AM_C.pag}"></span><div>${LB.pagado || 'Pagado + anticipo'}<div class="lv">${amPct(E.pctPagado,1)}</div></div></div>
+          <div class="it"><span class="sw" style="background:${AM_C.saldo}"></span><div>Saldo<div class="lv">${amPct(E.saldo.neto/E.P.neto,1)}</div></div></div>
+        </div>
+      </div>
+    </div>`;
 }
 
 /* ---------- lista de recibos ---------- */
@@ -7656,7 +7902,92 @@ function amRenderAnexos(){
     });
     h += `</div>`;
   });
+  h += amProyectoHtml();
   el.innerHTML = h;
+  amProyectoPreview();
+}
+/* ---------- widget PROYECTO: última revisión del proyecto (PDF) con previsualización ---------- */
+let amProyCache = {};   // id -> {thumb, url}
+function amProyActual(){
+  return amAnexos.filter(a=>a.cat==='proyecto').sort((a,b)=>String(b.f||'').localeCompare(String(a.f||'')) || String(b.id).localeCompare(String(a.id)))[0] || null;
+}
+function amProyectoHtml(){
+  const a = amProyActual();
+  let h = `<div class="am-ax-sec am-proy"><div class="am-ax-head"><h4>PROYECTO</h4>
+    <label class="am-ax-add" for="am-proy-file">${a?'↻ Nueva revisión':'+ Agregar'}</label>
+    <input type="file" id="am-proy-file" style="display:none;" accept=".pdf,application/pdf,image/*" onchange="amProyectoChosen(this)"></div>`;
+  if(amProyMsg) h += `<div class="${amProyMsg.startsWith('⚠️')?'am-warn':'am-ok'}">${escXml(amProyMsg)}</div>`;
+  if(!a){ h += `<div class="am-proy-empty">Carga aquí el PDF de la última revisión del proyecto (planos, arquitectónico, estructural…).</div>`; }
+  else {
+    const c = amProyCache[a.id];
+    h += `<div class="am-proy-prev" id="am-proy-prev" onclick="amVerAnexo('${a.id}')" title="Abrir el proyecto">${c && c.thumb ? `<img src="${c.thumb}" alt="Vista previa del proyecto">` : '<span class="am-proy-load">Cargando vista previa…</span>'}</div>
+      <div class="am-proy-cap"><b>Última revisión cargada: ${a.f ? fmtDate(a.f) : '—'}</b><small title="${escXml(a.nombre||'')}">${escXml(a.nombre||'archivo')} · ${amFmtSize(a.size||0)}${a._local ? ' · solo en esta sesión' : ''}</small></div>
+      <div class="am-proy-btns"><button class="btn-sm" onclick="amVerAnexo('${a.id}')">Ver</button><button class="btn-sm pdf" onclick="amDescargarAnexo('${a.id}')">Descargar</button><button class="btn-sm del" title="Eliminar" onclick="amEliminarAnexo('${a.id}')">✕</button></div>`;
+  }
+  return h + `</div>`;
+}
+let amProyMsg = '';
+function amLoadPdfJs(){
+  if(window.pdfjsLib) return Promise.resolve(window.pdfjsLib);
+  if(window.__amPdfJsP) return window.__amPdfJsP;
+  window.__amPdfJsP = new Promise((res, rej)=>{
+    const sc = document.createElement('script');
+    sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    sc.onload = ()=>{ try{ window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js'; res(window.pdfjsLib); }catch(e){ rej(e); } };
+    sc.onerror = ()=>{ window.__amPdfJsP = null; rej(new Error('pdfjs')); };
+    document.head.appendChild(sc);
+    setTimeout(()=>rej(new Error('timeout')), 15000);
+  });
+  return window.__amPdfJsP;
+}
+async function amProyectoPreview(){
+  const a = amProyActual(); if(!a) return;
+  const c = amProyCache[a.id]; if(c && c.thumb) return;
+  const box = () => { const el = document.getElementById('am-proy-prev'); return (el && amProyActual() && amProyActual().id===a.id) ? el : null; };
+  try{
+    const blob = await amAnexoBytes(a);
+    if(/^image\//.test(a.type||'')){
+      const url = URL.createObjectURL(blob); amProyCache[a.id] = { thumb:url };
+      if(box()) box().innerHTML = `<img src="${url}" alt="Vista previa del proyecto">`; return;
+    }
+    try{
+      const lib = await amLoadPdfJs();
+      const buf = await blob.arrayBuffer();
+      const pdf = await lib.getDocument({data:new Uint8Array(buf)}).promise;
+      const page = await pdf.getPage(1);
+      const v0 = page.getViewport({scale:1}), sc = Math.min(2.2, 900 / v0.width);
+      const vp = page.getViewport({scale:sc});
+      const cv = document.createElement('canvas'); cv.width = Math.round(vp.width); cv.height = Math.round(vp.height);
+      await page.render({canvasContext: cv.getContext('2d'), viewport: vp}).promise;
+      const thumb = cv.toDataURL('image/jpeg', 0.85);
+      amProyCache[a.id] = { thumb, pages: pdf.numPages };
+      if(box()) box().innerHTML = `<img src="${thumb}" alt="Vista previa del proyecto">${pdf.numPages>1?`<span class="am-proy-pg">${pdf.numPages} págs.</span>`:''}`;
+    }catch(e){
+      console.warn('Vista previa con pdf.js no disponible:', e && e.message);
+      // sin pdf.js (sin internet): el visor nativo muestra la primera página
+      const url = URL.createObjectURL(blob);
+      if(box()) box().innerHTML = `<iframe src="${url}#page=1&toolbar=0&navpanes=0&view=FitH" tabindex="-1" scrolling="no"></iframe>`;
+    }
+  }catch(e){ if(box()) box().innerHTML = '<span class="am-proy-load">Vista previa no disponible</span>'; }
+}
+async function amProyectoChosen(inp){
+  const f = (inp.files || [])[0]; inp.value = ''; if(!f) return;
+  if(f.size > 10*1024*1024){ amProyMsg = '⚠️ El archivo pesa más de 10 MB. Comprímelo (por ejemplo, exportar el PDF con menor calidad de imagen) e intenta de nuevo.'; amRenderAnexos(); return; }
+  const prev = amProyActual();
+  if(prev && !confirm(`Ya hay una revisión cargada (${prev.f ? fmtDate(prev.f) : prev.nombre}). ¿Reemplazarla por "${f.name}"?`)) return;
+  const b64 = await amReadB64(f);
+  const meta = { cat:'proyecto', nombre:f.name, type:f.type || 'application/pdf', size:f.size, f:amIso(new Date()) };
+  let ok = false;
+  try{ if(window.FBA && window.FB && window.FB.ready){ meta.id = await window.FBA.addAnexo(meta, b64); ok = true; } }
+  catch(e){ console.error('Error guardando proyecto:', e); }
+  if(!ok){ meta.id = 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2,7); meta._local = b64; }
+  amAnexos.push(meta);
+  if(prev){
+    try{ if(!prev._local && window.FBA) await window.FBA.deleteAnexo(prev); }catch(e){ console.error(e); }
+    amAnexos = amAnexos.filter(x=>x.id!==prev.id); delete amProyCache[prev.id];
+  }
+  amProyMsg = ok ? '✓ Nueva revisión guardada en la base de datos.' : '⚠️ Quedó solo en esta sesión — no se pudo guardar en Firebase (revisa conexión o reglas).';
+  amRenderAnexos();
 }
 async function amAnexoChosen(cat, inp){
   const files = Array.from(inp.files || []); inp.value = '';
@@ -7764,6 +8095,7 @@ function amRenderFacturas(){
   h += `<div class="am-fa-sum">${gs.length} factura${gs.length===1?'':'s'} cargada${gs.length===1?'':'s'}${sinRec?` · <span class="w">${sinRec} sin recibo ligado</span>`:''}${pend.length?` · <span class="w">faltan ${pend.length} citada${pend.length===1?'':'s'} en recibos</span>`:''}</div>`;
   if(pend.length) h += `<div class="am-ax-note">Citadas en recibos y sin archivo: ${pend.sort((a,b)=>a.rec-b.rec).map(o=>`Fact. ${o.fn} (R${amPad(o.rec)})`).join(', ')}.</div>`;
   if(!gs.length) h += `<div class="am-ax-empty">Aún no hay facturas cargadas. Con el XML se leen folio, fecha y total automáticamente.</div>`;
+  h += '<div class="am-fa-list">';
   gs.forEach((g,i)=>{
     const recs = amRecibosDeFactura(g.num);
     const tit = g.num ? `Factura ${escXml((g.ser?g.ser+'-':'')+g.fol)}` : escXml((g.archivos[0].nombre||'archivo').replace(/\.[^.]+$/,''));
@@ -7779,6 +8111,7 @@ function amRenderFacturas(){
     b += `<button class="btn-sm del" title="Eliminar factura" onclick="amFacturaEliminar(${i})">✕</button>`;
     h += `<div class="am-fa-item"><div class="n"><b>${tit}</b><small>${[meta, link].filter(Boolean).join(' · ')}</small></div><div class="am-btns">${b}</div></div>`;
   });
+  h += '</div>';
   el.innerHTML = h;
 }
 function amParseCfdi(txt){
