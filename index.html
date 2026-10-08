@@ -1665,6 +1665,23 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
 .sync-card a{white-space:nowrap;text-decoration:none;}
 .sync-foot{font-size:10.5px;color:var(--gray-600,#5B6B7E);line-height:1.45;}
 @media (max-width:720px){.sync-wrap{padding:0;}.sync-btn{padding:8px 10px;font-size:12px;white-space:nowrap;}.sync-last{display:none;}}
+.pj-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px;}
+.pj-page{height:auto;min-height:720px;}
+.pj-kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin:2px 0 10px;}
+.pj-kpi{border:1px solid #D6DFE8;border-radius:6px;padding:6px 8px;background:#F7F9FB;}
+.pj-kpi .l{display:block;font-size:7.5px;font-weight:800;color:#6B7C8F;text-transform:uppercase;letter-spacing:.3px;}
+.pj-kpi .v{display:block;font-size:12.5px;font-weight:800;color:#14202B;margin-top:2px;white-space:nowrap;}
+.pj-kpi.cob .v{color:#2F9E5B;} .pj-kpi.gas .v{color:#D9622B;} .pj-kpi.neg .v{color:#D64545;}
+.pj-svg svg{display:block;}
+.nav-group{font-size:9.5px;font-weight:800;letter-spacing:1.6px;color:rgba(255,255,255,.42);padding:14px 14px 4px;text-transform:uppercase;}
+.nav-group:first-child{padding-top:2px;}
+@media (max-width:720px){ .nav-group{display:none;} }
+@media print{
+  body.printing-pj .content > section:not(#view-proyectos){display:none !important;}
+  body.printing-pj #view-proyectos > *:not(.pj-print){display:none !important;}
+  body.printing-pj #view-proyectos{display:block !important;}
+  body.printing-pj .sidebar{display:none !important;}
+}
 </style>
 </head>
 <body>
@@ -1693,7 +1710,7 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
     <button class="btn-orange" id="login-btn" style="width:100%;" onclick="doLogin()">Entrar</button>
     <div style="text-align:center;margin-top:10px;"><a href="#" onclick="doResetPassword();return false;" style="font-size:12px;color:#3B6EA5;">¿Sin contraseña u olvidaste la tuya? Enviar enlace a mi correo</a></div>
     <div class="login-status" id="login-status">Conectando con Firebase...</div>
-    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 08-Oct-2026 00:02 · incluye Terrapark</div>
+    <div class="login-status" id="app-version" style="margin-top:4px;opacity:.7;">Versión 08-Oct-2026 01:19 · incluye Terrapark</div>
   </div>
 </div>
 
@@ -1705,22 +1722,34 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       <div class="brand-sub">PROYECTOS</div>
     </div>
     <nav class="nav">
+      <div class="nav-group">Resultados</div>
       <button class="nav-btn active" data-view="resumen">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="8"/><rect x="10" y="7" width="4" height="13"/><rect x="17" y="3" width="4" height="17"/></svg>
         Resumen General
       </button>
+      <button class="nav-btn" data-view="proyectos">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h6"/><path d="M9 13h8"/><path d="M7 17h5"/></svg>
+        Proyectos
+      </button>
+      <button class="nav-btn" data-view="flujocaja">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
+        Flujo de Caja
+      </button>
+      <div class="nav-group">Gastos</div>
       <button class="nav-btn" data-view="proyecto">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M10 21v-6h4v6"/></svg>
         Gastos por Proyecto
       </button>
       <button class="nav-btn" data-view="subcontratos">
         <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Subcontratos
+        Nóminas
       </button>
-      <button class="nav-btn" data-view="cobranza">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        Clientes
+      <button class="nav-btn" data-view="validacion">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Validación
+        <span class="nav-badge" id="nav-badge-validacion" style="display:none;"></span>
       </button>
+      <div class="nav-group">Clientes</div>
       <button class="nav-btn nav-sub" data-view="kanjut">
         Aldo Sánchez · Kanjut
       </button>
@@ -1729,15 +1758,6 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       </button>
       <button class="nav-btn nav-sub" data-view="terrapark">
         Juan Carlos · Terrapark
-      </button>
-      <button class="nav-btn" data-view="flujocaja">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>
-        Flujo de Caja
-      </button>
-      <button class="nav-btn" data-view="validacion">
-        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        Validación
-        <span class="nav-badge" id="nav-badge-validacion" style="display:none;"></span>
       </button>
     </nav>
     <div class="sync-wrap no-print" id="sync-wrap" style="display:none;">
@@ -1748,7 +1768,7 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       <div class="sync-last" id="sync-last"></div>
     </div>
     <div class="sidebar-foot">
-      Dashboard de Gastos<br>Datos actualizados al cierre de julio 2026
+      Dashboard AMD<br>Ingresos por recibos · gastos validados
       <button class="logout-btn no-print" id="logout-btn" style="display:none;" onclick="doLogout()">Cerrar sesión</button>
     </div>
   </aside>
@@ -1822,7 +1842,7 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
     <!-- ===================== VISTA: SUBCONTRATOS ===================== -->
     <section id="view-subcontratos" class="view">
       <div class="topbar no-print">
-        <h1>Gestión de Subcontratos / Contratistas</h1>
+        <h1>Nóminas · Subcontratos / Contratistas</h1>
         <p>Fuente: RESUMEN_DE_NOMINAS_2026.xlsx — pagos con forma de pago Reporte Nóminas</p>
       </div>
 
@@ -1918,7 +1938,7 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
     <section id="view-validacion" class="view">
       <div class="topbar">
         <h1>Validación de Datos</h1>
-        <p>Revisa los gastos capturados en otras secciones, asígnales partida y súmalos a la base general</p>
+        <p>Valida los gastos (conciliados desde la otra aplicación), asígnales partida y súmalos a la base general</p>
       </div>
 
       <div id="fb-status" class="fb-status fb-status-connecting">🟡 Conectando con Firebase...</div>
@@ -1937,11 +1957,6 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
         <div id="val-validados-tabla"></div>
       </div>
 
-      <div class="panel">
-        <div class="panel-title">Recibos de Clientes Ya Validados</div>
-        <div class="panel-sub">Editar o eliminar aquí también los quita/actualiza en Firebase</div>
-        <div id="val-ingresos-tabla"></div>
-      </div>
 
       <footer class="appfoot">AMD Proyectos · Dashboard interno de gastos</footer>
     </section>
@@ -2141,6 +2156,22 @@ footer.appfoot{margin-top:10px;text-align:center;color:var(--gray-400);font-size
       <footer class="appfoot no-print">AMD Proyectos · Dashboard interno de gastos</footer>
     </section>
 
+    <!-- ===================== VISTA: PROYECTOS (Resultados) ===================== -->
+    <section id="view-proyectos" class="view">
+      <div class="topbar no-print">
+        <h1>Proyectos</h1>
+        <p>Programa de obra con el costo real (gastos) contra la cobranza a lo largo del tiempo — una hoja por proyecto</p>
+      </div>
+      <div class="pj-bar no-print">
+        <div class="sheet-nav" id="pj-tabs" style="margin:0;"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button class="btn-sm" id="pj-dl" onclick="pjDescargarPdf()">Descargar PDF</button>
+          <button class="btn btn-print" onclick="pjPrint()">Imprimir</button>
+        </div>
+      </div>
+      <div class="pj-print"><div class="kj-page-wrap" id="pj-wrap"></div></div>
+      <footer class="appfoot no-print">AMD Proyectos · Dashboard interno</footer>
+    </section>
   </main>
 </div>
 
@@ -2586,7 +2617,7 @@ function renderBalanceTabla(){
   const gastoByProject = {}, ingresoByProject = {}, utilidadByProject = {};
   mainProjects.forEach(proj=>{
     gastoByProject[proj] = ALL_MONTHS.map(m => getRawData().filter(r=>r.p===proj && monthKey(r.f)===m).reduce((s,r)=>s+r.monto,0));
-    const cob = cobProject(proj);
+    const cob = (typeof ingProject === 'function' ? ingProject : ()=>null)(proj);
     ingresoByProject[proj] = ALL_MONTHS.map(m => cob ? cob.pagos.filter(x=>x.fecha && monthKey(x.fecha)===m).reduce((s,x)=>s+x.monto,0) : 0);
     utilidadByProject[proj] = ALL_MONTHS.map((m,i)=> ingresoByProject[proj][i]-gastoByProject[proj][i]);
   });
@@ -2675,6 +2706,16 @@ function svgCombo(labels, bars, line, barColor, lineColor, labelBars){
    GLOBAL STATS
    ========================================================= */
 let rawExtra = [];  // gastos validados y agregados a la base general en esta sesión
+
+function ingProject(name){
+  const MAP = { kj:'CASA KANJUT', am:'AMANI TERRA', tp:'TERRAPARK' };
+  const src = (window.AMD_SYNC || []).find(s => MAP[s.key] === name);
+  if(!src || !src.ingresos) return null;
+  try{ const d = src.ingresos(); return { pagado: d.rows.reduce((s,x)=>s+x.total,0), pagos: d.rows.map(x=>({ fecha:x.f, monto:x.total })) }; }
+  catch(e){ console.error('ingresos ' + name, e); return null; }
+}
+let amdIngTimer = null;
+window.amdIngresosChanged = function(){ clearTimeout(amdIngTimer); amdIngTimer = setTimeout(()=>{ try{ if(typeof renderResumen === 'function') renderResumen(); }catch(e){ console.error(e); } }, 80); };
 function getRawData(){ return RAW_DATA.concat(rawExtra); }
 
 function computeAllMonths(){
@@ -2695,7 +2736,7 @@ function renderResumen(){
   const projEntries = Object.entries(byProject).sort((a,b)=>b[1]-a[1]);
   document.getElementById('chart-proyecto').innerHTML = svgBarHorizontalGrouped(
     projEntries.map(([label,value])=>{
-      const cob = cobProject(label);
+      const cob = (typeof ingProject === 'function' ? ingProject : ()=>null)(label);
       return {label, v1: value, v2: cob ? cob.pagado : 0, color: colorForProject(label)};
     })
   );
@@ -3451,7 +3492,6 @@ let editingPendingId = null; // id de un pendiente en modo edición (antes de va
 function renderValidacion(){
   renderNavBadges();
   renderGastosValidados();
-  renderIngresosValidados();
   const kpiEl = document.getElementById('val-kpi');
   const tablaEl = document.getElementById('val-tabla');
   if(!kpiEl || !tablaEl) return;
@@ -3468,16 +3508,11 @@ function renderValidacion(){
       <div class="kpi-value num">${fmtNum(rawExtra.length)}</div>
       <div class="kpi-sub">${fmtMoney(rawExtra.reduce((s,x)=>s+x.monto,0))} validados esta sesión</div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Recibos de Clientes Validados</div>
-      <div class="kpi-value num">${fmtNum(cobExtra.length)}</div>
-      <div class="kpi-sub">${fmtMoney(cobExtra.reduce((s,x)=>s+x.monto,0))} validados esta sesión</div>
-    </div>
   `;
 
   if(pendingValidation.length===0){
     tablaEl.innerHTML = (valLastSaveMsg ? `<div class="subx-info" style="color:var(--green-600);font-weight:700;margin-bottom:12px;">${escXml(valLastSaveMsg)}</div>` : '')
-      + `<div class="empty-note">No hay nada pendiente de validar. Los nuevos registros que captures en Subcontratos o en Clientes aparecerán aquí automáticamente.</div>`;
+      + `<div class="empty-note">No hay nada pendiente de validar. Los gastos que lleguen conciliados (o los que captures en Nóminas) aparecerán aquí automáticamente.</div>`;
     return;
   }
 
@@ -5100,6 +5135,7 @@ function kjRenderList(){
     // Histórico con PDF real: solo el PDF entregado (el "Ver" reconstruido ya no aplica)
     if(r && !(hist && pdfs.length)) btns += `<button class="btn-sm${hist?' recon':''}" ${hist?'title="Vista reconstruida desde la base de datos: NO es el documento que se entregó"':''} onclick="kjVerRecibo(${n})">Ver</button>`;
     pdfs.forEach(p=>{ btns += `<button class="btn-sm pdf" title="${escXml(p.nombre||'')}" onclick="kjVerPdf('${p.id}')">PDF</button>`; });
+    if(r && !r._seed && !pdfs.length) btns += `<button class="btn-sm pdf" title="Genera el PDF de este recibo y lo guarda en la base de datos" onclick="kjCrearPdf(${n})">Crear PDF</button>`;
     if(r && !r._seed) btns += `<button class="btn-sm del" onclick="kjEliminarRecibo('${r._fbId||''}', ${n})">Eliminar</button>`;
     pdfs.forEach(p=>{ btns += `<button class="btn-sm del" title="Eliminar PDF" onclick="kjEliminarPdf('${p.id}')">✕ PDF</button>`; });
     const f = r ? r.f : (pdfs[0] && pdfs[0].f);
@@ -5748,6 +5784,7 @@ async function kjFacturaEliminar(i){
 }
 
 function kjRenderAll(){
+  if(typeof window.amdIngresosChanged === 'function') window.amdIngresosChanged();
   kjRenderList();
   kjRenderSide();
   kjRenderFacturas();
@@ -5782,6 +5819,43 @@ document.querySelectorAll('.nav-btn[data-view="kanjut"]').forEach(b=> b.addEvent
       });
       return { items, sinPdf };
     },
+    // Excel del último recibo (INTERNO/Recibos Excel)
+    excelRecibo(){
+      const last = kjAllRecibos().slice(-1)[0]; if(!last) return null;
+      return { num:last.num, nombre:kjNombreArchivo(last.num, 'xlsx'), bytes:kjReciboExcel(last.num).bytes() };
+    },
+    // base de ingresos: cada línea de pago de cada recibo
+    ingresos(){
+      const recs = kjAllRecibos(), last = recs[recs.length-1];
+      const pname = id => KJ.partidas ? ((KJ.partidas.find(p=>p.id===id) || {}).n || '') : '';
+      const rows = [];
+      recs.forEach(r=>r.lineas.forEach(l=>rows.push({ recibo:r.num, fRec:r.f, f:l.f||r.f, monto:l.monto, iva:l.iva||0, total:kjTotalLinea(l),
+        forma:kjFormaLinea(l), concepto:l.concepto || `RECIBO ${kjPad(r.num)} - ${l.tipo||''}`, partida:pname(l.partida), fact:l.fact||'',
+        origen:r._seed?'Histórico':'Generado', tipo:r.anticipo?'Anticipo':'Pago' })));
+      const E = last ? kjEstado(last.num) : null;
+      return { proyecto:KJ.proyecto, cliente:KJ.cliente, presupuestoNeto: E ? E.P.neto : 0, sinIva: KJ.modo==='partidas', rows };
+    },
+    // datos para la hoja PROYECTOS: programa (gantt) en fechas de calendario + programado acumulado
+    proyecto(){
+      const recs = kjAllRecibos(), last = recs[recs.length-1], E = kjEstado(last.num), per = KJ.programa.periodos;
+      const DAY = 86400000;
+      const mStart = m => KJ.mesCal ? new Date(KJ.mesCal[0], KJ.mesCal[1]-1+(m-1), 1) : new Date(kjDate(KJ.semana1).getTime() + (m-1)*28*DAY);
+      const half = i => { const m = Math.floor(i/2)+1, a = mStart(m), b = mStart(m+1), mid = new Date(a.getTime() + Math.floor((b.getTime()-a.getTime())/2/DAY)*DAY);
+        return i%2 ? [mid, new Date(b.getTime()-DAY)] : [a, new Date(mid.getTime()-DAY)]; };
+      const src = KJ.modo==='partidas' ? KJ.partidas.map(p=>({ code:p.code||'', n:p.n, grp:false, costo:p.total, bar:p.bar }))
+                                       : KJ.actividades.map(a=>({ code:a.code||'', n:a.n, grp:!!a.grp, costo:a.costo, bar:a.bar, antBar:a.antBar }));
+      const f0 = (recs[0] && recs[0].f) || KJ.semana1;
+      const filas = src.map(a=>{
+        let ini = null, fin = null;
+        if(a.bar){ ini = kjIso(half(a.bar[0])[0]); fin = kjIso(half(a.bar[1])[1]); }
+        else if(a.antBar){ ini = f0; fin = f0; }
+        return { code:a.code, n:a.n, grp:a.grp, costo:a.costo, ini, fin };
+      });
+      const programa = per.map((p,k)=>{ const m = KJ.modo==='partidas' ? k+1 : k;
+        return { label:p.label, fecha: kjIso(new Date(mStart(m<1 ? 1 : m+1).getTime() - DAY)), acum:p.acumNeto, hito:p.hito||'' }; });
+      return { titulo:KJ.proyecto, cliente:KJ.clienteFormal || KJ.cliente, ubicacion:KJ.ubicacion || '', presupuesto:E.P.neto,
+               sinIva: KJ.modo==='partidas', filas, programa, inicio: kjIso(mStart(1)) };
+    },
     respaldo(){
       const recs = kjAllRecibos();
       const data = { cliente: KJ.cliente, proyecto: KJ.proyecto, generado: new Date().toISOString(), presupuesto: KJ.presupuesto,
@@ -5798,6 +5872,203 @@ document.querySelectorAll('.nav-btn[data-view="kanjut"]').forEach(b=> b.addEvent
     }
   });
 })();
+
+/* ---------- PDF y Excel del recibo (se generan en el navegador) ---------- */
+const KJ_H2C = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+const KJ_PDFLIB = 'https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js';
+window.amdLoadScript = window.amdLoadScript || function(url, globalName){
+  if(window[globalName]) return Promise.resolve(window[globalName]);
+  window.__amdLibs = window.__amdLibs || {};
+  if(window.__amdLibs[url]) return window.__amdLibs[url];
+  return (window.__amdLibs[url] = new Promise((res, rej)=>{
+    const sc = document.createElement('script'); sc.src = url; sc.async = true;
+    sc.onload = ()=> window[globalName] ? res(window[globalName]) : rej(new Error(globalName + ' no cargó'));
+    sc.onerror = ()=>{ delete window.__amdLibs[url]; rej(new Error('sin conexión a internet para generar el PDF')); };
+    document.head.appendChild(sc);
+  }));
+};
+function kjRecPagesHtml(E){ return kjHoja1(E) + kjHojaPrograma(E); }
+function kjBytesB64(u8){ let s = ''; for(let i=0;i<u8.length;i+=0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i+0x8000)); return btoa(s); }
+function kjDescargarBlob(blob, nombre){
+  const url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = nombre; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 60000);
+}
+function kjNombreArchivo(n, ext){ return `Recibo ${kjPad(n)} - ${KJ.proyecto}.${ext}`.replace(/[\\/:*?"<>|]+/g,'-'); }
+async function kjReciboPdfBytes(rec){
+  const [h2c, PL] = await Promise.all([amdLoadScript(KJ_H2C, 'html2canvas'), amdLoadScript(KJ_PDFLIB, 'PDFLib')]);
+  const E = kjEstado(rec.num);
+  const box = document.createElement('div');
+  box.style.cssText = 'position:absolute;left:-20000px;top:0;width:1000px;pointer-events:none;';
+  box.innerHTML = kjRecPagesHtml(E);
+  document.body.appendChild(box);
+  try{
+    const pages = Array.from(box.querySelectorAll('.kj-page'));
+    pages.forEach(p=>{ p.style.position = 'relative'; p.style.transform = 'none'; p.style.boxShadow = 'none'; p.style.marginBottom = '12px'; });
+    await new Promise(r=>setTimeout(r, 60));
+    const pdf = await PL.PDFDocument.create();
+    pdf.setTitle(kjNombreArchivo(rec.num, 'pdf').replace(/\.pdf$/,'')); pdf.setAuthor('AMD Proyectos'); pdf.setCreator('Dashboard AMD');
+    for(const p of pages){
+      const cv = await h2c(p, { scale:2, backgroundColor:'#ffffff', logging:false, useCORS:true });
+      const img = await pdf.embedJpg(cv.toDataURL('image/jpeg', 0.92));
+      const W = 792, H = 612, m = 18, s = Math.min((W-2*m)/img.width, (H-2*m)/img.height);
+      const pg = pdf.addPage([W, H]);
+      pg.drawImage(img, { x:(W-img.width*s)/2, y:(H-img.height*s)/2, width:img.width*s, height:img.height*s });
+    }
+    return await pdf.save();
+  } finally { box.remove(); }
+}
+async function kjGuardarPdfRecibo(rec){
+  const bytes = await kjReciboPdfBytes(rec);
+  const b64 = kjBytesB64(bytes);
+  const meta = { num:rec.num, f:rec.f, nombre:kjNombreArchivo(rec.num, 'pdf'), type:'application/pdf', size:bytes.length };
+  let ok = false;
+  try{ if(window.FBK && window.FB && window.FB.ready){ meta.id = await window.FBK.addPdf(meta, b64); ok = true; } }
+  catch(e){ console.error('Error guardando PDF del recibo:', e); }
+  if(!ok){ meta.id = 'local-' + Date.now(); meta._local = b64; }
+  kjPdfs.push(meta);
+  return ok;
+}
+async function kjCrearPdf(n){
+  const r = kjAllRecibos().find(x=>x.num===n); if(!r) return;
+  kjMsg = `Generando el PDF del Recibo ${kjPad(n)}…`; kjRenderList();
+  try{
+    const ok = await kjGuardarPdfRecibo(r);
+    kjMsg = ok ? `✓ PDF del Recibo ${kjPad(n)} guardado en la base de datos (se respalda con SYNC).` : `⚠️ PDF del Recibo ${kjPad(n)} creado solo en esta sesión — no se pudo guardar en Firebase.`;
+  }catch(e){ kjMsg = `⚠️ No se pudo generar el PDF del Recibo ${kjPad(n)}: ${e.message || e}.`; }
+  kjRenderList();
+}
+async function kjDescargarPdfRecibo(n){
+  const r = kjAllRecibos().find(x=>x.num===n); if(!r) return;
+  const btn = document.getElementById('kj-dl-pdf'); if(btn){ btn.disabled = true; btn.textContent = 'Generando PDF…'; }
+  try{
+    const p = kjPdfs.find(x=>x.num===n);
+    if(p){ let b64 = p._local || (window.FBK ? await window.FBK.getPdfData(p) : ''); if(b64){ kjDescargarBlob(new Blob([Uint8Array.from(atob(b64), c=>c.charCodeAt(0))], {type:'application/pdf'}), p.nombre || kjNombreArchivo(n,'pdf')); return; } }
+    kjDescargarBlob(new Blob([await kjReciboPdfBytes(r)], {type:'application/pdf'}), kjNombreArchivo(n, 'pdf'));
+  }catch(e){ alert('No se pudo generar el PDF: ' + (e.message || e)); }
+  finally{ if(btn){ btn.disabled = false; btn.textContent = 'Descargar PDF'; } }
+}
+function kjDescargarExcelRecibo(n){
+  try{ kjDescargarBlob(kjReciboExcel(n).blob(), kjNombreArchivo(n, 'xlsx')); }
+  catch(e){ console.error(e); alert('No se pudo generar el Excel: ' + (e.message || e)); }
+}
+// botones de descarga en el visor del recibo
+const kjVerReciboBase = kjVerRecibo;
+kjVerRecibo = function(n){
+  kjVerReciboBase(n);
+  const r = kjAllRecibos().find(x=>x.num===n), ex = document.getElementById('kj-modal-extra');
+  if(!r || !ex) return;
+  ex.innerHTML = (r._seed ? '' : `<button class="btn-sm" id="kj-dl-pdf" onclick="kjDescargarPdfRecibo(${n})">Descargar PDF</button>`) +
+    `<button class="btn-sm" onclick="kjDescargarExcelRecibo(${n})">Descargar Excel</button>`;
+};
+// al confirmar un recibo nuevo se genera y guarda su PDF automáticamente
+const kjConfirmarBase = kjConfirmar;
+kjConfirmar = async function(){
+  const num = kjDraft && kjDraft.num;
+  await kjConfirmarBase();
+  const rec = kjAllRecibos().find(x=>x.num===num && !x._seed); if(!rec) return;
+  const base = kjMsg;
+  kjMsg = base + ' Generando PDF…'; kjRenderList();
+  try{
+    const ok = await kjGuardarPdfRecibo(rec);
+    kjMsg = base + (ok ? ' ✓ PDF guardado (se respalda con SYNC).' : ' ⚠️ El PDF quedó solo en esta sesión.');
+  }catch(e){ kjMsg = base + ` ⚠️ No se pudo generar el PDF (${e.message || e}). Usa el botón "Crear PDF".`; }
+  kjRenderList();
+};
+
+function kjFormaLinea(l){ return ((l.iva||0) > 0 || /TRANSF|FACT/i.test(l.tipo||'')) ? 'Transferencia' : 'Efectivo'; }
+function kjConceptoLinea(r, l){
+  if(l.concepto) return l.concepto;
+  const p = KJ.partidas ? KJ.partidas.find(x=>x.id===l.partida) : null;
+  return `RECIBO ${kjPad(r.num)} - ${l.tipo || ''}`.trim() + (p ? '' : '');
+}
+// Excel del recibo: misma estructura que el reporte (resumen de pagos + estado de cuenta/programa), con fórmulas
+function kjReciboExcel(num){
+  const wb = AMDX.book(), per = KJ.programa.periodos, n = per.length;
+  const recs = kjAllRecibos().filter(r=>r.num<=num), rec = recs.find(r=>r.num===num);
+  const D = AMDX.date, RP = "'Resumen de pagos'!";
+  const lines = [];
+  recs.forEach(r=>r.lineas.forEach(l=>lines.push({ r, l })));
+  if(KJ.modo === 'partidas'){
+    const pname = id => (KJ.partidas.find(p=>p.id===id) || {n:id}).n;
+    lines.sort((a,b)=> KJ.partidas.findIndex(p=>p.id===a.l.partida) - KJ.partidas.findIndex(p=>p.id===b.l.partida) || a.r.num - b.r.num);
+    const w1 = wb.sheet('Presupuesto y Programa', { cols:[8,34,15,17,16,15,10].concat(per.map(()=>12)) });
+    const w2 = wb.sheet('Resumen de pagos', { cols:[30,40,12,16,13,15,13,8,10], freeze:'A5' });
+    w2.set('A1','RESUMEN DE PAGOS POR PARTIDA','title');
+    w2.set('A2',`Cliente: ${KJ.clienteFormal || KJ.cliente} · Proyecto: ${KJ.proyecto} · Estado al Recibo ${num} · montos sin IVA (IVA aparte)`,'sub');
+    w2.row(3,0,['Partida','Concepto','Fecha','Monto (sin IVA)','IVA','Neto','Factura','Recibo','Mes de obra'],'hdr');
+    const r0 = 4, rN = r0 + Math.max(lines.length,1) - 1;
+    lines.forEach((x,i)=>{ const ri = r0+i, est = x.r.num===num;
+      w2.row(ri,0,[pname(x.l.partida), kjConceptoLinea(x.r,x.l), D(x.l.f||x.r.f), x.l.monto, x.l.iva||0, {f:`D${ri+1}+E${ri+1}`}, x.l.fact||'', x.r.num, x.l.mes||''],
+        ['txt','txt','date', est?'moneyy':'moneyin','money','money','txt','int','int']); });
+    w2.row(rN+1,0,['TOTAL','','',{f:`SUM(D${r0+1}:D${rN+1})`},{f:`SUM(E${r0+1}:E${rN+1})`},{f:`SUM(F${r0+1}:F${rN+1})`}],['tot','tot','tot','totmoney','totmoney','totmoney']);
+    const rgD = `${RP}$D$${r0+1}:$D$${rN+1}`, rgA = `${RP}$A$${r0+1}:$A$${rN+1}`, rgH = `${RP}$H$${r0+1}:$H$${rN+1}`, rgI = `${RP}$I$${r0+1}:$I$${rN+1}`;
+    w1.set('A1','PRESUPUESTO Y PROGRAMA DE OBRA','title');
+    w1.set('A2',`CLIENTE: ${KJ.clienteFormal || KJ.cliente}   ·   PROYECTO: ${KJ.proyecto}   ·   montos sin IVA`,'sub');
+    w1.set('A3','Estimación al Recibo','label'); w1.set('C3', num, 'int'); w1.set('D3', `Fecha: ${fmtDate(rec.f)} · la columna ESTA ESTIMACIÓN suma los pagos de este recibo`, 'note');
+    w1.row(4,0,['','ACTIVIDAD','TOTAL','PAGADO A LA FECHA','ESTA ESTIMACIÓN','SALDO','AVANCE'],'hdr');
+    KJ.partidas.forEach((p,i)=>{ const ri = 5+i, R = ri+1;
+      w1.row(ri,0,[p.code||'', p.n, p.total, {f:`SUMIFS(${rgD},${rgA},B${R})`}, {f:`SUMIFS(${rgD},${rgA},B${R},${rgH},$C$3)`}, {f:`C${R}-D${R}`}, {f:`IF(C${R}=0,0,D${R}/C${R})`}],
+        ['int','txt','moneyin','money','moneyy','money','pct']); });
+    const rt = 5 + KJ.partidas.length, RT = rt+1;
+    w1.row(rt,0,['','TOTAL',{f:`SUM(C6:C${RT-1})`},{f:`SUM(D6:D${RT-1})`},{f:`SUM(E6:E${RT-1})`},{f:`SUM(F6:F${RT-1})`},{f:`IF(C${RT}=0,0,D${RT}/C${RT})`}],['tot','tot','totmoney','totmoney','totmoney','totmoney','pctb']);
+    const rf = rt + 2;
+    w1.set([rf,1],'FLUJO POR MES (sin IVA)','label');
+    w1.row(rf+1,1,['Concepto'].concat(per.map(p=>p.label)),'hdr');
+    const cL = i => AMDX.colName(2+i);
+    per.forEach((p,i)=>{
+      const prog = p.acumNeto - (i ? per[i-1].acumNeto : 0);
+      w1.set([rf+2,2+i], prog, 'moneyin');
+      w1.set([rf+3,2+i], {f:`SUMIFS(${rgD},${rgI},${p.mes||i+1},${rgH},"<="&$C$3)`}, 'money');
+      w1.set([rf+4,2+i], {f: i ? `${cL(i-1)}${rf+5}+${cL(i)}${rf+3}` : `${cL(0)}${rf+3}`}, 'money');
+      w1.set([rf+5,2+i], {f: i ? `${cL(i-1)}${rf+6}+${cL(i)}${rf+4}` : `${cL(0)}${rf+4}`}, 'money');
+      w1.set([rf+6,2+i], {f:`${cL(i)}${rf+5}-${cL(i)}${rf+6}`}, 'money');
+    });
+    ['Programado / mes','Pagado / mes','Acumulado programado','Acumulado pagado','Diferencia acumulada'].forEach((t,k)=>w1.set([rf+2+k,1], t, k>1?'txtb':'txt'));
+    w1.set([rf+8,1], 'Valores en azul = capturados (presupuesto, programa y pagos). Amarillo = esta estimación. Cambia el número de recibo en C3 para recalcular a otra fecha de corte.', 'note');
+    return wb;
+  }
+  // ---- modo anticipo (Kanjut / Amani): montos con IVA ----
+  const w1 = wb.sheet('Estado de cuenta', { cols:[34,16,15,16].concat(per.map(()=>12)) });
+  const w2 = wb.sheet('Resumen de pagos', { cols:[8,11,34,12,16,13,15,14,12,8], freeze:'A5' });
+  w2.set('A1','RESUMEN DE PAGOS','title');
+  w2.set('A2',`Cliente: ${KJ.clienteFormal || KJ.cliente} · Proyecto: ${KJ.proyecto} · Estado al Recibo ${num}`,'sub');
+  w2.row(3,0,['Recibo','Tipo','Concepto','Fecha','Monto (sin IVA)','IVA','Neto','Factura','Periodo','Idx'],'hdr');
+  const r0 = 4, rN = r0 + Math.max(lines.length,1) - 1;
+  lines.forEach((x,i)=>{ const ri = r0+i, est = x.r.num===num, idx = x.r.anticipo ? 0 : kjMesIdx(x.l.mes);
+    w2.row(ri,0,[x.r.num, x.r.anticipo?'Anticipo':'Pago', x.l.concepto || `RECIBO ${kjPad(x.r.num)} - ${x.l.tipo||''}`, D(x.l.f||x.r.f), x.l.monto, x.l.iva||0, {f:`E${ri+1}+F${ri+1}`}, x.l.fact||'', per[idx].label, idx],
+      ['int','txt','txt','date', est?'moneyy':'moneyin','money','money','txt','txt','int']); });
+  w2.row(rN+1,0,['TOTAL','','','',{f:`SUM(E${r0+1}:E${rN+1})`},{f:`SUM(F${r0+1}:F${rN+1})`},{f:`SUM(G${r0+1}:G${rN+1})`}],['tot','tot','tot','tot','totmoney','totmoney','totmoney']);
+  const rg = c => `${RP}$${c}$${r0+1}:$${c}$${rN+1}`;
+  const P = KJ.presupuesto;
+  w1.set('A1',`ESTADO DE CUENTA · RECIBO ${kjPad(num)}`,'title');
+  w1.set('A2',`CLIENTE: ${KJ.clienteFormal || KJ.cliente}   ·   PROYECTO: ${KJ.proyecto}`,'sub');
+  w1.row(3,0,['Recibo', num, 'Fecha', D(rec.f)],['label','int','label','date']);
+  w1.row(4,0,['Recibí (texto del recibo)', kjRecibiMonto(rec), 'Concepto', rec.concepto || KJ.conceptoDefault || ''],['label','moneyin','label','txt']);
+  w1.row(6,0,['CONCEPTO','SIN IVA','IVA','NETO'],'hdr');
+  const sumif = (col, tipo) => `SUMIFS(${rg(col)},${rg('B')},"${tipo}")`;
+  w1.row(7,0,['Presupuesto contratado', P.monto, P.iva||0, {f:'B8+C8'}],['txtb','moneyin','moneyin','moneyb']);
+  w1.row(8,0,['Anticipo recibido', {f:sumif('E','Anticipo')}, {f:sumif('F','Anticipo')}, {f:'B9+C9'}],['txt','money','money','money']);
+  w1.row(9,0,['Pagos (estimaciones)', {f:sumif('E','Pago')}, {f:sumif('F','Pago')}, {f:'B10+C10'}],['txt','money','money','money']);
+  w1.row(10,0,['PAGADO TOTAL + ANTICIPO', {f:'B9+B10'}, {f:'C9+C10'}, {f:'D9+D10'}],['tot','totmoney','totmoney','totmoney']);
+  w1.row(11,0,['SALDO', {f:'B8-B11'}, {f:'C8-C11'}, {f:'D8-D11'}],['tot','totmoney','totmoney','totmoney']);
+  w1.row(12,0,['Avance financiero (neto)', '', '', {f:'IF(D8=0,0,D11/D8)'}],['txt','txt','txt','pctb']);
+  w1.set('A15','FLUJO POR PERIODO (neto, con IVA)','label');
+  w1.row(15,0,['Concepto'].concat(per.map(p=>p.label)),'hdr');
+  per.forEach((p,i)=>{
+    const c = AMDX.colName(1+i), cp = AMDX.colName(i);
+    w1.set([16,1+i], p.acumNeto - (i ? per[i-1].acumNeto : 0), 'moneyin');
+    w1.set([17,1+i], {f:`SUMIFS(${rg('G')},${rg('J')},${i})`}, 'money');
+    w1.set([18,1+i], {f: i ? `${cp}19+${c}17` : `${c}17`}, 'money');
+    w1.set([19,1+i], {f: i ? `${cp}20+${c}18` : `${c}18`}, 'money');
+    w1.set([20,1+i], {f:`${c}19-${c}20`}, 'money');
+  });
+  ['Programado neto / periodo','Pagado neto / periodo','Acumulado programado','Acumulado pagado','Diferencia acumulada'].forEach((t,k)=>w1.set([16+k,0], t, k>1?'txtb':'txt'));
+  w1.set([22,0], 'Valores en azul = capturados. Amarillo = pagos de este recibo. Los totales y el flujo se calculan con fórmulas desde la hoja "Resumen de pagos".', 'note');
+  return wb;
+}
+
+if(typeof window.amdIngresosChanged === 'function') window.amdIngresosChanged();
 
 </script>
 <script>
@@ -6251,6 +6522,7 @@ function tpRenderList(){
     // Histórico con PDF real: solo el PDF entregado (el "Ver" reconstruido ya no aplica)
     if(r && !(hist && pdfs.length)) btns += `<button class="btn-sm${hist?' recon':''}" ${hist?'title="Vista reconstruida desde la base de datos: NO es el documento que se entregó"':''} onclick="tpVerRecibo(${n})">Ver</button>`;
     pdfs.forEach(p=>{ btns += `<button class="btn-sm pdf" title="${escXml(p.nombre||'')}" onclick="tpVerPdf('${p.id}')">PDF</button>`; });
+    if(r && !r._seed && !pdfs.length) btns += `<button class="btn-sm pdf" title="Genera el PDF de este recibo y lo guarda en la base de datos" onclick="tpCrearPdf(${n})">Crear PDF</button>`;
     if(r && !r._seed) btns += `<button class="btn-sm del" onclick="tpEliminarRecibo('${r._fbId||''}', ${n})">Eliminar</button>`;
     pdfs.forEach(p=>{ btns += `<button class="btn-sm del" title="Eliminar PDF" onclick="tpEliminarPdf('${p.id}')">✕ PDF</button>`; });
     const f = r ? r.f : (pdfs[0] && pdfs[0].f);
@@ -6899,6 +7171,7 @@ async function tpFacturaEliminar(i){
 }
 
 function tpRenderAll(){
+  if(typeof window.amdIngresosChanged === 'function') window.amdIngresosChanged();
   tpRenderList();
   tpRenderSide();
   tpRenderFacturas();
@@ -6933,6 +7206,43 @@ document.querySelectorAll('.nav-btn[data-view="terrapark"]').forEach(b=> b.addEv
       });
       return { items, sinPdf };
     },
+    // Excel del último recibo (INTERNO/Recibos Excel)
+    excelRecibo(){
+      const last = tpAllRecibos().slice(-1)[0]; if(!last) return null;
+      return { num:last.num, nombre:tpNombreArchivo(last.num, 'xlsx'), bytes:tpReciboExcel(last.num).bytes() };
+    },
+    // base de ingresos: cada línea de pago de cada recibo
+    ingresos(){
+      const recs = tpAllRecibos(), last = recs[recs.length-1];
+      const pname = id => TP.partidas ? ((TP.partidas.find(p=>p.id===id) || {}).n || '') : '';
+      const rows = [];
+      recs.forEach(r=>r.lineas.forEach(l=>rows.push({ recibo:r.num, fRec:r.f, f:l.f||r.f, monto:l.monto, iva:l.iva||0, total:tpTotalLinea(l),
+        forma:tpFormaLinea(l), concepto:l.concepto || `RECIBO ${tpPad(r.num)} - ${l.tipo||''}`, partida:pname(l.partida), fact:l.fact||'',
+        origen:r._seed?'Histórico':'Generado', tipo:r.anticipo?'Anticipo':'Pago' })));
+      const E = last ? tpEstado(last.num) : null;
+      return { proyecto:TP.proyecto, cliente:TP.cliente, presupuestoNeto: E ? E.P.neto : 0, sinIva: TP.modo==='partidas', rows };
+    },
+    // datos para la hoja PROYECTOS: programa (gantt) en fechas de calendario + programado acumulado
+    proyecto(){
+      const recs = tpAllRecibos(), last = recs[recs.length-1], E = tpEstado(last.num), per = TP.programa.periodos;
+      const DAY = 86400000;
+      const mStart = m => TP.mesCal ? new Date(TP.mesCal[0], TP.mesCal[1]-1+(m-1), 1) : new Date(tpDate(TP.semana1).getTime() + (m-1)*28*DAY);
+      const half = i => { const m = Math.floor(i/2)+1, a = mStart(m), b = mStart(m+1), mid = new Date(a.getTime() + Math.floor((b.getTime()-a.getTime())/2/DAY)*DAY);
+        return i%2 ? [mid, new Date(b.getTime()-DAY)] : [a, new Date(mid.getTime()-DAY)]; };
+      const src = TP.modo==='partidas' ? TP.partidas.map(p=>({ code:p.code||'', n:p.n, grp:false, costo:p.total, bar:p.bar }))
+                                       : TP.actividades.map(a=>({ code:a.code||'', n:a.n, grp:!!a.grp, costo:a.costo, bar:a.bar, antBar:a.antBar }));
+      const f0 = (recs[0] && recs[0].f) || TP.semana1;
+      const filas = src.map(a=>{
+        let ini = null, fin = null;
+        if(a.bar){ ini = tpIso(half(a.bar[0])[0]); fin = tpIso(half(a.bar[1])[1]); }
+        else if(a.antBar){ ini = f0; fin = f0; }
+        return { code:a.code, n:a.n, grp:a.grp, costo:a.costo, ini, fin };
+      });
+      const programa = per.map((p,k)=>{ const m = TP.modo==='partidas' ? k+1 : k;
+        return { label:p.label, fecha: tpIso(new Date(mStart(m<1 ? 1 : m+1).getTime() - DAY)), acum:p.acumNeto, hito:p.hito||'' }; });
+      return { titulo:TP.proyecto, cliente:TP.clienteFormal || TP.cliente, ubicacion:TP.ubicacion || '', presupuesto:E.P.neto,
+               sinIva: TP.modo==='partidas', filas, programa, inicio: tpIso(mStart(1)) };
+    },
     respaldo(){
       const recs = tpAllRecibos();
       const data = { cliente: TP.cliente, proyecto: TP.proyecto, generado: new Date().toISOString(), presupuesto: TP.presupuesto,
@@ -6949,6 +7259,203 @@ document.querySelectorAll('.nav-btn[data-view="terrapark"]').forEach(b=> b.addEv
     }
   });
 })();
+
+/* ---------- PDF y Excel del recibo (se generan en el navegador) ---------- */
+const TP_H2C = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+const TP_PDFLIB = 'https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js';
+window.amdLoadScript = window.amdLoadScript || function(url, globalName){
+  if(window[globalName]) return Promise.resolve(window[globalName]);
+  window.__amdLibs = window.__amdLibs || {};
+  if(window.__amdLibs[url]) return window.__amdLibs[url];
+  return (window.__amdLibs[url] = new Promise((res, rej)=>{
+    const sc = document.createElement('script'); sc.src = url; sc.async = true;
+    sc.onload = ()=> window[globalName] ? res(window[globalName]) : rej(new Error(globalName + ' no cargó'));
+    sc.onerror = ()=>{ delete window.__amdLibs[url]; rej(new Error('sin conexión a internet para generar el PDF')); };
+    document.head.appendChild(sc);
+  }));
+};
+function tpRecPagesHtml(E){ return tpHoja1(E) + tpHojaPrograma(E); }
+function tpBytesB64(u8){ let s = ''; for(let i=0;i<u8.length;i+=0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i+0x8000)); return btoa(s); }
+function tpDescargarBlob(blob, nombre){
+  const url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = nombre; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 60000);
+}
+function tpNombreArchivo(n, ext){ return `Recibo ${tpPad(n)} - ${TP.proyecto}.${ext}`.replace(/[\\/:*?"<>|]+/g,'-'); }
+async function tpReciboPdfBytes(rec){
+  const [h2c, PL] = await Promise.all([amdLoadScript(TP_H2C, 'html2canvas'), amdLoadScript(TP_PDFLIB, 'PDFLib')]);
+  const E = tpEstado(rec.num);
+  const box = document.createElement('div');
+  box.style.cssText = 'position:absolute;left:-20000px;top:0;width:1000px;pointer-events:none;';
+  box.innerHTML = tpRecPagesHtml(E);
+  document.body.appendChild(box);
+  try{
+    const pages = Array.from(box.querySelectorAll('.tp-page'));
+    pages.forEach(p=>{ p.style.position = 'relative'; p.style.transform = 'none'; p.style.boxShadow = 'none'; p.style.marginBottom = '12px'; });
+    await new Promise(r=>setTimeout(r, 60));
+    const pdf = await PL.PDFDocument.create();
+    pdf.setTitle(tpNombreArchivo(rec.num, 'pdf').replace(/\.pdf$/,'')); pdf.setAuthor('AMD Proyectos'); pdf.setCreator('Dashboard AMD');
+    for(const p of pages){
+      const cv = await h2c(p, { scale:2, backgroundColor:'#ffffff', logging:false, useCORS:true });
+      const img = await pdf.embedJpg(cv.toDataURL('image/jpeg', 0.92));
+      const W = 792, H = 612, m = 18, s = Math.min((W-2*m)/img.width, (H-2*m)/img.height);
+      const pg = pdf.addPage([W, H]);
+      pg.drawImage(img, { x:(W-img.width*s)/2, y:(H-img.height*s)/2, width:img.width*s, height:img.height*s });
+    }
+    return await pdf.save();
+  } finally { box.remove(); }
+}
+async function tpGuardarPdfRecibo(rec){
+  const bytes = await tpReciboPdfBytes(rec);
+  const b64 = tpBytesB64(bytes);
+  const meta = { num:rec.num, f:rec.f, nombre:tpNombreArchivo(rec.num, 'pdf'), type:'application/pdf', size:bytes.length };
+  let ok = false;
+  try{ if(window.FBT && window.FB && window.FB.ready){ meta.id = await window.FBT.addPdf(meta, b64); ok = true; } }
+  catch(e){ console.error('Error guardando PDF del recibo:', e); }
+  if(!ok){ meta.id = 'local-' + Date.now(); meta._local = b64; }
+  tpPdfs.push(meta);
+  return ok;
+}
+async function tpCrearPdf(n){
+  const r = tpAllRecibos().find(x=>x.num===n); if(!r) return;
+  tpMsg = `Generando el PDF del Recibo ${tpPad(n)}…`; tpRenderList();
+  try{
+    const ok = await tpGuardarPdfRecibo(r);
+    tpMsg = ok ? `✓ PDF del Recibo ${tpPad(n)} guardado en la base de datos (se respalda con SYNC).` : `⚠️ PDF del Recibo ${tpPad(n)} creado solo en esta sesión — no se pudo guardar en Firebase.`;
+  }catch(e){ tpMsg = `⚠️ No se pudo generar el PDF del Recibo ${tpPad(n)}: ${e.message || e}.`; }
+  tpRenderList();
+}
+async function tpDescargarPdfRecibo(n){
+  const r = tpAllRecibos().find(x=>x.num===n); if(!r) return;
+  const btn = document.getElementById('tp-dl-pdf'); if(btn){ btn.disabled = true; btn.textContent = 'Generando PDF…'; }
+  try{
+    const p = tpPdfs.find(x=>x.num===n);
+    if(p){ let b64 = p._local || (window.FBT ? await window.FBT.getPdfData(p) : ''); if(b64){ tpDescargarBlob(new Blob([Uint8Array.from(atob(b64), c=>c.charCodeAt(0))], {type:'application/pdf'}), p.nombre || tpNombreArchivo(n,'pdf')); return; } }
+    tpDescargarBlob(new Blob([await tpReciboPdfBytes(r)], {type:'application/pdf'}), tpNombreArchivo(n, 'pdf'));
+  }catch(e){ alert('No se pudo generar el PDF: ' + (e.message || e)); }
+  finally{ if(btn){ btn.disabled = false; btn.textContent = 'Descargar PDF'; } }
+}
+function tpDescargarExcelRecibo(n){
+  try{ tpDescargarBlob(tpReciboExcel(n).blob(), tpNombreArchivo(n, 'xlsx')); }
+  catch(e){ console.error(e); alert('No se pudo generar el Excel: ' + (e.message || e)); }
+}
+// botones de descarga en el visor del recibo
+const tpVerReciboBase = tpVerRecibo;
+tpVerRecibo = function(n){
+  tpVerReciboBase(n);
+  const r = tpAllRecibos().find(x=>x.num===n), ex = document.getElementById('tp-modal-extra');
+  if(!r || !ex) return;
+  ex.innerHTML = (r._seed ? '' : `<button class="btn-sm" id="tp-dl-pdf" onclick="tpDescargarPdfRecibo(${n})">Descargar PDF</button>`) +
+    `<button class="btn-sm" onclick="tpDescargarExcelRecibo(${n})">Descargar Excel</button>`;
+};
+// al confirmar un recibo nuevo se genera y guarda su PDF automáticamente
+const tpConfirmarBase = tpConfirmar;
+tpConfirmar = async function(){
+  const num = tpDraft && tpDraft.num;
+  await tpConfirmarBase();
+  const rec = tpAllRecibos().find(x=>x.num===num && !x._seed); if(!rec) return;
+  const base = tpMsg;
+  tpMsg = base + ' Generando PDF…'; tpRenderList();
+  try{
+    const ok = await tpGuardarPdfRecibo(rec);
+    tpMsg = base + (ok ? ' ✓ PDF guardado (se respalda con SYNC).' : ' ⚠️ El PDF quedó solo en esta sesión.');
+  }catch(e){ tpMsg = base + ` ⚠️ No se pudo generar el PDF (${e.message || e}). Usa el botón "Crear PDF".`; }
+  tpRenderList();
+};
+
+function tpFormaLinea(l){ return ((l.iva||0) > 0 || /TRANSF|FACT/i.test(l.tipo||'')) ? 'Transferencia' : 'Efectivo'; }
+function tpConceptoLinea(r, l){
+  if(l.concepto) return l.concepto;
+  const p = TP.partidas ? TP.partidas.find(x=>x.id===l.partida) : null;
+  return `RECIBO ${tpPad(r.num)} - ${l.tipo || ''}`.trim() + (p ? '' : '');
+}
+// Excel del recibo: misma estructura que el reporte (resumen de pagos + estado de cuenta/programa), con fórmulas
+function tpReciboExcel(num){
+  const wb = AMDX.book(), per = TP.programa.periodos, n = per.length;
+  const recs = tpAllRecibos().filter(r=>r.num<=num), rec = recs.find(r=>r.num===num);
+  const D = AMDX.date, RP = "'Resumen de pagos'!";
+  const lines = [];
+  recs.forEach(r=>r.lineas.forEach(l=>lines.push({ r, l })));
+  if(TP.modo === 'partidas'){
+    const pname = id => (TP.partidas.find(p=>p.id===id) || {n:id}).n;
+    lines.sort((a,b)=> TP.partidas.findIndex(p=>p.id===a.l.partida) - TP.partidas.findIndex(p=>p.id===b.l.partida) || a.r.num - b.r.num);
+    const w1 = wb.sheet('Presupuesto y Programa', { cols:[8,34,15,17,16,15,10].concat(per.map(()=>12)) });
+    const w2 = wb.sheet('Resumen de pagos', { cols:[30,40,12,16,13,15,13,8,10], freeze:'A5' });
+    w2.set('A1','RESUMEN DE PAGOS POR PARTIDA','title');
+    w2.set('A2',`Cliente: ${TP.clienteFormal || TP.cliente} · Proyecto: ${TP.proyecto} · Estado al Recibo ${num} · montos sin IVA (IVA aparte)`,'sub');
+    w2.row(3,0,['Partida','Concepto','Fecha','Monto (sin IVA)','IVA','Neto','Factura','Recibo','Mes de obra'],'hdr');
+    const r0 = 4, rN = r0 + Math.max(lines.length,1) - 1;
+    lines.forEach((x,i)=>{ const ri = r0+i, est = x.r.num===num;
+      w2.row(ri,0,[pname(x.l.partida), tpConceptoLinea(x.r,x.l), D(x.l.f||x.r.f), x.l.monto, x.l.iva||0, {f:`D${ri+1}+E${ri+1}`}, x.l.fact||'', x.r.num, x.l.mes||''],
+        ['txt','txt','date', est?'moneyy':'moneyin','money','money','txt','int','int']); });
+    w2.row(rN+1,0,['TOTAL','','',{f:`SUM(D${r0+1}:D${rN+1})`},{f:`SUM(E${r0+1}:E${rN+1})`},{f:`SUM(F${r0+1}:F${rN+1})`}],['tot','tot','tot','totmoney','totmoney','totmoney']);
+    const rgD = `${RP}$D$${r0+1}:$D$${rN+1}`, rgA = `${RP}$A$${r0+1}:$A$${rN+1}`, rgH = `${RP}$H$${r0+1}:$H$${rN+1}`, rgI = `${RP}$I$${r0+1}:$I$${rN+1}`;
+    w1.set('A1','PRESUPUESTO Y PROGRAMA DE OBRA','title');
+    w1.set('A2',`CLIENTE: ${TP.clienteFormal || TP.cliente}   ·   PROYECTO: ${TP.proyecto}   ·   montos sin IVA`,'sub');
+    w1.set('A3','Estimación al Recibo','label'); w1.set('C3', num, 'int'); w1.set('D3', `Fecha: ${fmtDate(rec.f)} · la columna ESTA ESTIMACIÓN suma los pagos de este recibo`, 'note');
+    w1.row(4,0,['','ACTIVIDAD','TOTAL','PAGADO A LA FECHA','ESTA ESTIMACIÓN','SALDO','AVANCE'],'hdr');
+    TP.partidas.forEach((p,i)=>{ const ri = 5+i, R = ri+1;
+      w1.row(ri,0,[p.code||'', p.n, p.total, {f:`SUMIFS(${rgD},${rgA},B${R})`}, {f:`SUMIFS(${rgD},${rgA},B${R},${rgH},$C$3)`}, {f:`C${R}-D${R}`}, {f:`IF(C${R}=0,0,D${R}/C${R})`}],
+        ['int','txt','moneyin','money','moneyy','money','pct']); });
+    const rt = 5 + TP.partidas.length, RT = rt+1;
+    w1.row(rt,0,['','TOTAL',{f:`SUM(C6:C${RT-1})`},{f:`SUM(D6:D${RT-1})`},{f:`SUM(E6:E${RT-1})`},{f:`SUM(F6:F${RT-1})`},{f:`IF(C${RT}=0,0,D${RT}/C${RT})`}],['tot','tot','totmoney','totmoney','totmoney','totmoney','pctb']);
+    const rf = rt + 2;
+    w1.set([rf,1],'FLUJO POR MES (sin IVA)','label');
+    w1.row(rf+1,1,['Concepto'].concat(per.map(p=>p.label)),'hdr');
+    const cL = i => AMDX.colName(2+i);
+    per.forEach((p,i)=>{
+      const prog = p.acumNeto - (i ? per[i-1].acumNeto : 0);
+      w1.set([rf+2,2+i], prog, 'moneyin');
+      w1.set([rf+3,2+i], {f:`SUMIFS(${rgD},${rgI},${p.mes||i+1},${rgH},"<="&$C$3)`}, 'money');
+      w1.set([rf+4,2+i], {f: i ? `${cL(i-1)}${rf+5}+${cL(i)}${rf+3}` : `${cL(0)}${rf+3}`}, 'money');
+      w1.set([rf+5,2+i], {f: i ? `${cL(i-1)}${rf+6}+${cL(i)}${rf+4}` : `${cL(0)}${rf+4}`}, 'money');
+      w1.set([rf+6,2+i], {f:`${cL(i)}${rf+5}-${cL(i)}${rf+6}`}, 'money');
+    });
+    ['Programado / mes','Pagado / mes','Acumulado programado','Acumulado pagado','Diferencia acumulada'].forEach((t,k)=>w1.set([rf+2+k,1], t, k>1?'txtb':'txt'));
+    w1.set([rf+8,1], 'Valores en azul = capturados (presupuesto, programa y pagos). Amarillo = esta estimación. Cambia el número de recibo en C3 para recalcular a otra fecha de corte.', 'note');
+    return wb;
+  }
+  // ---- modo anticipo (Terrapark / Amani): montos con IVA ----
+  const w1 = wb.sheet('Estado de cuenta', { cols:[34,16,15,16].concat(per.map(()=>12)) });
+  const w2 = wb.sheet('Resumen de pagos', { cols:[8,11,34,12,16,13,15,14,12,8], freeze:'A5' });
+  w2.set('A1','RESUMEN DE PAGOS','title');
+  w2.set('A2',`Cliente: ${TP.clienteFormal || TP.cliente} · Proyecto: ${TP.proyecto} · Estado al Recibo ${num}`,'sub');
+  w2.row(3,0,['Recibo','Tipo','Concepto','Fecha','Monto (sin IVA)','IVA','Neto','Factura','Periodo','Idx'],'hdr');
+  const r0 = 4, rN = r0 + Math.max(lines.length,1) - 1;
+  lines.forEach((x,i)=>{ const ri = r0+i, est = x.r.num===num, idx = x.r.anticipo ? 0 : tpMesIdx(x.l.mes);
+    w2.row(ri,0,[x.r.num, x.r.anticipo?'Anticipo':'Pago', x.l.concepto || `RECIBO ${tpPad(x.r.num)} - ${x.l.tipo||''}`, D(x.l.f||x.r.f), x.l.monto, x.l.iva||0, {f:`E${ri+1}+F${ri+1}`}, x.l.fact||'', per[idx].label, idx],
+      ['int','txt','txt','date', est?'moneyy':'moneyin','money','money','txt','txt','int']); });
+  w2.row(rN+1,0,['TOTAL','','','',{f:`SUM(E${r0+1}:E${rN+1})`},{f:`SUM(F${r0+1}:F${rN+1})`},{f:`SUM(G${r0+1}:G${rN+1})`}],['tot','tot','tot','tot','totmoney','totmoney','totmoney']);
+  const rg = c => `${RP}$${c}$${r0+1}:$${c}$${rN+1}`;
+  const P = TP.presupuesto;
+  w1.set('A1',`ESTADO DE CUENTA · RECIBO ${tpPad(num)}`,'title');
+  w1.set('A2',`CLIENTE: ${TP.clienteFormal || TP.cliente}   ·   PROYECTO: ${TP.proyecto}`,'sub');
+  w1.row(3,0,['Recibo', num, 'Fecha', D(rec.f)],['label','int','label','date']);
+  w1.row(4,0,['Recibí (texto del recibo)', tpRecibiMonto(rec), 'Concepto', rec.concepto || TP.conceptoDefault || ''],['label','moneyin','label','txt']);
+  w1.row(6,0,['CONCEPTO','SIN IVA','IVA','NETO'],'hdr');
+  const sumif = (col, tipo) => `SUMIFS(${rg(col)},${rg('B')},"${tipo}")`;
+  w1.row(7,0,['Presupuesto contratado', P.monto, P.iva||0, {f:'B8+C8'}],['txtb','moneyin','moneyin','moneyb']);
+  w1.row(8,0,['Anticipo recibido', {f:sumif('E','Anticipo')}, {f:sumif('F','Anticipo')}, {f:'B9+C9'}],['txt','money','money','money']);
+  w1.row(9,0,['Pagos (estimaciones)', {f:sumif('E','Pago')}, {f:sumif('F','Pago')}, {f:'B10+C10'}],['txt','money','money','money']);
+  w1.row(10,0,['PAGADO TOTAL + ANTICIPO', {f:'B9+B10'}, {f:'C9+C10'}, {f:'D9+D10'}],['tot','totmoney','totmoney','totmoney']);
+  w1.row(11,0,['SALDO', {f:'B8-B11'}, {f:'C8-C11'}, {f:'D8-D11'}],['tot','totmoney','totmoney','totmoney']);
+  w1.row(12,0,['Avance financiero (neto)', '', '', {f:'IF(D8=0,0,D11/D8)'}],['txt','txt','txt','pctb']);
+  w1.set('A15','FLUJO POR PERIODO (neto, con IVA)','label');
+  w1.row(15,0,['Concepto'].concat(per.map(p=>p.label)),'hdr');
+  per.forEach((p,i)=>{
+    const c = AMDX.colName(1+i), cp = AMDX.colName(i);
+    w1.set([16,1+i], p.acumNeto - (i ? per[i-1].acumNeto : 0), 'moneyin');
+    w1.set([17,1+i], {f:`SUMIFS(${rg('G')},${rg('J')},${i})`}, 'money');
+    w1.set([18,1+i], {f: i ? `${cp}19+${c}17` : `${c}17`}, 'money');
+    w1.set([19,1+i], {f: i ? `${cp}20+${c}18` : `${c}18`}, 'money');
+    w1.set([20,1+i], {f:`${c}19-${c}20`}, 'money');
+  });
+  ['Programado neto / periodo','Pagado neto / periodo','Acumulado programado','Acumulado pagado','Diferencia acumulada'].forEach((t,k)=>w1.set([16+k,0], t, k>1?'txtb':'txt'));
+  w1.set([22,0], 'Valores en azul = capturados. Amarillo = pagos de este recibo. Los totales y el flujo se calculan con fórmulas desde la hoja "Resumen de pagos".', 'note');
+  return wb;
+}
+
+if(typeof window.amdIngresosChanged === 'function') window.amdIngresosChanged();
 
 /* =========================================================
    MODO "PARTIDAS" (Terrapark): estimación por partida, sin anticipo ni amortización.
@@ -7205,6 +7712,9 @@ function tpGenerar(){
   errEl.innerHTML = '';
   tpOpenRecibo(tpDraft, true);
 }
+
+/* PDF del recibo en el mismo orden que el visor: primero Presupuesto y Programa */
+function tpRecPagesHtml(E){ return tpHojaPrograma(E) + tpHoja1(E); }
 
 </script>
 <script>
@@ -7658,6 +8168,7 @@ function amRenderList(){
     // Histórico con PDF real: solo el PDF entregado (el "Ver" reconstruido ya no aplica)
     if(r && !(hist && pdfs.length)) btns += `<button class="btn-sm${hist?' recon':''}" ${hist?'title="Vista reconstruida desde la base de datos: NO es el documento que se entregó"':''} onclick="amVerRecibo(${n})">Ver</button>`;
     pdfs.forEach(p=>{ btns += `<button class="btn-sm pdf" title="${escXml(p.nombre||'')}" onclick="amVerPdf('${p.id}')">PDF</button>`; });
+    if(r && !r._seed && !pdfs.length) btns += `<button class="btn-sm pdf" title="Genera el PDF de este recibo y lo guarda en la base de datos" onclick="amCrearPdf(${n})">Crear PDF</button>`;
     if(r && !r._seed) btns += `<button class="btn-sm del" onclick="amEliminarRecibo('${r._fbId||''}', ${n})">Eliminar</button>`;
     pdfs.forEach(p=>{ btns += `<button class="btn-sm del" title="Eliminar PDF" onclick="amEliminarPdf('${p.id}')">✕ PDF</button>`; });
     const f = r ? r.f : (pdfs[0] && pdfs[0].f);
@@ -8306,6 +8817,7 @@ async function amFacturaEliminar(i){
 }
 
 function amRenderAll(){
+  if(typeof window.amdIngresosChanged === 'function') window.amdIngresosChanged();
   amRenderList();
   amRenderSide();
   amRenderFacturas();
@@ -8340,6 +8852,43 @@ document.querySelectorAll('.nav-btn[data-view="amani"]').forEach(b=> b.addEventL
       });
       return { items, sinPdf };
     },
+    // Excel del último recibo (INTERNO/Recibos Excel)
+    excelRecibo(){
+      const last = amAllRecibos().slice(-1)[0]; if(!last) return null;
+      return { num:last.num, nombre:amNombreArchivo(last.num, 'xlsx'), bytes:amReciboExcel(last.num).bytes() };
+    },
+    // base de ingresos: cada línea de pago de cada recibo
+    ingresos(){
+      const recs = amAllRecibos(), last = recs[recs.length-1];
+      const pname = id => AM.partidas ? ((AM.partidas.find(p=>p.id===id) || {}).n || '') : '';
+      const rows = [];
+      recs.forEach(r=>r.lineas.forEach(l=>rows.push({ recibo:r.num, fRec:r.f, f:l.f||r.f, monto:l.monto, iva:l.iva||0, total:amTotalLinea(l),
+        forma:amFormaLinea(l), concepto:l.concepto || `RECIBO ${amPad(r.num)} - ${l.tipo||''}`, partida:pname(l.partida), fact:l.fact||'',
+        origen:r._seed?'Histórico':'Generado', tipo:r.anticipo?'Anticipo':'Pago' })));
+      const E = last ? amEstado(last.num) : null;
+      return { proyecto:AM.proyecto, cliente:AM.cliente, presupuestoNeto: E ? E.P.neto : 0, sinIva: AM.modo==='partidas', rows };
+    },
+    // datos para la hoja PROYECTOS: programa (gantt) en fechas de calendario + programado acumulado
+    proyecto(){
+      const recs = amAllRecibos(), last = recs[recs.length-1], E = amEstado(last.num), per = AM.programa.periodos;
+      const DAY = 86400000;
+      const mStart = m => AM.mesCal ? new Date(AM.mesCal[0], AM.mesCal[1]-1+(m-1), 1) : new Date(amDate(AM.semana1).getTime() + (m-1)*28*DAY);
+      const half = i => { const m = Math.floor(i/2)+1, a = mStart(m), b = mStart(m+1), mid = new Date(a.getTime() + Math.floor((b.getTime()-a.getTime())/2/DAY)*DAY);
+        return i%2 ? [mid, new Date(b.getTime()-DAY)] : [a, new Date(mid.getTime()-DAY)]; };
+      const src = AM.modo==='partidas' ? AM.partidas.map(p=>({ code:p.code||'', n:p.n, grp:false, costo:p.total, bar:p.bar }))
+                                       : AM.actividades.map(a=>({ code:a.code||'', n:a.n, grp:!!a.grp, costo:a.costo, bar:a.bar, antBar:a.antBar }));
+      const f0 = (recs[0] && recs[0].f) || AM.semana1;
+      const filas = src.map(a=>{
+        let ini = null, fin = null;
+        if(a.bar){ ini = amIso(half(a.bar[0])[0]); fin = amIso(half(a.bar[1])[1]); }
+        else if(a.antBar){ ini = f0; fin = f0; }
+        return { code:a.code, n:a.n, grp:a.grp, costo:a.costo, ini, fin };
+      });
+      const programa = per.map((p,k)=>{ const m = AM.modo==='partidas' ? k+1 : k;
+        return { label:p.label, fecha: amIso(new Date(mStart(m<1 ? 1 : m+1).getTime() - DAY)), acum:p.acumNeto, hito:p.hito||'' }; });
+      return { titulo:AM.proyecto, cliente:AM.clienteFormal || AM.cliente, ubicacion:AM.ubicacion || '', presupuesto:E.P.neto,
+               sinIva: AM.modo==='partidas', filas, programa, inicio: amIso(mStart(1)) };
+    },
     respaldo(){
       const recs = amAllRecibos();
       const data = { cliente: AM.cliente, proyecto: AM.proyecto, generado: new Date().toISOString(), presupuesto: AM.presupuesto,
@@ -8356,6 +8905,321 @@ document.querySelectorAll('.nav-btn[data-view="amani"]').forEach(b=> b.addEventL
     }
   });
 })();
+
+/* ---------- PDF y Excel del recibo (se generan en el navegador) ---------- */
+const AM_H2C = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+const AM_PDFLIB = 'https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js';
+window.amdLoadScript = window.amdLoadScript || function(url, globalName){
+  if(window[globalName]) return Promise.resolve(window[globalName]);
+  window.__amdLibs = window.__amdLibs || {};
+  if(window.__amdLibs[url]) return window.__amdLibs[url];
+  return (window.__amdLibs[url] = new Promise((res, rej)=>{
+    const sc = document.createElement('script'); sc.src = url; sc.async = true;
+    sc.onload = ()=> window[globalName] ? res(window[globalName]) : rej(new Error(globalName + ' no cargó'));
+    sc.onerror = ()=>{ delete window.__amdLibs[url]; rej(new Error('sin conexión a internet para generar el PDF')); };
+    document.head.appendChild(sc);
+  }));
+};
+function amRecPagesHtml(E){ return amHoja1(E) + amHojaPrograma(E); }
+function amBytesB64(u8){ let s = ''; for(let i=0;i<u8.length;i+=0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i+0x8000)); return btoa(s); }
+function amDescargarBlob(blob, nombre){
+  const url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = nombre; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 60000);
+}
+function amNombreArchivo(n, ext){ return `Recibo ${amPad(n)} - ${AM.proyecto}.${ext}`.replace(/[\\/:*?"<>|]+/g,'-'); }
+async function amReciboPdfBytes(rec){
+  const [h2c, PL] = await Promise.all([amdLoadScript(AM_H2C, 'html2canvas'), amdLoadScript(AM_PDFLIB, 'PDFLib')]);
+  const E = amEstado(rec.num);
+  const box = document.createElement('div');
+  box.style.cssText = 'position:absolute;left:-20000px;top:0;width:1000px;pointer-events:none;';
+  box.innerHTML = amRecPagesHtml(E);
+  document.body.appendChild(box);
+  try{
+    const pages = Array.from(box.querySelectorAll('.am-page'));
+    pages.forEach(p=>{ p.style.position = 'relative'; p.style.transform = 'none'; p.style.boxShadow = 'none'; p.style.marginBottom = '12px'; });
+    await new Promise(r=>setTimeout(r, 60));
+    const pdf = await PL.PDFDocument.create();
+    pdf.setTitle(amNombreArchivo(rec.num, 'pdf').replace(/\.pdf$/,'')); pdf.setAuthor('AMD Proyectos'); pdf.setCreator('Dashboard AMD');
+    for(const p of pages){
+      const cv = await h2c(p, { scale:2, backgroundColor:'#ffffff', logging:false, useCORS:true });
+      const img = await pdf.embedJpg(cv.toDataURL('image/jpeg', 0.92));
+      const W = 792, H = 612, m = 18, s = Math.min((W-2*m)/img.width, (H-2*m)/img.height);
+      const pg = pdf.addPage([W, H]);
+      pg.drawImage(img, { x:(W-img.width*s)/2, y:(H-img.height*s)/2, width:img.width*s, height:img.height*s });
+    }
+    return await pdf.save();
+  } finally { box.remove(); }
+}
+async function amGuardarPdfRecibo(rec){
+  const bytes = await amReciboPdfBytes(rec);
+  const b64 = amBytesB64(bytes);
+  const meta = { num:rec.num, f:rec.f, nombre:amNombreArchivo(rec.num, 'pdf'), type:'application/pdf', size:bytes.length };
+  let ok = false;
+  try{ if(window.FBA && window.FB && window.FB.ready){ meta.id = await window.FBA.addPdf(meta, b64); ok = true; } }
+  catch(e){ console.error('Error guardando PDF del recibo:', e); }
+  if(!ok){ meta.id = 'local-' + Date.now(); meta._local = b64; }
+  amPdfs.push(meta);
+  return ok;
+}
+async function amCrearPdf(n){
+  const r = amAllRecibos().find(x=>x.num===n); if(!r) return;
+  amMsg = `Generando el PDF del Recibo ${amPad(n)}…`; amRenderList();
+  try{
+    const ok = await amGuardarPdfRecibo(r);
+    amMsg = ok ? `✓ PDF del Recibo ${amPad(n)} guardado en la base de datos (se respalda con SYNC).` : `⚠️ PDF del Recibo ${amPad(n)} creado solo en esta sesión — no se pudo guardar en Firebase.`;
+  }catch(e){ amMsg = `⚠️ No se pudo generar el PDF del Recibo ${amPad(n)}: ${e.message || e}.`; }
+  amRenderList();
+}
+async function amDescargarPdfRecibo(n){
+  const r = amAllRecibos().find(x=>x.num===n); if(!r) return;
+  const btn = document.getElementById('am-dl-pdf'); if(btn){ btn.disabled = true; btn.textContent = 'Generando PDF…'; }
+  try{
+    const p = amPdfs.find(x=>x.num===n);
+    if(p){ let b64 = p._local || (window.FBA ? await window.FBA.getPdfData(p) : ''); if(b64){ amDescargarBlob(new Blob([Uint8Array.from(atob(b64), c=>c.charCodeAt(0))], {type:'application/pdf'}), p.nombre || amNombreArchivo(n,'pdf')); return; } }
+    amDescargarBlob(new Blob([await amReciboPdfBytes(r)], {type:'application/pdf'}), amNombreArchivo(n, 'pdf'));
+  }catch(e){ alert('No se pudo generar el PDF: ' + (e.message || e)); }
+  finally{ if(btn){ btn.disabled = false; btn.textContent = 'Descargar PDF'; } }
+}
+function amDescargarExcelRecibo(n){
+  try{ amDescargarBlob(amReciboExcel(n).blob(), amNombreArchivo(n, 'xlsx')); }
+  catch(e){ console.error(e); alert('No se pudo generar el Excel: ' + (e.message || e)); }
+}
+// botones de descarga en el visor del recibo
+const amVerReciboBase = amVerRecibo;
+amVerRecibo = function(n){
+  amVerReciboBase(n);
+  const r = amAllRecibos().find(x=>x.num===n), ex = document.getElementById('am-modal-extra');
+  if(!r || !ex) return;
+  ex.innerHTML = (r._seed ? '' : `<button class="btn-sm" id="am-dl-pdf" onclick="amDescargarPdfRecibo(${n})">Descargar PDF</button>`) +
+    `<button class="btn-sm" onclick="amDescargarExcelRecibo(${n})">Descargar Excel</button>`;
+};
+// al confirmar un recibo nuevo se genera y guarda su PDF automáticamente
+const amConfirmarBase = amConfirmar;
+amConfirmar = async function(){
+  const num = amDraft && amDraft.num;
+  await amConfirmarBase();
+  const rec = amAllRecibos().find(x=>x.num===num && !x._seed); if(!rec) return;
+  const base = amMsg;
+  amMsg = base + ' Generando PDF…'; amRenderList();
+  try{
+    const ok = await amGuardarPdfRecibo(rec);
+    amMsg = base + (ok ? ' ✓ PDF guardado (se respalda con SYNC).' : ' ⚠️ El PDF quedó solo en esta sesión.');
+  }catch(e){ amMsg = base + ` ⚠️ No se pudo generar el PDF (${e.message || e}). Usa el botón "Crear PDF".`; }
+  amRenderList();
+};
+
+function amFormaLinea(l){ return ((l.iva||0) > 0 || /TRANSF|FACT/i.test(l.tipo||'')) ? 'Transferencia' : 'Efectivo'; }
+function amConceptoLinea(r, l){
+  if(l.concepto) return l.concepto;
+  const p = AM.partidas ? AM.partidas.find(x=>x.id===l.partida) : null;
+  return `RECIBO ${amPad(r.num)} - ${l.tipo || ''}`.trim() + (p ? '' : '');
+}
+// Excel del recibo: misma estructura que el reporte (resumen de pagos + estado de cuenta/programa), con fórmulas
+function amReciboExcel(num){
+  const wb = AMDX.book(), per = AM.programa.periodos, n = per.length;
+  const recs = amAllRecibos().filter(r=>r.num<=num), rec = recs.find(r=>r.num===num);
+  const D = AMDX.date, RP = "'Resumen de pagos'!";
+  const lines = [];
+  recs.forEach(r=>r.lineas.forEach(l=>lines.push({ r, l })));
+  if(AM.modo === 'partidas'){
+    const pname = id => (AM.partidas.find(p=>p.id===id) || {n:id}).n;
+    lines.sort((a,b)=> AM.partidas.findIndex(p=>p.id===a.l.partida) - AM.partidas.findIndex(p=>p.id===b.l.partida) || a.r.num - b.r.num);
+    const w1 = wb.sheet('Presupuesto y Programa', { cols:[8,34,15,17,16,15,10].concat(per.map(()=>12)) });
+    const w2 = wb.sheet('Resumen de pagos', { cols:[30,40,12,16,13,15,13,8,10], freeze:'A5' });
+    w2.set('A1','RESUMEN DE PAGOS POR PARTIDA','title');
+    w2.set('A2',`Cliente: ${AM.clienteFormal || AM.cliente} · Proyecto: ${AM.proyecto} · Estado al Recibo ${num} · montos sin IVA (IVA aparte)`,'sub');
+    w2.row(3,0,['Partida','Concepto','Fecha','Monto (sin IVA)','IVA','Neto','Factura','Recibo','Mes de obra'],'hdr');
+    const r0 = 4, rN = r0 + Math.max(lines.length,1) - 1;
+    lines.forEach((x,i)=>{ const ri = r0+i, est = x.r.num===num;
+      w2.row(ri,0,[pname(x.l.partida), amConceptoLinea(x.r,x.l), D(x.l.f||x.r.f), x.l.monto, x.l.iva||0, {f:`D${ri+1}+E${ri+1}`}, x.l.fact||'', x.r.num, x.l.mes||''],
+        ['txt','txt','date', est?'moneyy':'moneyin','money','money','txt','int','int']); });
+    w2.row(rN+1,0,['TOTAL','','',{f:`SUM(D${r0+1}:D${rN+1})`},{f:`SUM(E${r0+1}:E${rN+1})`},{f:`SUM(F${r0+1}:F${rN+1})`}],['tot','tot','tot','totmoney','totmoney','totmoney']);
+    const rgD = `${RP}$D$${r0+1}:$D$${rN+1}`, rgA = `${RP}$A$${r0+1}:$A$${rN+1}`, rgH = `${RP}$H$${r0+1}:$H$${rN+1}`, rgI = `${RP}$I$${r0+1}:$I$${rN+1}`;
+    w1.set('A1','PRESUPUESTO Y PROGRAMA DE OBRA','title');
+    w1.set('A2',`CLIENTE: ${AM.clienteFormal || AM.cliente}   ·   PROYECTO: ${AM.proyecto}   ·   montos sin IVA`,'sub');
+    w1.set('A3','Estimación al Recibo','label'); w1.set('C3', num, 'int'); w1.set('D3', `Fecha: ${fmtDate(rec.f)} · la columna ESTA ESTIMACIÓN suma los pagos de este recibo`, 'note');
+    w1.row(4,0,['','ACTIVIDAD','TOTAL','PAGADO A LA FECHA','ESTA ESTIMACIÓN','SALDO','AVANCE'],'hdr');
+    AM.partidas.forEach((p,i)=>{ const ri = 5+i, R = ri+1;
+      w1.row(ri,0,[p.code||'', p.n, p.total, {f:`SUMIFS(${rgD},${rgA},B${R})`}, {f:`SUMIFS(${rgD},${rgA},B${R},${rgH},$C$3)`}, {f:`C${R}-D${R}`}, {f:`IF(C${R}=0,0,D${R}/C${R})`}],
+        ['int','txt','moneyin','money','moneyy','money','pct']); });
+    const rt = 5 + AM.partidas.length, RT = rt+1;
+    w1.row(rt,0,['','TOTAL',{f:`SUM(C6:C${RT-1})`},{f:`SUM(D6:D${RT-1})`},{f:`SUM(E6:E${RT-1})`},{f:`SUM(F6:F${RT-1})`},{f:`IF(C${RT}=0,0,D${RT}/C${RT})`}],['tot','tot','totmoney','totmoney','totmoney','totmoney','pctb']);
+    const rf = rt + 2;
+    w1.set([rf,1],'FLUJO POR MES (sin IVA)','label');
+    w1.row(rf+1,1,['Concepto'].concat(per.map(p=>p.label)),'hdr');
+    const cL = i => AMDX.colName(2+i);
+    per.forEach((p,i)=>{
+      const prog = p.acumNeto - (i ? per[i-1].acumNeto : 0);
+      w1.set([rf+2,2+i], prog, 'moneyin');
+      w1.set([rf+3,2+i], {f:`SUMIFS(${rgD},${rgI},${p.mes||i+1},${rgH},"<="&$C$3)`}, 'money');
+      w1.set([rf+4,2+i], {f: i ? `${cL(i-1)}${rf+5}+${cL(i)}${rf+3}` : `${cL(0)}${rf+3}`}, 'money');
+      w1.set([rf+5,2+i], {f: i ? `${cL(i-1)}${rf+6}+${cL(i)}${rf+4}` : `${cL(0)}${rf+4}`}, 'money');
+      w1.set([rf+6,2+i], {f:`${cL(i)}${rf+5}-${cL(i)}${rf+6}`}, 'money');
+    });
+    ['Programado / mes','Pagado / mes','Acumulado programado','Acumulado pagado','Diferencia acumulada'].forEach((t,k)=>w1.set([rf+2+k,1], t, k>1?'txtb':'txt'));
+    w1.set([rf+8,1], 'Valores en azul = capturados (presupuesto, programa y pagos). Amarillo = esta estimación. Cambia el número de recibo en C3 para recalcular a otra fecha de corte.', 'note');
+    return wb;
+  }
+  // ---- modo anticipo (Amani / Amani): montos con IVA ----
+  const w1 = wb.sheet('Estado de cuenta', { cols:[34,16,15,16].concat(per.map(()=>12)) });
+  const w2 = wb.sheet('Resumen de pagos', { cols:[8,11,34,12,16,13,15,14,12,8], freeze:'A5' });
+  w2.set('A1','RESUMEN DE PAGOS','title');
+  w2.set('A2',`Cliente: ${AM.clienteFormal || AM.cliente} · Proyecto: ${AM.proyecto} · Estado al Recibo ${num}`,'sub');
+  w2.row(3,0,['Recibo','Tipo','Concepto','Fecha','Monto (sin IVA)','IVA','Neto','Factura','Periodo','Idx'],'hdr');
+  const r0 = 4, rN = r0 + Math.max(lines.length,1) - 1;
+  lines.forEach((x,i)=>{ const ri = r0+i, est = x.r.num===num, idx = x.r.anticipo ? 0 : amMesIdx(x.l.mes);
+    w2.row(ri,0,[x.r.num, x.r.anticipo?'Anticipo':'Pago', x.l.concepto || `RECIBO ${amPad(x.r.num)} - ${x.l.tipo||''}`, D(x.l.f||x.r.f), x.l.monto, x.l.iva||0, {f:`E${ri+1}+F${ri+1}`}, x.l.fact||'', per[idx].label, idx],
+      ['int','txt','txt','date', est?'moneyy':'moneyin','money','money','txt','txt','int']); });
+  w2.row(rN+1,0,['TOTAL','','','',{f:`SUM(E${r0+1}:E${rN+1})`},{f:`SUM(F${r0+1}:F${rN+1})`},{f:`SUM(G${r0+1}:G${rN+1})`}],['tot','tot','tot','tot','totmoney','totmoney','totmoney']);
+  const rg = c => `${RP}$${c}$${r0+1}:$${c}$${rN+1}`;
+  const P = AM.presupuesto;
+  w1.set('A1',`ESTADO DE CUENTA · RECIBO ${amPad(num)}`,'title');
+  w1.set('A2',`CLIENTE: ${AM.clienteFormal || AM.cliente}   ·   PROYECTO: ${AM.proyecto}`,'sub');
+  w1.row(3,0,['Recibo', num, 'Fecha', D(rec.f)],['label','int','label','date']);
+  w1.row(4,0,['Recibí (texto del recibo)', amRecibiMonto(rec), 'Concepto', rec.concepto || AM.conceptoDefault || ''],['label','moneyin','label','txt']);
+  w1.row(6,0,['CONCEPTO','SIN IVA','IVA','NETO'],'hdr');
+  const sumif = (col, tipo) => `SUMIFS(${rg(col)},${rg('B')},"${tipo}")`;
+  w1.row(7,0,['Presupuesto contratado', P.monto, P.iva||0, {f:'B8+C8'}],['txtb','moneyin','moneyin','moneyb']);
+  w1.row(8,0,['Anticipo recibido', {f:sumif('E','Anticipo')}, {f:sumif('F','Anticipo')}, {f:'B9+C9'}],['txt','money','money','money']);
+  w1.row(9,0,['Pagos (estimaciones)', {f:sumif('E','Pago')}, {f:sumif('F','Pago')}, {f:'B10+C10'}],['txt','money','money','money']);
+  w1.row(10,0,['PAGADO TOTAL + ANTICIPO', {f:'B9+B10'}, {f:'C9+C10'}, {f:'D9+D10'}],['tot','totmoney','totmoney','totmoney']);
+  w1.row(11,0,['SALDO', {f:'B8-B11'}, {f:'C8-C11'}, {f:'D8-D11'}],['tot','totmoney','totmoney','totmoney']);
+  w1.row(12,0,['Avance financiero (neto)', '', '', {f:'IF(D8=0,0,D11/D8)'}],['txt','txt','txt','pctb']);
+  w1.set('A15','FLUJO POR PERIODO (neto, con IVA)','label');
+  w1.row(15,0,['Concepto'].concat(per.map(p=>p.label)),'hdr');
+  per.forEach((p,i)=>{
+    const c = AMDX.colName(1+i), cp = AMDX.colName(i);
+    w1.set([16,1+i], p.acumNeto - (i ? per[i-1].acumNeto : 0), 'moneyin');
+    w1.set([17,1+i], {f:`SUMIFS(${rg('G')},${rg('J')},${i})`}, 'money');
+    w1.set([18,1+i], {f: i ? `${cp}19+${c}17` : `${c}17`}, 'money');
+    w1.set([19,1+i], {f: i ? `${cp}20+${c}18` : `${c}18`}, 'money');
+    w1.set([20,1+i], {f:`${c}19-${c}20`}, 'money');
+  });
+  ['Programado neto / periodo','Pagado neto / periodo','Acumulado programado','Acumulado pagado','Diferencia acumulada'].forEach((t,k)=>w1.set([16+k,0], t, k>1?'txtb':'txt'));
+  w1.set([22,0], 'Valores en azul = capturados. Amarillo = pagos de este recibo. Los totales y el flujo se calculan con fórmulas desde la hoja "Resumen de pagos".', 'note');
+  return wb;
+}
+
+if(typeof window.amdIngresosChanged === 'function') window.amdIngresosChanged();
+
+</script>
+<script>
+/* ===================== AMDX: escritor de Excel (.xlsx) sin librerías =====================
+   Uso:  const wb = AMDX.book(); const ws = wb.sheet('Hoja', {cols:[14,30,...]});
+         ws.set('A1','Texto','title'); ws.set('B2', 1234.5, 'money'); ws.set('C2', {f:'SUM(B2:B9)'}, 'moneyb');
+         ws.set('D2', AMDX.date('2026-10-07'), 'date'); ws.merge('A1:F1');  const bytes = wb.bytes();
+   Estilos: title, sub, hdr, txt, txtb, money, moneyb, moneyin, moneyy, date, pct, pctb, int, label, note, tot, totmoney */
+const AMDX = (function(){
+  const enc = new TextEncoder();
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'');
+  // ---- estilos (cellXfs) ----
+  const FONTS = ['<font><sz val="10"/><name val="Arial"/></font>',
+    '<font><b/><sz val="10"/><name val="Arial"/></font>',
+    '<font><b/><sz val="14"/><color rgb="FF1B3A5C"/><name val="Arial"/></font>',
+    '<font><i/><sz val="9"/><color rgb="FF5B6B7E"/><name val="Arial"/></font>',
+    '<font><b/><sz val="10"/><color rgb="FFFFFFFF"/><name val="Arial"/></font>',
+    '<font><sz val="10"/><color rgb="FF1F4E9E"/><name val="Arial"/></font>'];
+  const FILLS = ['<fill><patternFill patternType="none"/></fill>','<fill><patternFill patternType="gray125"/></fill>',
+    '<fill><patternFill patternType="solid"><fgColor rgb="FF1B3A5C"/><bgColor indexed="64"/></patternFill></fill>',
+    '<fill><patternFill patternType="solid"><fgColor rgb="FFEAF0F6"/><bgColor indexed="64"/></patternFill></fill>',
+    '<fill><patternFill patternType="solid"><fgColor rgb="FFFFF2CC"/><bgColor indexed="64"/></patternFill></fill>'];
+  const BORDERS = ['<border><left/><right/><top/><bottom/><diagonal/></border>',
+    '<border><left style="thin"><color rgb="FFC9D3DD"/></left><right style="thin"><color rgb="FFC9D3DD"/></right><top style="thin"><color rgb="FFC9D3DD"/></top><bottom style="thin"><color rgb="FFC9D3DD"/></bottom><diagonal/></border>'];
+  const NUMFMT = { money:164, date:165, pct:166, int:1 };
+  // nombre: [numFmtId, fontId, fillId, borderId, alignH]
+  const ST = {
+    def:[0,0,0,0], title:[0,2,0,0], sub:[0,3,0,0], note:[0,3,0,0], label:[0,1,0,0],
+    hdr:[0,4,2,1,'center'], txt:[0,0,0,1], txtb:[0,1,3,1],
+    money:[164,0,0,1], moneyb:[164,1,3,1], moneyin:[164,5,0,1], moneyy:[164,1,4,1],
+    date:[165,0,0,1], pct:[166,0,0,1], pctb:[166,1,3,1], int:[1,0,0,1,'center'],
+    tot:[0,1,3,1], totmoney:[164,1,3,1]
+  };
+  const NAMES = Object.keys(ST), IDX = {}; NAMES.forEach((n,i)=>IDX[n]=i);
+  const xf = ([nf,fo,fi,bo,al]) => `<xf numFmtId="${nf}" fontId="${fo}" fillId="${fi}" borderId="${bo}" xfId="0"${nf?' applyNumberFormat="1"':''}${fo?' applyFont="1"':''}${fi?' applyFill="1"':''}${bo?' applyBorder="1"':''}${al?` applyAlignment="1"><alignment horizontal="${al}" vertical="center" wrapText="1"/></xf>`:'/>'}`;
+  const STYLES = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+<numFmts count="3"><numFmt numFmtId="164" formatCode="#,##0.00"/><numFmt numFmtId="165" formatCode="dd/mm/yyyy"/><numFmt numFmtId="166" formatCode="0.0%"/></numFmts>
+<fonts count="${FONTS.length}">${FONTS.join('')}</fonts><fills count="${FILLS.length}">${FILLS.join('')}</fills><borders count="${BORDERS.length}">${BORDERS.join('')}</borders>
+<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>
+<cellXfs count="${NAMES.length}">${NAMES.map(n=>xf(ST[n])).join('')}</cellXfs>
+<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+  // ---- referencias ----
+  const colName = n => { let s = ''; n++; while(n>0){ const m = (n-1)%26; s = String.fromCharCode(65+m) + s; n = Math.floor((n-1)/26); } return s; };
+  const parseRef = ref => { const m = /^([A-Z]+)(\d+)$/.exec(ref); let c = 0; for(const ch of m[1]) c = c*26 + (ch.charCodeAt(0)-64); return [parseInt(m[2],10)-1, c-1]; };
+  const ref = (r,c) => colName(c) + (r+1);
+  const date = iso => { if(!iso) return null; const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso)); if(!m) return null; return (Date.UTC(+m[1], +m[2]-1, +m[3]) - Date.UTC(1899,11,30)) / 86400000; };
+  // ---- zip (sin compresión) ----
+  const CRC = (()=>{ const t = new Uint32Array(256); for(let n=0;n<256;n++){ let c = n; for(let k=0;k<8;k++) c = c&1 ? 0xEDB88320^(c>>>1) : c>>>1; t[n] = c>>>0; } return t; })();
+  const crc32 = b => { let c = 0xFFFFFFFF; for(let i=0;i<b.length;i++) c = CRC[(c^b[i])&0xFF]^(c>>>8); return (c^0xFFFFFFFF)>>>0; };
+  function zip(files){
+    const parts = [], central = []; let off = 0;
+    const u16 = v => [v&255, (v>>>8)&255], u32 = v => [v&255, (v>>>8)&255, (v>>>16)&255, (v>>>24)&255];
+    files.forEach(([name, data])=>{
+      const nb = enc.encode(name), crc = crc32(data);
+      const head = [0x50,0x4B,0x03,0x04, ...u16(20), ...u16(0x0800), ...u16(0), ...u16(0), ...u16(0x21), ...u32(crc), ...u32(data.length), ...u32(data.length), ...u16(nb.length), ...u16(0)];
+      parts.push(new Uint8Array(head), nb, data);
+      central.push([0x50,0x4B,0x01,0x02, ...u16(20), ...u16(20), ...u16(0x0800), ...u16(0), ...u16(0), ...u16(0x21), ...u32(crc), ...u32(data.length), ...u32(data.length), ...u16(nb.length), ...u16(0), ...u16(0), ...u16(0), ...u16(0), ...u32(0), ...u32(off)], nb);
+      off += head.length + nb.length + data.length;
+    });
+    let csize = 0; const cparts = central.map(x=>{ const a = x instanceof Uint8Array ? x : new Uint8Array(x); csize += a.length; return a; });
+    const end = new Uint8Array([0x50,0x4B,0x05,0x06, 0,0,0,0, ...u16(files.length), ...u16(files.length), ...u32(csize), ...u32(off), 0,0]);
+    const all = parts.concat(cparts, [end]); let len = 0; all.forEach(a=>len += a.length);
+    const out = new Uint8Array(len); let p = 0; all.forEach(a=>{ out.set(a, p); p += a.length; });
+    return out;
+  }
+  function book(){
+    const sheets = [];
+    const api = {
+      sheet(name, opts){
+        opts = opts || {};
+        const s = { name: String(name).replace(/[\\\/\?\*\[\]:]/g,'-').slice(0,31), cells:{}, merges:[], cols:opts.cols||[], freeze:opts.freeze||null, land: opts.landscape!==false };
+        sheets.push(s);
+        const w = {
+          set(r, v, st){ const [ri,ci] = typeof r==='string' ? parseRef(r) : r; (s.cells[ri] = s.cells[ri] || {})[ci] = { v, st: st||'def' }; return w; },
+          row(ri, c0, vals, st){ vals.forEach((v,i)=>{ if(v!==undefined && v!==null && v!=='') w.set([ri, c0+i], v, Array.isArray(st) ? st[i] : st); else if(st && !Array.isArray(st) && st!=='def') w.set([ri,c0+i], '', st); }); return w; },
+          merge(rg){ s.merges.push(rg); return w; },
+          ref
+        };
+        return w;
+      },
+      bytes(){
+        const files = [];
+        files.push(['[Content_Types].xml', enc.encode(`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>${sheets.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`)]);
+        files.push(['_rels/.rels', enc.encode(`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`)]);
+        files.push(['xl/workbook.xml', enc.encode(`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>${sheets.map((s,i)=>`<sheet name="${esc(s.name)}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets><calcPr calcId="191029" fullCalcOnLoad="1"/></workbook>`)]);
+        files.push(['xl/_rels/workbook.xml.rels', enc.encode(`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sheets.map((s,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}<Relationship Id="rId${sheets.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`)]);
+        files.push(['xl/styles.xml', enc.encode(STYLES)]);
+        sheets.forEach((s,i)=>{
+          const rows = Object.keys(s.cells).map(Number).sort((a,b)=>a-b);
+          let x = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">`;
+          if(s.freeze){ const [fr,fc] = parseRef(s.freeze); x += `<sheetViews><sheetView workbookViewId="0"><pane${fc?` xSplit="${fc}"`:''}${fr?` ySplit="${fr}"`:''} topLeftCell="${s.freeze}" activePane="bottomRight" state="frozen"/></sheetView></sheetViews>`; }
+          if(s.cols.length) x += `<cols>${s.cols.map((w,ci)=>`<col min="${ci+1}" max="${ci+1}" width="${w}" customWidth="1"/>`).join('')}</cols>`;
+          x += '<sheetData>';
+          rows.forEach(ri=>{
+            const cs = s.cells[ri]; x += `<row r="${ri+1}">`;
+            Object.keys(cs).map(Number).sort((a,b)=>a-b).forEach(ci=>{
+              const { v, st } = cs[ci], si = IDX[st] != null ? IDX[st] : 0, r = ref(ri,ci);
+              if(v && typeof v === 'object' && v.f){ x += `<c r="${r}" s="${si}"><f>${esc(v.f.replace(/^=/,''))}</f>${typeof v.v==='number'?`<v>${v.v}</v>`:''}</c>`; }
+              else if(typeof v === 'number' && isFinite(v)) x += `<c r="${r}" s="${si}"><v>${Math.round(v*1e6)/1e6}</v></c>`;
+              else if(v === '' || v == null) x += `<c r="${r}" s="${si}"/>`;
+              else x += `<c r="${r}" s="${si}" t="inlineStr"><is><t xml:space="preserve">${esc(v)}</t></is></c>`;
+            });
+            x += '</row>';
+          });
+          x += '</sheetData>';
+          if(s.merges.length) x += `<mergeCells count="${s.merges.length}">${s.merges.map(m=>`<mergeCell ref="${m}"/>`).join('')}</mergeCells>`;
+          x += `<pageMargins left="0.4" right="0.4" top="0.5" bottom="0.5" header="0.3" footer="0.3"/><pageSetup orientation="${s.land?'landscape':'portrait'}" fitToWidth="1" fitToHeight="0"/></worksheet>`;
+          files.push([`xl/worksheets/sheet${i+1}.xml`, enc.encode(x)]);
+        });
+        return zip(files);
+      },
+      blob(){ return new Blob([api.bytes()], { type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }); }
+    };
+    return api;
+  }
+  return { book, date, colName, ref };
+})();
+window.AMDX = AMDX;
 
 </script>
 <div class="sync-modal no-print" id="sync-modal" onclick="if(event.target===this) amdSyncClose()">
@@ -8385,6 +9249,9 @@ const AMD_DRIVE_ROOT = 'AMD DASHBOARD';
 const AMD_CLIENTE_DIR = 'CLIENTE (compartida)';
 const AMD_INTERNO_DIR = 'INTERNO';
 const AMD_FOLDER_MIME = 'application/vnd.google-apps.folder';
+const AMD_XLSX = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+const AMD_GENERAL_XLSX = 'INGRESOS AMD - Base general.xlsx';
+const AMD_GASTO_PROY = { kj:'CASA KANJUT', am:'AMANI TERRA', tp:'TERRAPARK' };   // nombre del proyecto en la base de gastos
 let amdSyncTok = null, amdSyncRunning = false, amdSyncChecked = new Set();
 
 function amdSyncLog(html, cls){
@@ -8489,7 +9356,7 @@ async function amdSyncRun(){
     }
     const rootSt = (await window.FBDrive.loadState('_root')) || {};
     let root = rootSt.id;
-    if(!(await amdFolderExists(root))){ root = await amdFindOrCreateFolder(AMD_DRIVE_ROOT, 'root'); await window.FBDrive.saveState('_root', { id: root }); }
+    if(!(await amdFolderExists(root))){ root = await amdFindOrCreateFolder(AMD_DRIVE_ROOT, 'root'); rootSt.general = null; await window.FBDrive.saveState('_root', { id: root }); }
     amdSyncLog(`Carpeta principal: <b>Mi unidad / ${AMD_DRIVE_ROOT}</b>`);
     for(const src of (window.AMD_SYNC || [])){
       amdSyncLog(`<b>${amdSyncEsc(src.titulo)}</b>`, 'head');
@@ -8539,6 +9406,19 @@ async function amdSyncRun(){
         }
         amdSyncLog('✓ Respaldo de datos actualizado (JSON + CSV)', 'ok');
       }catch(e){ if(e instanceof AmdDriveError && (e.status === 401 || e.status === 403)) throw e; amdSyncLog('⚠️ Respaldo de datos: ' + amdSyncEsc(amdSyncExplain(e)), 'warn'); }
+      // Excel del último recibo → INTERNO/Recibos Excel (uno por número de recibo; se actualiza si cambia)
+      try{
+        const x = src.excelRecibo && src.excelRecibo();
+        if(x){
+          const xf = await amdSyncFolder(st, AMD_INTERNO_DIR + '/Recibos Excel', base);
+          const blob = new Blob([x.bytes], { type: AMD_XLSX });
+          st.excel = st.excel || {};
+          let id = st.excel[x.num];
+          if(id){ try{ await amdUpdateContent(id, blob); }catch(e){ if(e.status === 404) id = null; else throw e; } }
+          if(!id) st.excel[x.num] = await amdUpload(blob, { name: x.nombre, parents:[xf], mimeType: AMD_XLSX });
+          amdSyncLog(`✓ Excel del Recibo ${x.num} → INTERNO/Recibos Excel`, 'ok');
+        }
+      }catch(e){ if(e instanceof AmdDriveError && (e.status === 401 || e.status === 403)) throw e; amdSyncLog('⚠️ Excel del recibo: ' + amdSyncEsc(amdSyncExplain(e)), 'warn'); }
       // carga los "folders" estándar aunque estén vacíos, para que el cliente vea la estructura completa
       for(const f of ['01 RECIBOS','02 FACTURAS','03 PRESUPUESTO','04 PROYECTO','05 OTROS ANEXOS']) await amdSyncFolder(st, AMD_CLIENTE_DIR + '/' + f, base);
       st.ultimo = new Date().toISOString();
@@ -8547,6 +9427,15 @@ async function amdSyncRun(){
       resumen.push({ titulo: src.titulo, ok, err, movidos, total, sinPdf, link: 'https://drive.google.com/drive/folders/' + st.folders[AMD_CLIENTE_DIR] });
       amdSyncLog(`${ok ? ok + ' nuevo' + (ok===1?'':'s') : 'Sin archivos nuevos'} · ${total} en Drive${movidos ? ' · ' + movidos + ' movido' + (movidos===1?'':'s') : ''}${err ? ' · <span class="w">' + err + ' con error</span>' : ''}`);
     }
+    try{
+      amdSyncLog('<b>Base general de ingresos</b>', 'head');
+      const blob = new Blob([amdIngresosExcel().bytes()], { type: AMD_XLSX });
+      let gid = rootSt.general;
+      if(gid){ try{ await amdUpdateContent(gid, blob); }catch(e){ if(e.status === 404) gid = null; else throw e; } }
+      if(!gid){ gid = await amdUpload(blob, { name: AMD_GENERAL_XLSX, parents:[root], mimeType: AMD_XLSX }); }
+      await window.FBDrive.saveState('_root', { id: root, general: gid });
+      amdSyncLog(`✓ ${AMD_GENERAL_XLSX} (ingresos de todos los clientes + cruce con gastos)`, 'ok');
+    }catch(e){ if(e instanceof AmdDriveError && (e.status === 401 || e.status === 403)) throw e; amdSyncLog('⚠️ Base general: ' + amdSyncEsc(amdSyncExplain(e)), 'warn'); }
     try{ localStorage.setItem('amdLastSync', new Date().toISOString()); }catch(_){}
     amdSyncLog('<b>SYNC terminado.</b>', 'ok');
     amdSyncResumen(resumen);
@@ -8576,6 +9465,253 @@ function amdSyncBtnState(busy){
 }
 window.onAuthChangedSync = function(ok){ const w = document.getElementById('sync-wrap'); if(w) w.style.display = ok ? '' : 'none'; };
 amdSyncBtnState(false);
+
+function amdMesNum(f){ const m = /^(\d{4})-(\d{2})/.exec(String(f||'')); return m ? +(m[1] + m[2]) : null; }
+/* ---------- Excel general: ingresos de todos los clientes + cruce con gastos ---------- */
+function amdIngresosExcel(){
+  const wb = AMDX.book(), D = AMDX.date;
+  const srcs = (window.AMD_SYNC || []).map(s=>({ s, d: s.ingresos(), gp: AMD_GASTO_PROY[s.key] || s.titulo }));
+  // Hoja 1: ingresos (una fila por pago)
+  const wi = wb.sheet('Ingresos', { cols:[16,30,26,8,12,12,9,9,13,34,24,15,13,15,12,11], freeze:'A4' });
+  wi.set('A1','BASE DE INGRESOS · AMD PROYECTOS','title');
+  wi.set('A2',`Fuente: recibos del dashboard (históricos + generados) · generado ${new Date().toLocaleString('es-MX')} · "Proyecto (gastos)" es el nombre con el que se cruza contra la base de gastos`,'sub');
+  wi.row(2,0,['Proyecto (gastos)','Proyecto','Cliente','Recibo','Fecha recibo','Fecha pago','Mes (AAAAMM)','Tipo','Forma','Concepto','Partida','Monto sin IVA','IVA','Total cobrado','Factura','Origen'],'hdr');
+  let r = 3;
+  srcs.forEach(({d, gp})=> d.rows.forEach(x=>{
+    wi.row(r,0,[gp, d.proyecto, d.cliente, x.recibo, D(x.fRec), D(x.f), amdMesNum(x.f), x.tipo, x.forma, x.concepto, x.partida, x.monto, x.iva, {f:`L${r+1}+M${r+1}`}, x.fact, x.origen],
+      ['txt','txt','txt','int','date','date','int','txt','txt','txt','txt','moneyin','moneyin','money','txt','txt']);
+    r++;
+  }));
+  const last = Math.max(r, 4);
+  wi.row(r,0,['TOTAL','','','','','','','','','','',{f:`SUM(L4:L${last})`},{f:`SUM(M4:M${last})`},{f:`SUM(N4:N${last})`}],
+    ['tot','tot','tot','tot','tot','tot','tot','tot','tot','tot','tot','totmoney','totmoney','totmoney']);
+  const IR = c => `Ingresos!$${c}$4:$${c}$${last}`;
+  // Hoja 2: resumen por proyecto
+  const wr = wb.sheet('Resumen por proyecto', { cols:[18,32,30,17,16,14,16,16,10,34] });
+  wr.set('A1','RESUMEN DE COBRANZA POR PROYECTO','title');
+  wr.row(2,0,['Proyecto (gastos)','Proyecto','Cliente','Presupuesto','Cobrado sin IVA','IVA','Total cobrado','Saldo','% cobrado','Nota'],'hdr');
+  srcs.forEach(({d, gp}, i)=>{ const R = i+4;
+    wr.row(i+3,0,[gp, d.proyecto, d.cliente, d.presupuestoNeto, {f:`SUMIFS(${IR('L')},${IR('A')},A${R})`}, {f:`SUMIFS(${IR('M')},${IR('A')},A${R})`}, {f:`SUMIFS(${IR('N')},${IR('A')},A${R})`},
+      {f: d.sinIva ? `D${R}-E${R}` : `D${R}-G${R}`}, {f: d.sinIva ? `IF(D${R}=0,0,E${R}/D${R})` : `IF(D${R}=0,0,G${R}/D${R})`},
+      d.sinIva ? 'Presupuesto sin IVA: saldo y % contra cobrado sin IVA' : 'Presupuesto neto con IVA: saldo y % contra total cobrado'],
+      ['txtb','txt','txt','moneyin','money','money','money','money','pct','txt']);
+  });
+  const rt = srcs.length + 3, RT = rt + 1;
+  wr.row(rt,0,['TOTAL','','',{f:`SUM(D4:D${RT-1})`},{f:`SUM(E4:E${RT-1})`},{f:`SUM(F4:F${RT-1})`},{f:`SUM(G4:G${RT-1})`},{f:`SUM(H4:H${RT-1})`}],['tot','tot','tot','totmoney','totmoney','totmoney','totmoney','totmoney']);
+  // Hoja 3: gastos (detalle de la base de gastos del dashboard)
+  const gastos = (typeof getRawData === 'function') ? getRawData() : [];
+  const wg = wb.sheet('Gastos', { cols:[12,9,18,28,18,22,40,14], freeze:'A4' });
+  wg.set('A1','BASE DE GASTOS (copia para el cruce)','title');
+  wg.set('A2','Fuente: gastos registrados y validados en el dashboard','sub');
+  wg.row(2,0,['Fecha','Mes (AAAAMM)','Proyecto','Proveedor','Método','Partida','Concepto','Monto'],'hdr');
+  gastos.slice().sort((a,b)=>String(a.f).localeCompare(String(b.f))).forEach((g,i)=>{
+    wg.row(i+3,0,[D(g.f), amdMesNum(g.f), g.p, g.prov, g.m, g.part, g.c, g.monto],['date','int','txt','txt','txt','txt','txt','moneyin']);
+  });
+  const lg = Math.max(gastos.length + 3, 4);
+  wg.row(lg,0,['TOTAL','','','','','','',{f:`SUM(H4:H${lg})`}],['tot','tot','tot','tot','tot','tot','tot','totmoney']);
+  const GR = c => `Gastos!$${c}$4:$${c}$${lg}`;
+  // Hoja 4: ingresos vs gastos por mes
+  const months = Array.from(new Set(srcs.flatMap(({d})=>d.rows.map(x=>amdMesNum(x.f))).concat(gastos.map(g=>amdMesNum(g.f))))).filter(Boolean).sort((a,b)=>a-b);
+  const projs = srcs.map(x=>x.gp);
+  const wc = wb.sheet('Ingresos vs Gastos', { cols:[10].concat(projs.flatMap(()=>[14,14,14])).concat([15,15,15,16]), freeze:'B4' });
+  wc.set('A1','INGRESOS vs GASTOS POR MES (base caja: ingreso = total cobrado, gasto = monto pagado)','title');
+  wc.set('A2','Ingresos desde la hoja Ingresos; gastos desde la hoja Gastos. Gastos de oficina sin la partida RETORNO (igual que el Resumen General).','sub');
+  const hdr = ['Mes (AAAAMM)']; projs.forEach(p=>hdr.push(`${p} · Ingreso`, `${p} · Gasto`, `${p} · Utilidad`)); hdr.push('Utilidad bruta','Gastos oficina','Utilidad antes de imp.','Utilidad acumulada');
+  wc.row(2,0,hdr,'hdr');
+  months.forEach((m,i)=>{
+    const R = i+4, ri = i+3, cells = [m], st = ['int'];
+    const utils = [];
+    projs.forEach((p,k)=>{
+      const ci = 1 + k*3, cI = AMDX.colName(ci), cG = AMDX.colName(ci+1);
+      cells.push({f:`SUMIFS(${IR('N')},${IR('A')},"${p}",${IR('G')},$A${R})`}, {f:`SUMIFS(${GR('H')},${GR('C')},"${p}",${GR('B')},$A${R})`}, {f:`${cI}${R}-${cG}${R}`});
+      st.push('money','money','moneyb'); utils.push(`${AMDX.colName(ci+2)}${R}`);
+    });
+    const cB = AMDX.colName(1+projs.length*3), cO = AMDX.colName(2+projs.length*3), cU = AMDX.colName(3+projs.length*3), cA = AMDX.colName(4+projs.length*3);
+    cells.push({f: utils.join('+') || '0'}, {f:`SUMIFS(${GR('H')},${GR('C')},"GASTOS OFICINA",${GR('B')},$A${R})-SUMIFS(${GR('H')},${GR('C')},"GASTOS OFICINA",${GR('B')},$A${R},${GR('F')},"RETORNO")`},
+      {f:`${cB}${R}-${cO}${R}`}, {f: i ? `${cA}${R-1}+${cU}${R}` : `${cU}${R}`});
+    st.push('moneyb','money','moneyb','money');
+    wc.row(ri,0,cells,st);
+  });
+  const lm = months.length + 3, LM = lm + 1;
+  const tot = ['TOTAL'], tst = ['tot'];
+  for(let c=1;c<hdr.length-1;c++){ tot.push({f:`SUM(${AMDX.colName(c)}4:${AMDX.colName(c)}${LM-1})`}); tst.push('totmoney'); }
+  wc.row(lm,0,tot,tst);
+  return wb;
+}
+
+</script>
+<script>
+/* ===================== RESULTADOS · PROYECTOS =====================
+   Una sola hoja por proyecto: programa de obra (gantt) en meses de calendario y, debajo,
+   en las mismas columnas: costo real acumulado (gastos) vs cobranza acumulada vs programado. */
+const PJ_KEYS = ['kj','am','tp'];
+let pjSel = 'kj';
+const PJ_C = { navy:'#1B3A5C', ink:'#14202B', muted:'#6B7C8F', grid:'#E3EAF1', bar:'#9CC48A', barGrp:'#1B3A5C', cob:'#2F9E5B', gas:'#D9622B', prog:'#94A6B5', hoy:'#D64545' };
+const PJ_MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function pjEsc(s){ return String(s==null?'':s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function pjM(v){ return '$ ' + (Math.round(v*100)/100).toLocaleString('es-MX', {minimumFractionDigits:2, maximumFractionDigits:2}); }
+function pjK(v){ const a = Math.abs(v), s = v<0?'-':''; return a>=1e6 ? s+'$'+(a/1e6).toFixed(2)+'M' : a>=1e3 ? s+'$'+Math.round(a/1e3)+'k' : (a ? s+'$'+Math.round(a) : '—'); }
+function pjMes(m){ return Math.floor(m/100)*12 + (m%100) - 1; }            // 202605 → índice lineal de mes
+function pjMesNum(iso){ const r = /^(\d{4})-(\d{2})/.exec(String(iso||'')); return r ? +(r[1]+r[2]) : null; }
+function pjDia(iso){ const r = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(iso||'')); return r ? { mi: (+r[1])*12 + (+r[2]) - 1, d: +r[3], dm: new Date(+r[1], +r[2], 0).getDate() } : null; }
+
+function pjDatos(key){
+  const src = (window.AMD_SYNC || []).find(s=>s.key===key); if(!src || !src.proyecto) return null;
+  const P = src.proyecto(), I = src.ingresos();
+  const gp = (typeof AMD_GASTO_PROY !== 'undefined' && AMD_GASTO_PROY[key]) || '';
+  const gastos = (typeof getRawData === 'function' ? getRawData() : []).filter(g=>g.p===gp);
+  return { key, gp, P, ing: I.rows, gastos };
+}
+
+function pjHoja(D){
+  const { P, ing, gastos } = D;
+  const hoy = new Date(), hoyIso = hoy.getFullYear()+'-'+String(hoy.getMonth()+1).padStart(2,'0')+'-'+String(hoy.getDate()).padStart(2,'0');
+  // ---- rango de meses ----
+  const fechas = [P.inicio, hoyIso].concat(P.filas.flatMap(f=>[f.ini, f.fin]), P.programa.map(p=>p.fecha), ing.map(x=>x.f), gastos.map(g=>g.f)).filter(Boolean);
+  const ms = fechas.map(f=>pjDia(f).mi);
+  const m0 = Math.min.apply(null, ms), m1 = Math.max.apply(null, ms), nM = m1 - m0 + 1;
+  const mesLabel = mi => PJ_MES[mi%12] + ' ' + String(Math.floor(mi/12)).slice(2);
+  // ---- totales por mes ----
+  const cobMes = Array(nM).fill(0), gasMes = Array(nM).fill(0);
+  ing.forEach(x=>{ const d = pjDia(x.f); if(d) cobMes[d.mi-m0] += x.total; });
+  gastos.forEach(g=>{ const d = pjDia(g.f); if(d) gasMes[d.mi-m0] += g.monto; });
+  const hoyMi = pjDia(hoyIso).mi - m0;
+  const acum = arr => { let r = 0; return arr.map(v=> r += v); };
+  const cobAc = acum(cobMes), gasAc = acum(gasMes);
+  const cobT = cobAc[nM-1], gasT = gasAc[nM-1], util = cobT - gasT;
+  // ---- geometría ----
+  const W = 918, LW = 236, CW = (W - LW) / nM;
+  const xDia = iso => { const d = pjDia(iso); return LW + (d.mi - m0 + (d.d-1)/d.dm) * CW; };
+  const xFin = iso => { const d = pjDia(iso); return LW + (d.mi - m0 + d.d/d.dm) * CW; };
+  const xHoy = xDia(hoyIso);
+  const rows = P.filas, gTop = 22;
+  const rh = Math.max(11, Math.min(24, Math.floor(300 / Math.max(rows.length,1))));
+  const gH = rows.length * rh;
+  const cTop = gTop + gH + 22, cH = Math.max(150, 494 - (gTop + gH + 22)), tTop = cTop + cH + 18, tRow = 15;
+  const H = tTop + tRow*3 + 6;
+  let s = '';
+  // columnas de meses
+  for(let i=0;i<nM;i++){
+    const x = LW + i*CW;
+    s += `<rect x="${x}" y="0" width="${CW}" height="${H}" fill="${i%2 ? '#F7F9FB' : '#FFFFFF'}"/>`;
+    s += `<text x="${x+CW/2}" y="13" text-anchor="middle" font-size="${CW<34?7:8}" font-weight="700" fill="${i===hoyMi?PJ_C.hoy:PJ_C.ink}">${mesLabel(m0+i)}</text>`;
+    s += `<line x1="${x}" x2="${x}" y1="0" y2="${H}" stroke="${PJ_C.grid}"/>`;
+  }
+  s += `<line x1="0" x2="${W}" y1="${gTop-4}" y2="${gTop-4}" stroke="#B9C7D4"/>`;
+  s += `<text x="4" y="13" font-size="8.5" font-weight="800" fill="${PJ_C.navy}">PROGRAMA DE OBRA</text>`;
+  // filas del gantt
+  rows.forEach((f,i)=>{
+    const y = gTop + i*rh;
+    if(f.grp) s += `<rect x="0" y="${y}" width="${W}" height="${rh}" fill="#EAF0F6" opacity=".85"/>`;
+    const nm = (f.code ? f.code + '  ' : '') + f.n;
+    s += `<text x="4" y="${y+rh*0.7}" font-size="${rh<14?7.5:8.5}" font-weight="${f.grp?800:400}" fill="${PJ_C.ink}">${pjEsc(nm.length>40 ? nm.slice(0,39)+'…' : nm)}</text>`;
+    if(f.costo) s += `<text x="${LW-6}" y="${y+rh*0.7}" text-anchor="end" font-size="${rh<14?7:8}" fill="${PJ_C.muted}" font-weight="${f.grp?700:400}">${pjK(f.costo)}</text>`;
+    if(f.ini && f.fin){
+      const x0 = xDia(f.ini), x1 = Math.max(xFin(f.fin), x0 + 4);
+      s += `<rect x="${x0}" y="${y+rh*0.22}" width="${x1-x0}" height="${rh*0.56}" rx="2" fill="${f.grp?PJ_C.barGrp:PJ_C.bar}"><title>${pjEsc(f.n)}: ${f.ini} → ${f.fin}</title></rect>`;
+    }
+    s += `<line x1="0" x2="${W}" y1="${y+rh}" y2="${y+rh}" stroke="${PJ_C.grid}" stroke-width=".6"/>`;
+  });
+  // hitos del programa
+  let hx = -1e9, hl = 0;
+  P.programa.forEach(p=>{ if(!p.hito) return; const x = xFin(p.fecha); hl = (x - hx < 80) ? 1 - hl : 0; hx = x;
+    s += `<text x="${x}" y="${gTop+gH+10+hl*9}" text-anchor="end" font-size="7.5" fill="#9A4A12" font-weight="700">◆ ${pjEsc(p.hito.length>18?p.hito.slice(0,17)+'…':p.hito)}</text>`; });
+  // ---- gráfica: acumulados ----
+  const maxV = Math.max(P.presupuesto, cobT, gasT, P.programa.length ? P.programa[P.programa.length-1].acum : 0) * 1.05 || 1;
+  const yv = v => cTop + cH - (v/maxV)*cH;
+  s += `<text x="4" y="${cTop+8}" font-size="8.5" font-weight="800" fill="${PJ_C.navy}">COSTO vs COBRANZA (acumulado)</text>`;
+  for(let k=0;k<=4;k++){ const v = maxV*k/4, yy = yv(v);
+    s += `<line x1="${LW}" x2="${W}" y1="${yy}" y2="${yy}" stroke="${PJ_C.grid}"/><text x="${LW-6}" y="${yy+3}" text-anchor="end" font-size="7.5" fill="${PJ_C.muted}">${pjK(v)}</text>`; }
+  s += `<line x1="${LW}" x2="${W}" y1="${yv(P.presupuesto)}" y2="${yv(P.presupuesto)}" stroke="${PJ_C.navy}" stroke-dasharray="2 3"/>`;
+  s += `<text x="${LW+4}" y="${yv(P.presupuesto)-3}" font-size="7.5" fill="${PJ_C.navy}" font-weight="700">Presupuesto ${pjK(P.presupuesto)}</text>`;
+  const path = pts => pts.map((q,i)=>(i?'L':'M')+q[0].toFixed(1)+','+q[1].toFixed(1)).join(' ');
+  const hasta = Math.min(nM-1, Math.max(hoyMi, 0));
+  const ptsAc = arr => { const pts = [[LW, yv(0)]]; for(let i=0;i<=hasta;i++) pts.push([LW+(i+1)*CW, yv(arr[i])]); return pts; };
+  const fIng = ing.map(x=>x.f).filter(Boolean).sort()[0];
+  const x0p = Math.min(xDia(P.inicio), fIng ? xDia(fIng) : 1e9, P.programa.length ? xFin(P.programa[0].fecha) - 2 : 1e9);
+  const prog = [[x0p, yv(0)]].concat(P.programa.map(p=>[xFin(p.fecha), yv(p.acum)]));
+  s += `<path d="${path(prog)}" fill="none" stroke="${PJ_C.prog}" stroke-width="1.8" stroke-dasharray="5 3"/>`;
+  s += `<path d="${path(ptsAc(gasAc))}" fill="none" stroke="${PJ_C.gas}" stroke-width="2.2"/>`;
+  s += `<path d="${path(ptsAc(cobAc))}" fill="none" stroke="${PJ_C.cob}" stroke-width="2.4"/>`;
+  const lastX = LW + (hasta+1)*CW;
+  s += `<circle cx="${lastX}" cy="${yv(cobAc[hasta])}" r="3" fill="${PJ_C.cob}"/><circle cx="${lastX}" cy="${yv(gasAc[hasta])}" r="3" fill="${PJ_C.gas}"/>`;
+  const yC = yv(cobAc[hasta]), yG = yv(gasAc[hasta]), sep = Math.abs(yC - yG) < 11 ? 6 : 0;
+  const lx = lastX + 5 > W - 90 ? lastX - 5 : lastX + 5, an = lastX + 5 > W - 90 ? 'end' : 'start';
+  s += `<text x="${lx}" y="${yC - sep - 3}" text-anchor="${an}" font-size="8" font-weight="800" fill="${PJ_C.cob}">Cobrado ${pjK(cobAc[hasta])}</text>`;
+  s += `<text x="${lx}" y="${yG + sep + 9}" text-anchor="${an}" font-size="8" font-weight="800" fill="${PJ_C.gas}">Gastado ${pjK(gasAc[hasta])}</text>`;
+  // leyenda
+  const lgY = cTop + 20;
+  [['Cobranza acumulada', PJ_C.cob, ''], ['Costo acumulado (gastos)', PJ_C.gas, ''], ['Programado' + (P.sinIva?' (sin IVA)':' (neto)'), PJ_C.prog, '5 3']].forEach((l,k)=>{
+    const y = lgY + k*12; s += `<line x1="6" x2="24" y1="${y}" y2="${y}" stroke="${l[1]}" stroke-width="2.2"${l[2]?` stroke-dasharray="${l[2]}"`:''}/><text x="29" y="${y+3}" font-size="8" fill="${PJ_C.ink}">${l[0]}</text>`; });
+  // ---- tabla por mes ----
+  const filaT = (k, label, arr, color, signo) => {
+    const y = tTop + k*tRow;
+    let t = `<rect x="0" y="${y}" width="${W}" height="${tRow}" fill="${k===2?'#EAF0F6':'none'}"/><text x="4" y="${y+10.5}" font-size="8" font-weight="${k===2?800:700}" fill="${color}">${label}</text>`;
+    arr.forEach((v,i)=>{ if(i>hasta) return; t += `<text x="${LW+(i+0.5)*CW}" y="${y+10.5}" text-anchor="middle" font-size="${CW<38?6.6:7.5}" fill="${signo && v<0 ? PJ_C.hoy : color}" font-weight="${k===2?700:400}">${v ? pjK(v) : '—'}</text>`; });
+    return t + `<line x1="0" x2="${W}" y1="${y+tRow}" y2="${y+tRow}" stroke="${PJ_C.grid}"/>`;
+  };
+  s += `<line x1="0" x2="${W}" y1="${tTop}" y2="${tTop}" stroke="#B9C7D4"/>`;
+  s += filaT(0, 'Cobrado / mes', cobMes, PJ_C.cob);
+  s += filaT(1, 'Gastado / mes', gasMes, PJ_C.gas);
+  s += filaT(2, 'Flujo acumulado (cobrado − gastado)', cobAc.map((v,i)=>v - gasAc[i]), PJ_C.ink, true);
+  // línea de hoy
+  s += `<line x1="${xHoy}" x2="${xHoy}" y1="${gTop-4}" y2="${tTop}" stroke="${PJ_C.hoy}" stroke-width="1.4"/>`;
+  s += `<text x="${xHoy+3}" y="${gTop+6}" font-size="7.5" font-weight="800" fill="${PJ_C.hoy}">Hoy</text>`;
+  const svg = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" font-family="Arial, Helvetica, sans-serif">${s}</svg>`;
+  // ---- encabezado + indicadores ----
+  const pctCob = P.presupuesto ? cobT / P.presupuesto : 0, margen = cobT ? util / cobT : 0;
+  const kpi = (l, v, cls) => `<div class="pj-kpi ${cls||''}"><span class="l">${l}</span><span class="v">${v}</span></div>`;
+  return `<div class="kj-page pj-page" id="pj-page">
+    <div class="kj-ph"><div><div class="t1">PROYECTO · ${pjEsc(P.titulo)}</div>
+      <div class="t2"><b>CLIENTE:</b> ${pjEsc(P.cliente)}${P.ubicacion ? ' &nbsp;·&nbsp; <b>UBICACIÓN:</b> ' + pjEsc(P.ubicacion) : ''}</div>
+      <div class="t2" style="margin-top:4px;">Programa de obra vs costo real y cobranza · corte ${pjEsc(hoy.toLocaleDateString('es-MX',{day:'numeric',month:'long',year:'numeric'}))}</div></div>
+      <div class="kj-logo"><div class="m">amd.</div><div class="p">PROYECTOS</div></div></div>
+    <div class="pj-kpis">${kpi('Presupuesto' + (P.sinIva?' (sin IVA)':' (neto)'), pjM(P.presupuesto))}${kpi('Cobrado', pjM(cobT), 'cob')}${kpi('Gastado (costo real)', pjM(gasT), 'gas')}${kpi('Utilidad de caja', pjM(util), util<0?'neg':'')}${kpi('Margen sobre cobrado', (margen*100).toFixed(1)+'%')}${kpi('Avance de cobranza', (pctCob*100).toFixed(1)+'%')}</div>
+    <div class="pj-svg">${svg}</div>
+  </div>`;
+}
+
+function pjRender(){
+  const tabs = document.getElementById('pj-tabs'); if(!tabs) return;
+  const srcs = PJ_KEYS.map(k=>(window.AMD_SYNC||[]).find(s=>s.key===k)).filter(Boolean);
+  tabs.innerHTML = srcs.map(s=>`<button class="sheet-tab ${s.key===pjSel?'active':''}" onclick="pjSel='${s.key}';pjRender()">${pjEsc(s.titulo.split(' · ')[0])}</button>`).join('');
+  const wrap = document.getElementById('pj-wrap'); if(!wrap) return;
+  const D = pjDatos(pjSel);
+  if(!D){ wrap.innerHTML = '<div class="kj-ax-empty">Sin datos del proyecto.</div>'; return; }
+  try{ wrap.innerHTML = pjHoja(D); }catch(e){ console.error('Proyectos:', e); wrap.innerHTML = '<div class="kj-warn">No se pudo dibujar la hoja: ' + pjEsc(e.message) + '</div>'; }
+  // escala a lo ancho disponible
+  const pg = document.getElementById('pj-page'); if(!pg) return;
+  pg.style.height = 'auto';
+  const h = Math.max(720, pg.scrollHeight);
+  pg.style.height = h + 'px';
+  const avail = wrap.parentElement.clientWidth || 970, sc = Math.min(1, avail/970);
+  pg.style.transform = `scale(${sc})`; wrap.style.width = (970*sc)+'px'; wrap.style.height = (h*sc)+'px';
+}
+function pjPrint(){
+  document.body.classList.add('printing-pj');
+  triggerPrint();
+  setTimeout(()=>document.body.classList.remove('printing-pj'), 4000);
+}
+async function pjDescargarPdf(){
+  const btn = document.getElementById('pj-dl'); if(btn){ btn.disabled = true; btn.textContent = 'Generando PDF…'; }
+  try{
+    const [h2c, PL] = await Promise.all([amdLoadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js','html2canvas'), amdLoadScript('https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js','PDFLib')]);
+    const box = document.createElement('div'); box.style.cssText = 'position:absolute;left:-20000px;top:0;width:1000px;';
+    box.innerHTML = pjHoja(pjDatos(pjSel)); document.body.appendChild(box);
+    const pg = box.querySelector('.kj-page'); pg.style.position = 'relative'; pg.style.transform = 'none'; pg.style.boxShadow = 'none'; pg.style.height = 'auto';
+    await new Promise(r=>setTimeout(r, 60));
+    const cv = await h2c(pg, { scale:2, backgroundColor:'#ffffff', logging:false }); box.remove();
+    const pdf = await PL.PDFDocument.create(), img = await pdf.embedJpg(cv.toDataURL('image/jpeg', 0.92));
+    const Wp = 792, Hp = 612, m = 18, sc = Math.min((Wp-2*m)/img.width, (Hp-2*m)/img.height);
+    pdf.addPage([Wp, Hp]).drawImage(img, { x:(Wp-img.width*sc)/2, y:(Hp-img.height*sc)/2, width:img.width*sc, height:img.height*sc });
+    const src = (window.AMD_SYNC||[]).find(s=>s.key===pjSel);
+    const blob = new Blob([await pdf.save()], { type:'application/pdf' }), url = URL.createObjectURL(blob), a = document.createElement('a');
+    a.href = url; a.download = `Proyecto - ${src ? src.titulo.split(' · ')[0] : pjSel}.pdf`; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url), 60000);
+  }catch(e){ alert('No se pudo generar el PDF: ' + (e.message || e)); }
+  finally{ if(btn){ btn.disabled = false; btn.textContent = 'Descargar PDF'; } }
+}
+document.querySelectorAll('.nav-btn[data-view="proyectos"]').forEach(b=>b.addEventListener('click', ()=>setTimeout(pjRender, 20)));
+window.addEventListener('resize', ()=>{ const v = document.getElementById('view-proyectos'); if(v && v.classList.contains('active')) pjRender(); });
 
 </script>
 <script>
